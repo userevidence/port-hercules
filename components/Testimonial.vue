@@ -34,8 +34,8 @@
       p Survey conducted by UserEvidence.  Testimonial verified {{verifiedDate}}.
 </template>
 <script>
-import Logo from '@/components/graphics/Logo.vue'
-import AvatarIcon from '@/components/graphics/AvatarIcon.vue'
+import Logo from './graphics/Logo.vue'
+import AvatarIcon from './graphics/AvatarIcon.vue'
 import dayjs from 'dayjs'
 
 export default {

@@ -4,10 +4,10 @@
     component(:is='star_fraction')
 </template>
 <script>
-import Star25 from '@/components/graphics/Star25.vue'
-import Star50 from '@/components/graphics/Star50.vue'
-import Star75 from '@/components/graphics/Star75.vue'
-import Star100 from '@/components/graphics/Star100.vue'
+import Star25 from './Star25'
+import Star50 from './Star50'
+import Star75 from './Star75'
+import Star100 from './Star100'
 export default {
   props: ['stars'],
   components: { Star100, Star75, Star50, Star25 },

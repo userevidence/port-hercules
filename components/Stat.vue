@@ -22,8 +22,8 @@
       p Source: Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} users, conducted by UserEvidence. Data verified {{verifiedDate}}.
 </template>
 <script>
-import Logo from '@/components/graphics/Logo.vue'
-import StarIcons from '@/components/graphics/StarIcons'
+import Logo from './graphics/Logo.vue'
+import StarIcons from './graphics/StarIcons'
 import dayjs from 'dayjs'
 
 export default {
