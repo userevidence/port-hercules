@@ -71,9 +71,6 @@ export default {
   },
 }
 </script>
-<style>
-@import 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap';
-</style>
 <style lang='sass' scoped>
   .dark
     background-color: #232323 !important
@@ -87,7 +84,7 @@ export default {
     color: hsl(200, 12%, 8%)
 
   .testimonial_container
-    font-family: 'Inter', sans-serif
+    font-family: 'Inter-Regular', sans-serif
     min-width: 480px
     background: white
     padding: 32px
@@ -236,7 +233,7 @@ export default {
       order: 2
       flex-grow: 0
       .ueid 
-        font-family: 'Inter', sans-serif
+        font-family: 'Inter-Regular', sans-serif
         font-weight: 400
         margin-bottom: 4px
         span
@@ -251,7 +248,7 @@ export default {
     width: 100%
     margin-top: 16px
     p
-      font-family: 'Inter', sans-serif
+      font-family: 'Inter-Regular', sans-serif
       font-size: 11px
       font-weight: 400
       line-height: 1.4

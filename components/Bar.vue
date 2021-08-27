@@ -26,8 +26,8 @@
   .disclaimer Source: Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
 </template>
 <script>
-import BarGuts from '@/components/BarGuts.vue'
-import Logo from '@/components/graphics/Logo.vue'
+import BarGuts from './BarGuts.vue'
+import Logo from './graphics/Logo.vue'
 import dayjs from 'dayjs'
 
 export default {
