@@ -100,7 +100,7 @@ export default {
       ::v-deep div
         display: inline
     .titles h4
-      margin: 0 24px 80px 0
+      margin: 0 24px 72px 0
       font-family: Inter
       font-style: normal
       font-weight: 800
@@ -141,7 +141,7 @@ export default {
       letter-spacing: -0.02em
       font-feature-settings: 'salt' on
       color: hsl(200, 8%, 8%)
-    .testimonial-author h4
+    .testimonial-author h6
       font-family: Inter
       font-style: normal
       font-weight: 500
@@ -153,19 +153,20 @@ export default {
   .testimonial-nps-container
     display: flex
     align-items: center
+    flex-direction: column
     .nps-score
-      font-family: 'Inter-Regular'
-      font-size: 33px
-      line-height: 1
-      margin-right: 8px
+      font-size: 26px
+      line-height: 20px
+      margin-bottom: 8px
+      color: hsl(200, 8%, 8%)
     .nps-badge
       background-color: hsl(200, 24%, 90%)
-      color: hsl(200, 12%, 36%)
+      color: hsl(200, 12%, 40%)
       font-size: 10px
-      padding: 3px 5px
+      padding: 4px
       font-weight: 800
-      letter-spacing: 1px
-      line-height: 1
+      letter-spacing: 5%
+      line-height: 8px
       text-transform: uppercase
       border-radius: 4px
 
@@ -177,7 +178,7 @@ export default {
       flex-grow: 0
       background: white
       border-radius: 50%
-      border: 1px solid hsl(200, 24%, 90%)
+      border: 1px solid hsla(20, 100%, 50%, 0.25)
     .testimonial-author
       min-height: 36px
       order: 2
