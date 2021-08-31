@@ -159,7 +159,7 @@ export default {
       line-height: 1
       margin-right: 8px
     .nps-badge
-      background-color: hsl(200, 24%, 92%)
+      background-color: hsl(200, 24%, 90%)
       color: hsl(200, 12%, 36%)
       font-size: 10px
       padding: 3px 5px
@@ -175,8 +175,9 @@ export default {
     .testimonial-card-avatar
       order: 1
       flex-grow: 0
-      background: hsl(204, 24%, 96%)
+      background: white
       border-radius: 50%
+      border: 1px solid hsl(200, 24%, 90%)
     .testimonial-author
       min-height: 36px
       order: 2
@@ -186,9 +187,20 @@ export default {
       justify-content: space-between
     .testimonial-author, .testimonial-card-avatar
       display: inline-flex
-    .testimonial-card-avatar, .testimonial-card-avatar img, .testimonial-card-avatar svg
-      width: 48px
-      height: 48px
+    .testimonial-card-avatar
+      width: 100%
+      height: 100%
+      min-width: 48px
+      min-height: 48px
+      max-width: 48px
+      max-height: 48px
+    .testimonial-card-avatar svg
+      width: 24px
+      height: 24px
+      position: relative
+      top: 11px
+      left: 11px
+
   
   .testimonial-card-footer, .testimonial-logo-and-ueid-container
     display: inline-flex
