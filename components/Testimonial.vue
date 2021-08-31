@@ -27,8 +27,8 @@
         .ueid-container
           .url
             a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-    .verification-text
-      p Survey conducted by UserEvidence.  Testimonial verified {{verifiedDate}}.
+      .verification-text
+        p Survey conducted by UserEvidence.  Testimonial verified {{verifiedDate}}.
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -83,16 +83,16 @@ export default {
     .titles
       margin-bottom: -48px
       min-height: 0
+      //display: none
+      //visibility: hidden
+      //opacity: 0
     h3
       margin: 0
       padding: 0
-      font-family: Inter
-      font-style: normal
       font-weight: normal
       font-size: 16px
       line-height: 23px
       letter-spacing: -0.015em
-      font-feature-settings: 'salt' on
       color: #131516
       ::v-deep strong
         font-family: 'Inter-Extrabold'
@@ -101,54 +101,33 @@ export default {
         display: inline
     .titles h4
       margin: 0 24px 72px 0
-      font-family: Inter
-      font-style: normal
       font-weight: 800
       font-size: 12px
       line-height: 16px
       display: flex
       align-items: center
       letter-spacing: -0.015em
-      font-feature-settings: 'salt' on
       color: hsl(200, 8%, 8%)
 
   .testimonial-card-body
     display: flex
     justify-content: space-between
-    color: hsl(200, 16%, 64%)
     width: 100%
     align-items: center
     flex-direction: row
     margin: 0
-    padding: 24px 0 32px
-    h4
-      font-size: 14px
-      line-height: 1.63
-      font-weight: 700
-    h6
-      font-size: 12px
-      line-height: 1.3
-      font-weight: 600
-      letter-spacing: -.1px
-    .testimonial-author h4, .testimonial-author h6
-      line-height: 1  
+    padding: 24px 0 0
     .testimonial-author h4
-      font-family: Inter
-      font-style: normal
       font-weight: 500
       font-size: 14px
       line-height: 16px
       letter-spacing: -0.02em
-      font-feature-settings: 'salt' on
       color: hsl(200, 8%, 8%)
     .testimonial-author h6
-      font-family: Inter
-      font-style: normal
       font-weight: 500
       font-size: 10px
       line-height: 12px
       letter-spacing: -0.02em
-      font-feature-settings: 'salt' on
       color: HSL(200, 12%, 32%)
   .testimonial-nps-container
     display: flex
@@ -203,47 +182,47 @@ export default {
       left: 11px
 
   
-  .testimonial-card-footer, .testimonial-logo-and-ueid-container
-    display: inline-flex
+  .testimonial-logo-and-ueid-container
     width: 100%
+    display: inline-flex
     align-items: center
     justify-content: space-between
 
   .testimonial-card-footer
+    padding-top: 24px
+    display: block
+    width: 100%
+    //display: none
+    //visibility: hidden
+    //opacity: 0
     .testimonial-card-footer-logos-container
       width: 100%
-      height: 24px
+      height: 16px
       display: flex
       align-items: center
       order: 1
       flex-grow: 0
       .company_logo
-        max-width: 192px
-        height: 24px
+        width: 16px
+        height: 16px
         margin-right: 8px
         &::after
           content: ''
           height: 16px
           width: 1px
-          background-color: hsl(200, 16%, 88%)
+          background-color: hsl(200, 24%, 90%)
           position: relative
           left: 8px
           display: inline-block
           top: 0
         img
-          height: 24px
+          height: 16px
       .ue_logo
-        width: 120px
+        width: 16px
+        height: 16px
       .company_logo, .ue_logo
         display: flex
         align-items: center
-      svg
-        justify-content: center
-        align-items: center
-        max-height: 24px
-        width: 120px
-        padding-left: 12px
-        margin-top: auto
 
     .ueid-container
       margin-left: auto
@@ -259,21 +238,19 @@ export default {
         span
           font-weight: 800
       .url a
-        color: hsl(270, 100%, 52%) !important
+        color: hsl(270, 100%, 52%)
         font-family: 'Inter-Black', sans-serif
         &:hover
-          color: hsl(270, 100%, 24%) !important
-          text-decoration: none !important
+          color: hsl(270, 100%, 24%)
+          text-decoration: none
   .verification-text
     width: 100%
-    margin-top: 16px
+    margin-top: 12px
+    display: inline-block
     p
-      font-family: Inter
-      font-style: normal
       font-weight: 500
       font-size: 9px
       line-height: 12px
-      letter-spacing: -0.02em
-      font-feature-settings: 'salt' on
-      color: HSL(200, 12%, 40%)
+      letter-spacing: -2%
+      color: hsl(200, 12%, 40%)
 </style>
