@@ -25,9 +25,6 @@
           .ue_logo
             Logo(:fill='fill')
         .ueid-container
-          .ueid 
-            | UEID: 
-            span {{content_asset.identifier}}
           .url
             a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
     .verification-text
@@ -119,16 +116,16 @@ export default {
         display: inline
     .titles h4
       margin: 0 24px 80px 0
-      font-family: Inter;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 12px;
-      line-height: 16px;
-      display: flex;
-      align-items: center;
-      letter-spacing: -0.015em;
-      font-feature-settings: 'salt' on;
-      color: hsl(200, 8%, 8%);
+      font-family: Inter
+      font-style: normal
+      font-weight: 800
+      font-size: 12px
+      line-height: 16px
+      display: flex
+      align-items: center
+      letter-spacing: -0.015em
+      font-feature-settings: 'salt' on
+      color: hsl(200, 8%, 8%)
 
   .testimonial-card-body
     display: flex
@@ -150,6 +147,24 @@ export default {
       letter-spacing: -.1px
     .testimonial-author h4, .testimonial-author h6
       line-height: 1  
+    .testimonial-author h4
+      font-family: Inter
+      font-style: normal
+      font-weight: 500
+      font-size: 14px
+      line-height: 16px
+      letter-spacing: -0.02em
+      font-feature-settings: 'salt' on
+      color: hsl(200, 8%, 8%)
+    .testimonial-author h4
+      font-family: Inter
+      font-style: normal
+      font-weight: 500
+      font-size: 10px
+      line-height: 12px
+      letter-spacing: -0.02em
+      font-feature-settings: 'salt' on
+      color: HSL(200, 12%, 32%)
   .testimonial-nps-container
     display: flex
     align-items: center
@@ -255,9 +270,12 @@ export default {
     width: 100%
     margin-top: 16px
     p
-      font-family: 'Inter-Regular', sans-serif
-      font-size: 11px
-      font-weight: 400
-      line-height: 1.4
-      color: hsl(200, 8%, 32%)
+      font-family: Inter
+      font-style: normal
+      font-weight: 500
+      font-size: 9px
+      line-height: 12px
+      letter-spacing: -0.02em
+      font-feature-settings: 'salt' on
+      color: HSL(200, 12%, 40%)
 </style>
