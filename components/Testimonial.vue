@@ -1,34 +1,34 @@
 <template lang="pug">
   .testimonial_container(:class='theme')
-    .testimonial-card-header
+    .testimonial_card_header
       .titles
         h4(v-if='content_asset.show_title') {{content_asset.title}}
         h4(v-else-if='content_asset.show_question') {{content_asset.question.the_question}}
         h4(v-else)
 
       h3(v-html='contentAssetText')
-    .testimonial-card-body
-      .testimonial-author-container
-        .testimonial-card-avatar
+    .testimonial_card_body
+      .testimonial_author_container
+        .testimonial_card_avatar
           AvatarIcon
-        .testimonial-author
+        .testimonial_author
           h4 {{content_asset.recipient.person_attribution}}
           h6 {{content_asset.recipient.company_attribution}}
-      .testimonial-nps-container(v-if='content_asset.show_nps')
-        .nps-score {{content_asset.recipient.nps_score}}
-        .nps-badge NPS
-    .testimonial-card-footer
-      .testimonial-logo-and-ueid-container
-        .testimonial-card-footer-logos-container
+      .testimonial_nps_container(v-if='content_asset.show_nps')
+        .nps_score {{content_asset.recipient.nps_score}}
+        .nps_badge NPS
+    .testimonial_card_footer
+      .testimonial_logo_and_ueid_container
+        .testimonial_card_footer_logos_container
           .company_logo
             img(:src='content_asset.account.logo_url')
           .ue_logo
             Logo(:fill='fill')
-        .ueid-container
+        .ueid_container
           .url
             a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-      .verification-text
-        p Survey conducted by UserEvidence.  Testimonial verified {{verifiedDate}}.
+      .verification_text
+        p Survey conducted by UserEvidence. Testimonial verified {{verifiedDate}}.
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -77,7 +77,7 @@ export default {
     display: flex
     flex-wrap: wrap
 
-  .testimonial-card-header
+  .testimonial_card_header
     position: relative
     width: 100%
     .titles
@@ -109,7 +109,7 @@ export default {
       letter-spacing: -0.015em
       color: hsl(200, 8%, 8%)
 
-  .testimonial-card-body
+  .testimonial_card_body
     display: flex
     justify-content: space-between
     width: 100%
@@ -117,28 +117,28 @@ export default {
     flex-direction: row
     margin: 0
     padding: 24px 0 0
-    .testimonial-author h4
+    .testimonial_author h4
       font-weight: 500
       font-size: 14px
       line-height: 16px
       letter-spacing: -0.02em
       color: hsl(200, 8%, 8%)
-    .testimonial-author h6
+    .testimonial_author h6
       font-weight: 500
       font-size: 10px
       line-height: 12px
       letter-spacing: -0.02em
       color: HSL(200, 12%, 32%)
-  .testimonial-nps-container
+  .testimonial_nps_container
     display: flex
     align-items: center
     flex-direction: column
-    .nps-score
+    .nps_score
       font-size: 26px
       line-height: 20px
       margin-bottom: 8px
       color: hsl(200, 8%, 8%)
-    .nps-badge
+    .nps_badge
       background-color: hsl(200, 24%, 90%)
       color: hsl(200, 12%, 40%)
       font-size: 10px
@@ -149,32 +149,32 @@ export default {
       text-transform: uppercase
       border-radius: 4px
 
-  .testimonial-author-container
+  .testimonial_author_container
     display: flex
     align-items: center
-    .testimonial-card-avatar
+    .testimonial_card_avatar
       order: 1
       flex-grow: 0
       background: white
       border-radius: 50%
       border: 1px solid hsla(20, 100%, 50%, 0.25)
-    .testimonial-author
+    .testimonial_author
       min-height: 36px
       order: 2
       flex-direction: column
       margin-left: 12px
       padding: 0
       justify-content: space-between
-    .testimonial-author, .testimonial-card-avatar
+    .testimonial_author, .testimonial_card_avatar
       display: inline-flex
-    .testimonial-card-avatar
+    .testimonial_card_avatar
       width: 100%
       height: 100%
       min-width: 48px
       min-height: 48px
       max-width: 48px
       max-height: 48px
-    .testimonial-card-avatar svg
+    .testimonial_card_avatar svg
       width: 24px
       height: 24px
       position: relative
@@ -182,20 +182,20 @@ export default {
       left: 11px
 
   
-  .testimonial-logo-and-ueid-container
+  .testimonial_logo_and_ueid_container
     width: 100%
     display: inline-flex
     align-items: center
     justify-content: space-between
 
-  .testimonial-card-footer
+  .testimonial_card_footer
     padding-top: 24px
     display: block
     width: 100%
     //display: none
     //visibility: hidden
     //opacity: 0
-    .testimonial-card-footer-logos-container
+    .testimonial_card_footer_logos_container
       width: 100%
       height: 16px
       display: flex
@@ -224,7 +224,7 @@ export default {
         display: flex
         align-items: center
 
-    .ueid-container
+    .ueid_container
       margin-left: auto
       text-align: right
       font-size: 10px
@@ -243,7 +243,7 @@ export default {
         &:hover
           color: hsl(270, 100%, 24%)
           text-decoration: none
-  .verification-text
+  .verification_text
     width: 100%
     margin-top: 12px
     display: inline-block
