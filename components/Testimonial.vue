@@ -69,29 +69,14 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
-  .dark
-    background-color: #232323 !important
-    color: white
-    h4
-      color: white !important
-  
-  .nps-score, .testimonial-author h4, .testimonial-author h6, .testimonial-card-avatar, .testimonial-card-footer p, .testimonial-card-header
-    margin: 0
-    padding: 0
-    color: hsl(200, 12%, 8%)
-
   .testimonial_container
-    font-family: 'Inter-Regular', sans-serif
-    min-width: 480px
     background: white
-    padding: 32px
-    // box-shadow: 0 -4px 8px hsla(200, 100%, 40%, .02) inset, 0 16px 40px hsla(200, 16%, 32%, .12), 0 1px 0 hsl(206, 23%, 94%)
-    border: 1px solid hsla(200, 100%, 40%, .12)
+    padding: 24px
+    border: 1px solid hsl(200, 24%, 90%)
     border-radius: 24px
-    
     display: flex
     flex-wrap: wrap
-  
+
   .testimonial-card-header
     position: relative
     width: 100%
