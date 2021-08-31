@@ -54,7 +54,7 @@ export default {
     },
     contentAssetText() {
       var asset_text = this.content_asset.text || this.content_asset.survey_response.text_answer || ''
-      return '<strong>"</strong>' + asset_text + '<strong>"</strong>'
+      return '<span>"</span>' + asset_text + '<span>"</span>'
     },
     verifiedDate() {
       return dayjs(this.verifiedAt).format('MM/D/YYYY')
@@ -104,24 +104,31 @@ export default {
     h3
       margin: 0
       padding: 0
-      font-weight: 600
-      line-height: 1.4
-      color: hsl(200, 15%, 8%)
-      letter-spacing: -.3px
-      position: relative
-      top: -20px
+      font-family: Inter
+      font-style: normal
+      font-weight: normal
+      font-size: 16px
+      line-height: 23px
+      letter-spacing: -0.015em
+      font-feature-settings: 'salt' on
+      color: #131516
       ::v-deep strong
-        font-family: 'Inter-Black'
-        font-weight: 900
+        font-family: 'Inter-Extrabold'
+        font-weight: 800
       ::v-deep div
         display: inline
     .titles h4
-      font-size: 14px
-      line-height: 1.35
-      color: hsl(200, 16%, 16%)
-      font-weight: 600
       margin: 0 24px 80px 0
-      letter-spacing: -.25px 
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.015em;
+      font-feature-settings: 'salt' on;
+      color: hsl(200, 8%, 8%);
 
   .testimonial-card-body
     display: flex
