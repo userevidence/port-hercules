@@ -69,6 +69,9 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
+  *
+    font-family: 'Inter', sans-serif
+
   .testimonial_container
     background: white
     padding: 24px
@@ -89,19 +92,15 @@ export default {
     h3
       margin: 0
       padding: 0
-      font-weight: normal
+      font-weight: 400
       font-size: 16px
       line-height: 23px
       letter-spacing: -0.015em
       color: #131516
-      ::v-deep strong
-        font-family: 'Inter-Extrabold'
-        font-weight: 800
       ::v-deep div
         display: inline
     .titles h4
       margin: 0 24px 72px 0
-      font-weight: 800
       font-size: 12px
       line-height: 16px
       display: flex
@@ -128,7 +127,7 @@ export default {
       font-size: 10px
       line-height: 12px
       letter-spacing: -0.02em
-      color: HSL(200, 12%, 32%)
+      color: hsl(200, 12%, 32%)
   .testimonial_nps_container
     display: flex
     align-items: center
@@ -143,11 +142,14 @@ export default {
       color: hsl(200, 12%, 40%)
       font-size: 10px
       padding: 4px
-      font-weight: 800
-      letter-spacing: 5%
+      letter-spacing: 0.05em
       line-height: 8px
       text-transform: uppercase
       border-radius: 4px
+
+  .testimonial_card_header h3 ::v-deep strong, .testimonial_card_header .titles h4, .testimonial_nps_container .nps_badge, .ueid_container .url a, 
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
 
   .testimonial_author_container
     display: flex
@@ -231,15 +233,8 @@ export default {
       line-height: 1
       order: 2
       flex-grow: 0
-      .ueid 
-        font-family: 'Inter-Regular', sans-serif
-        font-weight: 400
-        margin-bottom: 4px
-        span
-          font-weight: 800
       .url a
         color: hsl(270, 100%, 52%)
-        font-family: 'Inter-Black', sans-serif
         &:hover
           color: hsl(270, 100%, 24%)
           text-decoration: none
@@ -251,6 +246,6 @@ export default {
       font-weight: 500
       font-size: 9px
       line-height: 12px
-      letter-spacing: -2%
+      letter-spacing: -0.02em
       color: hsl(200, 12%, 40%)
 </style>
