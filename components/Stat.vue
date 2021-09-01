@@ -49,7 +49,9 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
-  
+  *
+    font-family: 'Inter', sans-serif
+
   .content_asset_container
     background: white
     padding: 24px
@@ -74,7 +76,6 @@ export default {
       line-height: 23px
       letter-spacing: -0.015em
       color: #131516
-
 
   h2, .ueid_container .url a
     font-weight: 800
