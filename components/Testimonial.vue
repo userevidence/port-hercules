@@ -21,9 +21,9 @@
       .testimonial_nps_container(v-if='content_asset.show_nps')
         .nps_score {{content_asset.recipient.nps_score}}
         .nps_badge NPS
-    .testimonial_card_footer
-      .testimonial_logo_and_ueid_container
-        .testimonial_card_footer_logos_container
+    .content_asset_footer
+      .logo_and_ueid_container
+        .logos_container
           .company_logo
             img(:src='content_asset.account.logo_url')
           .ue_logo
@@ -189,18 +189,16 @@ export default {
         top: 11px
         left: 11px
 
-  
-  .testimonial_logo_and_ueid_container
-    width: 100%
-    display: inline-flex
-    align-items: center
-    justify-content: space-between
-
-  .testimonial_card_footer
+  .content_asset_footer
     padding-top: 24px
     display: block
     width: 100%
-    .testimonial_card_footer_logos_container
+    .logo_and_ueid_container
+      width: 100%
+      display: inline-flex
+      align-items: center
+      justify-content: space-between
+    .logos_container
       width: 100%
       height: 16px
       display: flex
