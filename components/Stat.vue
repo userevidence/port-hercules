@@ -1,10 +1,11 @@
 <template lang="pug">
   .content_asset_container(v-if='content_asset')
-    .asset-body
+    .stat_header
       .mb-4(v-if='content_asset.stat_type == "star_rating"')
         StarIcons(:stars='headline')
-      h1(v-else v-html='headline')
+      h2(v-else v-html='headline')
       h3(v-html='sentence')
+    
     .content_asset_footer
       .logo_and_ueid_container
         .logos_container
@@ -57,35 +58,27 @@ export default {
     display: flex
     flex-wrap: wrap
 
-  .asset-body
-    h1
-      margin-bottom: 10px
-    margin-bottom: 40px
-  .line1
-    display: flex
-    justify-content: space-between
-    margin-bottom: 35px
-    .logos
-      display: flex
-    .company_logo
-      max-width: 192px
-      height: 24px
-      padding-right: 10px
-      margin-right: 10px
-      border-right: 1px solid #ccc
-      img
-        max-width: 192px
-        height: 24px
-    .ue_logo svg
-      width: 24px
-      height: 24px
-    .ueid-container
-      text-align: right
-      font-size: 10px
-    .url, .ueid span
-      font-family: 'Inter-ExtraBold'
-  .verification-text p
-    font-size: 9px
+  .stat_header
+    h2
+      font-size: 30px
+      line-height: 22px
+      letter-spacing: -0.015em
+      text-transform: capitalize
+      color: #131516
+      margin: 0px 2px 16px 0
+    h3
+      margin: 0
+      padding: 0
+      font-weight: 400
+      font-size: 16px
+      line-height: 23px
+      letter-spacing: -0.015em
+      color: #131516
+
+
+  h2, .ueid_container .url a
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
 
   .content_asset_footer
     padding-top: 24px
