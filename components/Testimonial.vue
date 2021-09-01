@@ -154,7 +154,7 @@ export default {
       text-transform: uppercase
       border-radius: 4px
 
-  .testimonial_card_header h3 ::v-deep strong, .testimonial_card_header .titles h4, .testimonial_nps_container .nps_badge, .ueid_container .url a, 
+  .testimonial_card_header h3 ::v-deep strong, .testimonial_card_header .titles h4, .testimonial_nps_container .nps_badge, .ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
 
