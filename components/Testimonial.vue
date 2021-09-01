@@ -104,7 +104,7 @@ export default {
       ::v-deep div
         display: inline
     .titles h4
-      margin: 0 0 72px 0
+      margin: 0 0 64px 0
       font-size: 12px
       line-height: 16px
       display: flex
@@ -162,12 +162,11 @@ export default {
     display: flex
     align-items: center
     .testimonial_author
-      min-height: 36px
+      min-height: 28px
       order: 2
       flex-direction: column
       margin-left: 8px
       padding: 0
-      justify-content: space-between
     .testimonial_author, .testimonial_card_avatar
       display: inline-flex
     .testimonial_card_avatar
