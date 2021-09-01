@@ -13,7 +13,8 @@
           AvatarIcon
         .testimonial_author
           h4 {{content_asset.recipient.person_attribution}}
-          h6 {{content_asset.recipient.company_attribution}}
+          h6 {{content_asset.recipient.title}}
+          h6 {{content_asset.recipient.best_company_name}}
       .testimonial_nps_container(v-if='content_asset.show_nps')
         .nps_score {{content_asset.recipient.nps_score}}
         .nps_badge NPS
@@ -100,7 +101,7 @@ export default {
       ::v-deep div
         display: inline
     .titles h4
-      margin: 0 24px 72px 0
+      margin: 0 0 72px 0
       font-size: 12px
       line-height: 16px
       display: flex
@@ -159,7 +160,7 @@ export default {
       flex-grow: 0
       background: white
       border-radius: 50%
-      border: 1px solid hsla(20, 100%, 50%, 0.25)
+      border: 1px solid hsl(200, 24%, 90%)
     .testimonial_author
       min-height: 36px
       order: 2
