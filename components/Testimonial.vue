@@ -9,10 +9,13 @@
       h3(v-html='contentAssetText')
     .testimonial_card_body
       .testimonial_author_container
-        .testimonial_card_avatar
+        figure.testimonial_card_avatar
           AvatarIcon
-        .testimonial_author
+        .testimonial_author(v-if='content_asset.recipient.named')
           h4 {{content_asset.recipient.person_attribution}}
+          h6 {{content_asset.recipient.title}}
+          h6 {{content_asset.recipient.best_company_name}}
+        .testimonial_author(v-else)
           h6 {{content_asset.recipient.title}}
           h6 {{content_asset.recipient.best_company_name}}
       .testimonial_nps_container(v-if='content_asset.show_nps')
@@ -117,18 +120,21 @@ export default {
     flex-direction: row
     margin: 0
     padding: 24px 0 0
-    .testimonial_author h4
+    .testimonial_author h4, .testimonial_author h6
       font-weight: 500
+      font-family: 'Inter-Medium', sans-serif
+      letter-spacing: -0.02em
+    .testimonial_author h4
       font-size: 14px
       line-height: 16px
-      letter-spacing: -0.02em
       color: hsl(200, 8%, 8%)
+      margin-bottom: 4px
     .testimonial_author h6
-      font-weight: 500
       font-size: 10px
       line-height: 12px
-      letter-spacing: -0.02em
       color: hsl(200, 12%, 32%)
+      &:not(:last-child)
+        margin-bottom: 4px
   .testimonial_nps_container
     display: flex
     align-items: center
@@ -155,17 +161,11 @@ export default {
   .testimonial_author_container
     display: flex
     align-items: center
-    .testimonial_card_avatar
-      order: 1
-      flex-grow: 0
-      background: white
-      border-radius: 50%
-      border: 1px solid hsl(200, 24%, 90%)
     .testimonial_author
       min-height: 36px
       order: 2
       flex-direction: column
-      margin-left: 12px
+      margin-left: 8px
       padding: 0
       justify-content: space-between
     .testimonial_author, .testimonial_card_avatar
@@ -177,12 +177,18 @@ export default {
       min-height: 48px
       max-width: 48px
       max-height: 48px
-    .testimonial_card_avatar svg
-      width: 24px
-      height: 24px
-      position: relative
-      top: 11px
-      left: 11px
+      margin: 0
+      order: 1
+      flex-grow: 0
+      background: white
+      border-radius: 50%
+      border: 1px solid hsl(200, 24%, 90%)
+      svg
+        width: 24px
+        height: 24px
+        position: relative
+        top: 11px
+        left: 11px
 
   
   .testimonial_logo_and_ueid_container
@@ -195,9 +201,6 @@ export default {
     padding-top: 24px
     display: block
     width: 100%
-    //display: none
-    //visibility: hidden
-    //opacity: 0
     .testimonial_card_footer_logos_container
       width: 100%
       height: 16px
@@ -245,8 +248,8 @@ export default {
     display: inline-block
     p
       font-weight: 500
-      font-size: 9px
+      font-family: 'Inter-Medium', sans-serif
+      font-size: 10px
       line-height: 12px
-      letter-spacing: -0.02em
       color: hsl(200, 12%, 40%)
 </style>
