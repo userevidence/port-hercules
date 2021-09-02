@@ -4,8 +4,6 @@
       .titles
         h4(v-if='content_asset.show_title') {{content_asset.title}}
         h4(v-else-if='content_asset.show_question') {{content_asset.question.the_question}}
-        h4(v-else)
-
       h3(v-html='contentAssetText')
     .testimonial_card_body
       .testimonial_author_container
@@ -88,11 +86,14 @@ export default {
     position: relative
     width: 100%
     .titles
-      margin-bottom: -48px
-      min-height: 0
-      //display: none
-      //visibility: hidden
-      //opacity: 0
+      h4
+        margin: 0 0 16px 0
+        font-size: 12px
+        line-height: 16px
+        display: flex
+        align-items: center
+        letter-spacing: -0.015em
+        color: hsl(200, 8%, 8%)
     h3
       margin: 0
       padding: 0
@@ -103,14 +104,6 @@ export default {
       color: #131516
       ::v-deep div
         display: inline
-    .titles h4
-      margin: 0 0 64px 0
-      font-size: 12px
-      line-height: 16px
-      display: flex
-      align-items: center
-      letter-spacing: -0.015em
-      color: hsl(200, 8%, 8%)
 
   .testimonial_card_body
     display: flex
