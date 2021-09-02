@@ -1,18 +1,25 @@
 <template lang='pug'>
   .customer_spotlight_card(:style='card_style')
-    h6 Customer Spotlight
+    .header
+      UserIcon
+      h6 Customer Spotlight
     h2 {{content_asset.title}}
+    //pre {{content_asset}}
+    //h4 {{content_asset.recipient.person_attribution}}
+    //h4 {{content_asset.recipient.company_attribution}}
     h5 {{verified_at}}
 </template>
 <script>
+import UserIcon from './graphics/UserIcon.vue'
 import dayjs from 'dayjs'
 
 export default {
   props: ['content_asset'],
+  components: { UserIcon },
   computed: {
     card_style() {
       return {
-        //borderLeft: `4px solid ${this.content_asset?.account?.brand_color_1}`,
+        //background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2}),
       }
     },
     verified_at() {
@@ -30,20 +37,28 @@ export default {
     border-radius: 24px
     width: 100%
     margin: 0
-    padding: 24px 24px 24px 24px
+    padding: 24px
     border: 1px solid hsl(200, 24%, 90%)
     overflow: hidden
+    .header
+      display: inline-flex
+      align-items: center
+      line-height: 1
+      margin-bottom: 16px
+      margin-top: 0
+      svg
+        opacity: 0.5
     //&::before
       content: ''
       display: block
       position: absolute
-      left: 24px
-      top: 24px
+      right: 12px
+      top: 12px
       z-index: 10
       height: 12px
       width: 12px
       background-color: hsl(270, 100%, 52%)
-      border-radius: 0 0 50% 50%
+      border-radius: 50% 50% 50% 50%
     h2, h6
       font-weight: 800
       font-family: 'Inter-Extrabold', sans-serif
@@ -54,13 +69,10 @@ export default {
     font-size: 20px
   h6
     line-height: 1
-    font-size: 9px
+    font-size: 10px
     text-transform: uppercase
     letter-spacing: 1.5px
-    //margin-left: 24px
-    //margin-top: 1px 
-    margin-bottom: 16px
-    opacity: 0.75
+    margin-left: 8px
     color: hsl(270, 100%, 52%)
   h2
     //text-shadow: 0px 1px 0px hsla(200, 8%, 8%, 0.16)
