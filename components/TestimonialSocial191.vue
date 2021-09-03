@@ -1,7 +1,7 @@
 <template lang='pug'>
 .testimonial_social_191
   .header
-    div(v-html='content_asset.account.svg_logo')
+    figure(v-html='content_asset.account.svg_logo')
     a(:href='asset_url' target='_blank' :style='horizontal_gradient')
       Logo
       | {{asset_link}}
@@ -14,11 +14,11 @@
     .avatar(:style='horizontal_gradient')
       img(:src='content_asset.recipient.recipient_gravatar_url' v-if='content_asset.recipient.recipient_gravatar_url')
       AvatarIcon(v-else)
-    div(v-if='content_asset.recipient.named')
+    .author_information(v-if='content_asset.recipient.named')
       h4 {{content_asset.recipient.person_attribution}}
       h6 {{content_asset.recipient.title}}
       h6 {{content_asset.recipient.best_company_name}}
-    div(v-else)
+    .author_information(v-else)
       h4 {{content_asset.recipient.person_attribution}}
       h6 {{content_asset.recipient.company_attribution}}
   .gradient(:style='vertical_gradient')
@@ -51,7 +51,7 @@ export default {
     },
     vertical_gradient() {
       return {
-        background: `linear-gradient(180deg, ${this.content_asset?.account?.gradient_2} 0%, rgba(255, 255, 255, 0) 100%)`,
+        background: `linear-gradient(180deg, ${this.content_asset?.account?.brand_color_1} 0%, hsla(200, 100%, 100%, 0) 100%)`,
         transform: 'matrix(1, 0, 0, -1, 0, 0)'
       }
     },
@@ -62,6 +62,7 @@ export default {
 .testimonial_social_191
   background: white
   width: 616px
+  height: 320px
   padding: 32px 0px
   position: relative
   overflow: hidden
@@ -72,81 +73,99 @@ export default {
     height: 100%
     top: 0
     right: 0
-    background: red
-  .arc1
-    z-index: 10
+  .arc1, .arc2
     position: absolute
-    bottom: -108px
-    left: -108px
-    width: 196px
-    height: 196px
-    border: 4px solid #F2F6F7
-    border-radius: 150px
-  .arc2
     z-index: 9
-    position: absolute
-    bottom: -108px
-    right: -108px
     width: 196px
     height: 196px
-    border: 4px solid #F2F6F7
-    border-radius: 150px
-
+    border: 4px solid hsl(200, 24%, 96%)
+    border-radius: 50%
+    bottom: -104px
+  .arc1
+    left: -104px
+  .arc2
+    right: -104px
   .header
     z-index: 11
     padding-left: 48px
     display: flex
     justify-content: space-between
     align-items: center
-    margin-bottom: 27px
+    figure
+      height: 24px
+      margin: 0
+      padding: 0
     a
-      background: red
-      border-radius: 20px 0 0 20px
       font-family: 'Inter-ExtraBold'
       font-size: 9px
+      border-radius: 20px 0 0 20px
+      line-height: 1
       padding: 6px 48px 6px 6px
       color: white
+      display: flex
+      align-items: center
       svg::v-deep
         width: 12px
         height: 12px
         margin-right: 12px
         path
-          fill: #ffffff90 !important
+          fill: hsla(0, 0%, 100%, 0.6) !important
   .testimonial
+    position: absolute
+    top: calc(50% - 16px)
+    transform: translateY(-50%)
     padding: 0 48px
-    margin-bottom: 27px
-    h2::v-deep
-      dispay: inline-flex
+    h2
+      font-size: 18px
+      line-height: 26px
       font-family: 'Inter-Regular'
+      letter-spacing: -0.015em
       strong
         font-family: 'Inter-ExtraBold' !important
       span
         div
           display: inline
   .footer
-    position: relative
+    position: absolute
     z-index: 11
-    padding: 0 48px
     display: flex
-    color: rgba(19,20,21,1)
+    height: 48px
+    bottom: 32px
+    left: 48px
+    h4, h6
+      color: hsl(200, 8%, 8%)
+      font-family: 'Inter-Medium'
+      letter-spacing: -0.02em
     .avatar
       margin-right: 12px
-      background: red
-      border-radius: 27px 27px 27px 0px
-      dispay: flex
+      height: 48px
+      width: 48px
+      border-radius: 32px 32px 32px 0px
+      display: flex
       align-items: center
-      svg::v-deep
-        path
-          fill: #ffffff90 !important
+      position: relative
+      svg
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        ::v-deep path
+          fill: hsla(200, 100%, 100%, 0.5) !important
     h4
-      font-family: 'Inter-Regular'
       font-size: 14px
-      line-height: 12px
-      margin-bottom: 8px
+      line-height: 16px
+      margin-bottom: 4px
     h6
-      font-family: 'Inter-Regular'
       font-size: 10px
-      line-height: 8px
+      line-height: 12px
       letter-spacing: inherit
-      margin-bottom: 8px
+    
+    .author_information
+      display: flex
+      flex-direction: column
+      text-align: left
+      justify-content: center
+      h6:not(:last-child)
+        margin-bottom: 4px
+
 </style>
