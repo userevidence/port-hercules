@@ -8,7 +8,7 @@
   .testimonial
     h2
       span "
-      span(v-html='content_asset.text')
+      span(v-html='content_asset_text')
       span "
   .footer
     .avatar(:style='horizontal_gradient')
@@ -48,6 +48,9 @@ export default {
       return {
         background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
       }
+    },
+    content_asset_text() {
+      return this.content_asset.text || this.content_asset.survey_response.text_answer || ''
     },
     vertical_gradient() {
       return {
