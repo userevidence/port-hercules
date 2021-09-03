@@ -118,7 +118,8 @@ export default {
     top: calc(50% - 16px)
     transform: translateY(-50%)
     padding: 0 48px
-    h2
+    h2::v-deep
+      dispay: inline-flex
       font-size: 18px
       line-height: 26px
       font-family: 'Inter-Regular'
