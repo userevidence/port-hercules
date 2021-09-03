@@ -132,9 +132,11 @@ export default {
     padding: 0 48px
     display: flex
     color: rgba(19,20,21,1)
+    align-items: center
     .avatar
       margin-right: 12px
-      background: red
+      padding: 12px
+      background: $uePurple
       border-radius: 27px 27px 27px 0px
       dispay: flex
       align-items: center
