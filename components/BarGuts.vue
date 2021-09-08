@@ -101,22 +101,7 @@ export default {
       .answer
         margin-top: 4px
       .stat
-        font-size: 28px
-        letter-spacing: -0.04em
-        line-height: 1
-        position: relative
         left: 12px
-        bottom: -3.5px
-        text-shadow: 2px 0px 0 hsla(200, 8%, 8%, 0.2)
-        span
-          font-size: 14px
-          letter-spacing: 0
-          line-height: 1
-          font-weight: 500
-          font-family: 'Inter-Medium', sans-serif
-          color: hsla(200, 100%, 100%, 0.8)
-          position: relative
-          left: 3px
     .legendy, .legendx
       display: none
       opacity: 0
@@ -138,6 +123,8 @@ export default {
         width: 31%
       .two_bars
         width: 48%
+      .one_bar
+        width: 100%
       .bar_group
         display: flex
         flex-direction: column
@@ -151,20 +138,6 @@ export default {
         align-items: flex-end
         height: 100%
         width: 100%
-      .stat
-        font-feature-settings: 'cv01' on, 'salt' on
-        font-style: normal
-        letter-spacing: -0.05em
-        font-size: 1.4rem
-        line-height: 0.8rem
-        bottom: -1px
-        position: relative
-        span
-          font-size: 14px
-          margin-left: 2px
-          font-family: 'Inter', sans-serif
-          font-weight: 100
-          opacity: 0.9
       .answer
         margin-top: 8px
         justify-content: center
@@ -186,14 +159,27 @@ export default {
 
   .vertical .chart .answer, .horizontal .chart .answer
     display: flex
-    font-weight: 500
-    font-family: 'Inter-Medium', sans-serif
     letter-spacing: -0.02em
     font-size: 12px
     line-height: 16px
     color: hsl(200, 8%, 8%)
 
-  .legend, .legendx, .legendy
+  .stat
+    font-size: 30px
+    letter-spacing: -0.04em
+    line-height: 1
+    position: relative
+    bottom: -4px
+    text-shadow: 1px 0px 0 hsla(200, 8%, 8%, 0.5)
+    span
+      font-size: 14px
+      letter-spacing: 0
+      line-height: 1
+      color: hsla(200, 100%, 100%, 0.8)
+      position: relative
+      left: 3px
+
+  .vertical .chart .answer, .horizontal .chart .answer, .stat span, .legend, .legendx, .legendy
     font-weight: 500
     font-family: 'Inter-Medium', sans-serif
 
