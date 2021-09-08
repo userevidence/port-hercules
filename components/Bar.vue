@@ -12,18 +12,18 @@
       
   BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='colorScheme')
 
-    .content_asset_footer
-      .logo_and_ueid_container
-        .logos_container
-          .company_logo
-            img(:src='content_asset.account.logo_url')
-          .ue_logo
-            Logo(:fill='fill')
-        .ueid_container
-          .url
-            a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-      .verification_text
-        p Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
+  .content_asset_footer
+    .logo_and_ueid_container
+      .logos_container
+        .company_logo
+          img(:src='content_asset.account.logo_url')
+        .ue_logo
+          Logo(:fill='fill')
+      .ueid_container
+        .url
+          a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
+    .verification_text
+      p Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
 
 </template>
 <script>
@@ -80,86 +80,91 @@ export default {
     border: 1px solid hsl(200, 24%, 90%)
     overflow: hidden
   .header
-    font-family: 'Inter', sans-serif
     .titles
       margin-bottom: 24px
     h2
-      color: hsl(200, 32%, 8%)
-      font-weight: 800
-      font-size: 20px
-      line-height: 24px
-      letter-spacing: -.25px
-      transition: all 0.15s ease-in-out
+      margin: 0
+      padding: 0
+      font-family: 'Inter-Regular', sans-serif
+      font-weight: 400
+      font-size: 16px
+      line-height: 23px
+      letter-spacing: -0.015em
+      color: #131516
     h6
-      font-size: 14px
-      line-height: 1.35
-      font-weight: 600
-      letter-spacing: -.25px
-      color: hsl(200, 24%, 32%)
-      margin-top: 4px
-      transition: all 0.15s ease-in-out
-  .share
-    stroke: blue !important
-    &:hover
-      stroke: red !important
-  .footer
-    display: inline-flex
-    margin-bottom: 16px
-    width: 100%
-    height: 24px
-    align-items: center
-    justify-content: space-between
-    .company_logo
-      max-width: 192px
-      height: 24px
-      margin-right: 8px
-      &::after
-        content: ''
-        height: 16px
-        width: 1px
-        background-color: hsl(200, 16%, 88%)
-        position: relative
-        left: 8px
-        display: inline-block
-        top: 0
-      img
-        height: 24px
-    .ue_logo
-      width: 120px
-    .company_logo, .ue_logo
+      margin: 0 0 16px 0
+      font-size: 12px
+      line-height: 16px
       display: flex
       align-items: center
-    svg
-      justify-content: center
-      align-items: center
-      max-height: 24px
-      width: 120px
-      padding-left: 12px
-      margin-top: auto
+      letter-spacing: -0.015em
+      color: hsl(200, 8%, 8%)
 
-    .ueid-container
+  .content_asset_footer
+    padding-top: 24px
+    display: block
+    width: 100%
+    .logo_and_ueid_container
+      width: 100%
+      display: inline-flex
+      align-items: center
+      justify-content: space-between
+    .logos_container
+      width: 100%
+      height: 16px
+      display: flex
+      align-items: center
+      order: 1
+      flex-grow: 0
+      .company_logo
+        width: 16px
+        height: 16px
+        margin-right: 8px
+        &::after
+          content: ''
+          height: 16px
+          width: 1px
+          background-color: hsl(200, 24%, 90%)
+          position: relative
+          left: 8px
+          display: inline-block
+          top: 0
+        img
+          height: 16px
+      .ue_logo
+        width: 16px
+        height: 16px
+      .company_logo, .ue_logo
+        display: flex
+        align-items: center
+
+    .ueid_container
       margin-left: auto
       text-align: right
       font-size: 10px
       line-height: 1
-      .ueid 
-        font-family: 'Inter', sans-serif
-        font-weight: 400
-        margin-bottom: 4px
-        span
-          font-weight: 800
+      order: 2
+      flex-grow: 0
       .url a
-        color: hsl(270, 100%, 52%) !important
-        font-family: 'Inter-Black', sans-serif
+        color: hsl(270, 100%, 52%)
         &:hover
-          color: hsl(270, 100%, 24%) !important
-          text-decoration: none !important
-  .disclaimer
-    font-family: 'Inter', sans-serif
-    font-size: 11px
-    font-weight: 400
-    line-height: 1.4
-    color: hsl(200, 8%, 32%)
+          color: hsl(270, 100%, 24%)
+          text-decoration: none
+  .verification_text
+    width: 100%
+    margin-top: 12px
+    display: inline-block
+    p
+      font-weight: 500
+      font-family: 'Inter-Medium', sans-serif
+      font-size: 10px
+      line-height: 12px
+      color: hsl(200, 12%, 40%)
+
+  h6, .ueid_container .url a
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
+
 </style>
 
 <!-- So I’ve been thinking that they will have a set aspect ratio (1:1, 4:3, 3:2, etc.) and that will shrink down to a minimum size
