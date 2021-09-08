@@ -2,8 +2,8 @@
 .bar_chart
   .header
     .titles(v-if='content_asset.show_title && content_asset.show_question')
-      h2 {{content_asset.title}}
       h6 {{content_asset.question.the_question}}
+      h2 {{content_asset.title}}
     .titles(v-else-if='content_asset.show_title')
       h2 {{content_asset.title}}
     .titles(v-else-if='content_asset.show_question')
@@ -72,14 +72,13 @@ export default {
 </script>
 <style lang='sass' scoped>
   .bar_chart
-    font-family: 'Inter-Black', sans-serif
-    min-width: 480px
-    max-width: 640px
-    background: white
-    padding: 32px
-    // box-shadow: 0 -4px 8px hsla(200, 100%, 40%, .02) inset, 0 16px 40px hsla(200, 16%, 32%, .12), 0 1px 0 hsl(206, 23%, 94%)
-    border: 1px solid hsl(200, 24%, 92%)
+    position: relative
     border-radius: 24px
+    width: 100%
+    margin: 0
+    padding: 24px
+    border: 1px solid hsl(200, 24%, 90%)
+    overflow: hidden
   .header
     font-family: 'Inter', sans-serif
     .titles
