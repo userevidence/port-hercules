@@ -89,41 +89,8 @@ export default {
   .horizontal
     .chart
       .bar-group
-        margin-bottom: 24px
-        .channelx
-          border-radius: 0 10px 10px 0
-          background: #F2F6F7
-      .many_bars > .channel .bar
-        height: 36px
-        border-radius: 0 8px 8px 0
-        .stat
-          font-size: 24px
-          bottom: -3px
-      .six_bars > .channel .bar
-        height: 40px
-        border-radius: 0 10px 10px 0
-        .stat
-          font-size: 28px
-      .five_bars > .channel .bar
-        height: 44px
-        border-radius: 0 11px 11px 0
-        .stat
-          font-size: 28px
-      .four_bars > .channel .bar
-        height: 48px
-        border-radius: 0 12px 12px 0
-        .stat
-          font-size: 30px
-      .three_bars > .channel .bar
-        height: 52px
-        border-radius: 0 13px 13px 0
-        .stat
-          font-size: 32px
-      .two_bars > .channel .bar
-        height: 56px
-        border-radius: 0 14px 14px 0
-        .stat
-          font-size: 32px
+        &:not(:last-child)
+          margin-bottom: 16px
       .bar
         border-radius: 0 10px 10px 0
         padding: 0
@@ -145,6 +112,8 @@ export default {
         bottom: -5px
         left: 14px
         text-shadow: 2px 0px 0 hsla(200, 8%, 8%, 0.2)
+        font-size: 24px
+        bottom: -3px
         span
           font-size: 16px
           position: relative
@@ -294,13 +263,14 @@ export default {
     color: hsl(200, 8%, 32%)
 
   .vertical .chart .answer, .horizontal .chart .answer
-    font-family: 'Inter', sans-serif
     display: flex
+
     font-weight: 500
-    font-size: 13px
-    font-feature-settings: 'salt' on
-    color: hsl(200, 12%, 16%)
-    letter-spacing: -.25px
+    font-family: 'Inter-Medium', sans-serif
+    letter-spacing: -0.02em
+    font-size: 12px
+    line-height: 16px
+    color: hsl(200, 8%, 8%)
 
   @media (max-width: 1024px)
     .vertical .chart
