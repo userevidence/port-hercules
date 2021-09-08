@@ -85,14 +85,13 @@ export default {
 </script>
 <style lang='sass' scoped>
   .bar_guts
-    font-family: 'Inter-Black', sans-serif
   .horizontal
     .chart
       .bar_group
         &:not(:last-child)
           margin-bottom: 16px
       .bar
-        border-radius: 0 10px 10px 0
+        border-radius: 0 8px 8px 0
         padding: 0
         height: 40px
         color: white
@@ -102,22 +101,22 @@ export default {
       .answer
         margin-top: 4px
       .stat
-        font-feature-settings: 'cv01' on, 'salt' on
-        font-style: normal
-        font-weight: 900
-        letter-spacing: -1.5px
         font-size: 28px
+        letter-spacing: -0.04em
         line-height: 1
         position: relative
-        bottom: -5px
-        left: 14px
+        left: 12px
+        bottom: -3.5px
         text-shadow: 2px 0px 0 hsla(200, 8%, 8%, 0.2)
-        font-size: 24px
-        bottom: -3px
         span
-          font-size: 16px
+          font-size: 14px
+          letter-spacing: 0
+          line-height: 1
+          font-weight: 500
+          font-family: 'Inter-Medium', sans-serif
+          color: hsla(200, 100%, 100%, 0.8)
           position: relative
-          left: 2px
+          left: 3px
     .legendy, .legendx
       display: none
   .vertical
@@ -126,30 +125,15 @@ export default {
       justify-content: space-between
       position: relative
       .many_bars > .channel .bar
-        border-radius: 11px 11px 0 0
-        width: 64px
       .six_bars > .channel .bar
-        border-radius: 12px 12px 0 0
-        width: 72px
       .five_bars > .channel .bar
-        border-radius: 13px 13px 0 0
-        width: 80px
       .four_bars > .channel .bar
-        border-radius: 14px 14px 0 0
-        width: 88px
-        margin: 0 24px
         .stat
           font-size: 28px
       .three_bars > .channel .bar
-        border-radius: 15px 15px 0 0
-        width: 96px
-        margin: 0 32px
         .stat
           font-size: 32px
       .two_bars > .channel .bar
-        border-radius: 16px 16px 0 0
-        width: 104px
-        margin: 0 40px
         .stat
           font-size: 34px
       .bar_group
@@ -158,7 +142,7 @@ export default {
         flex-direction: column
         justify-content: flex-end
       .bar
-        border-radius: 18px 18px 0px 0px
+        border-radius: 8px 8px 0px 0px
         padding: 0
         color: white
         display: flex
@@ -169,7 +153,6 @@ export default {
       .stat
         font-feature-settings: 'cv01' on, 'salt' on
         font-style: normal
-        font-weight: 900
         letter-spacing: -0.05em
         font-size: 1.4rem
         line-height: 0.8rem
@@ -206,6 +189,10 @@ export default {
     font-size: 12px
     line-height: 16px
     color: hsl(200, 8%, 8%)
+
+  .bar_guts, .bar_group, .stat
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
 
   @media (max-width: 1024px)
     .vertical .chart
