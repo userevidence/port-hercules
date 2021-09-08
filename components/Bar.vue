@@ -80,7 +80,7 @@ export default {
     border: 1px solid hsl(200, 24%, 90%)
     overflow: hidden
   .header
-    .titles
+    .titles h2
       margin-bottom: 24px
     h2
       margin: 0
