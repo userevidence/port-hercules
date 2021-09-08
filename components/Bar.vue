@@ -1,5 +1,5 @@
 <template lang='pug'>
-.bar_chart.variant-red
+.bar_chart
   .header
     .titles(v-if='content_asset.show_title && content_asset.show_question')
       h2 {{content_asset.title}}
@@ -11,19 +11,20 @@
     .titles(v-else)
       
   BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='colorScheme')
-  //- .legendx &nbsp; 
-  .footer
-    .company_logo
-      img(:src='content_asset.account.logo_url')
-    .ue_logo
-      Logo(:fill='fill')
-    .ueid-container
-      .ueid 
-        | UEID: 
-        span {{content_asset.identifier}}
-      .url
-        a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-  .disclaimer Source: Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
+
+    .content_asset_footer
+      .logo_and_ueid_container
+        .logos_container
+          .company_logo
+            img(:src='content_asset.account.logo_url')
+          .ue_logo
+            Logo(:fill='fill')
+        .ueid_container
+          .url
+            a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
+      .verification_text
+        p Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
+
 </template>
 <script>
 import BarGuts from './BarGuts.vue'
