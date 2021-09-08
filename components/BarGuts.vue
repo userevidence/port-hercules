@@ -106,9 +106,6 @@ export default {
       .stat
         left: 12px
     .legendy, .legendx
-      display: none
-      opacity: 0
-      visibility: hidden
   .vertical
     .chart
       display: flex
@@ -156,9 +153,6 @@ export default {
       margin-bottom: 20px
     .legend, .legendx, .legendy
       color: hsl(200, 16%, 44%)
-      display: none
-      opacity: 0
-      visibility: hidden
 
   .vertical .chart .answer, .horizontal .chart .answer
     display: flex
