@@ -64,10 +64,13 @@ export default {
 </script>
 <style lang='sass' scoped>
 .bar_preview
-  border: 1px solid #f2f6f7
-  border-radius: 10px
-  padding: 30px 0
-  width: 500px
+  position: relative
+  border-radius: 24px
+  width: 100%
+  margin: 0
+  padding: 24px
+  border: 1px solid hsl(200, 24%, 90%)
+  overflow: hidden
 .horizontal
   .bar-group
     margin-bottom: 24px
@@ -77,8 +80,6 @@ export default {
   .bar
     height: 100%
     border-radius: 0 10px 10px 0
-    box-shadow: inset -2px 0px 0px rgba(0, 0, 0, 0.06)
-    border-radius: 0px 8px 8px 0px
 .vertical
   display: flex
   justify-content: space-between
@@ -95,6 +96,5 @@ export default {
     width: 44px
   .bar
     width: 100%
-    box-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.06)
     border-radius: 10px 10px 0px 0px
 </style>
