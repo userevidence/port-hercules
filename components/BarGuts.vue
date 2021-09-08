@@ -3,7 +3,7 @@
     .chart(:class='orientation')
       .legend
         .legendy % of Users
-      .bar_group(v-for='(stat, i) in stats' :class='barChartCount' v-if='showBar(stat)' )
+      .bar_group(v-for='(stat, i) in shown_stats' :class='barChartCount')
         .channel
           .bar(:class='statClass(i)' :style='barSize(stat.count)')
             .stat 
@@ -32,19 +32,19 @@ export default {
       return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
     },
     barChartCount() {
-      if (this.stats.length > 6)
+      if (this.shown_stats.length > 6)
         return 'many_bars'
-      else if (this.stats.length == 6)
+      else if (this.shown_stats.length == 6)
         return 'six_bars'
-      else if (this.stats.length == 5)
+      else if (this.shown_stats.length == 5)
         return 'five_bars'
-      else if (this.stats.length == 4)
+      else if (this.shown_stats.length == 4)
         return 'four_bars'
-      else if (this.stats.length == 3)
+      else if (this.shown_stats.length == 3)
         return 'three_bars'
-      else if (this.stats.length == 2)
+      else if (this.shown_stats.length == 2)
         return 'two_bars'
-      else if (this.stats.length == 1)
+      else if (this.shown_stats.length == 1)
         return 'one_bar'
       else
         return
@@ -52,6 +52,9 @@ export default {
     orientation() {
       return Math.max(...this.stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
+    shown_stats() { 
+      return this.stats.filter(s => !s.exclude_from_asset)
+    }
   },
   methods: {
     statPercent(value) {
@@ -177,7 +180,7 @@ export default {
       line-height: 1
       color: hsla(200, 100%, 100%, 0.8)
       position: relative
-      left: 3px
+      left: 2px
 
   .vertical .chart .answer, .horizontal .chart .answer, .stat span, .legend, .legendx, .legendy
     font-weight: 500
