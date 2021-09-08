@@ -124,20 +124,19 @@ export default {
       display: flex
       justify-content: space-between
       position: relative
-      .many_bars > .channel .bar
-      .six_bars > .channel .bar
-      .five_bars > .channel .bar
-      .four_bars > .channel .bar
-        .stat
-          font-size: 28px
-      .three_bars > .channel .bar
-        .stat
-          font-size: 32px
-      .two_bars > .channel .bar
-        .stat
-          font-size: 34px
+      .many_bars
+        width: 8%
+      .six_bars
+        width: 14%
+      .five_bars
+        width: 18%
+      .four_bars
+        width: 23%
+      .three_bars
+        width: 31%
+      .two_bars
+        width: 48%
       .bar_group
-        font-family: 'Inter-Black', sans-serif
         display: flex
         flex-direction: column
         justify-content: flex-end
@@ -149,7 +148,7 @@ export default {
         justify-content: center
         align-items: flex-end
         height: 100%
-        width: 64px
+        width: 100%
       .stat
         font-feature-settings: 'cv01' on, 'salt' on
         font-style: normal
@@ -169,17 +168,16 @@ export default {
         justify-content: center
     .legend
       position: absolute
-      left: -52px
+      left: -42px
       top: 50%
-      font-size: 14px
+      font-size: 12px
     .legendy
-      font-family: 'Inter', sans-serif
-      font-weight: 400
       transform:  rotate(-90deg)
     .legendx
-      font-family: 'Inter', sans-serif
       text-align: center
       margin-bottom: 20px
+    .legend, .legendx, .legendy
+      color: hsl(200, 16%, 44%)
 
   .vertical .chart .answer, .horizontal .chart .answer
     display: flex
@@ -190,24 +188,12 @@ export default {
     line-height: 16px
     color: hsl(200, 8%, 8%)
 
+  .legend, .legendx, .legendy
+    font-weight: 500
+    font-family: 'Inter-Medium', sans-serif
+
   .bar_guts, .bar_group, .stat
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
-
-  @media (max-width: 1024px)
-    .vertical .chart
-      .six_bars > .channel .bar
-        width: 64px
-        .stat
-          font-size: 18px
-      .five_bars > .channel .bar
-        width: 72px
-        .stat
-          font-size: 20px
-      .four_bars > .channel .bar
-        margin: 0
-      .three_bars > .channel .bar
-        .stat
-          font-size: 26px
 
 </style>
