@@ -166,12 +166,3 @@ export default {
     font-family: 'Inter-Extrabold', sans-serif
 
 </style>
-
-<!-- So I’ve been thinking that they will have a set aspect ratio (1:1, 4:3, 3:2, etc.) and that will shrink down to a minimum size
-So on desktop we could have the element be able to expand to fill a larger area, always having a maximum and minimum width set
-
-For minimum widths, let’s use the component sizes to guide those for now. For maximum, it’ll likely be dependent on the orientation of the bar graph (whether horizontal or vertical) but for now let’s say no more than 150% of the minimum width. So, the “Long Form Answer Bar Chart - Desktop” would be no wider than 1080px
-2:44
-The container (Currently, the white background box with drop shadows) will have a fixed equal padding of 32px for start (in the future, we can offer “small”, “medium”, “large” padding - or none, if they so choose) (edited) 
-2:45
-And then for the “Bar Chart - Mobile”, those should have minimum values set to the current designs, I’m not sure the maximum values will need to be much larger, I was thinking that those would function as essentially width: calc(100% - 64px); (edited)  -->
