@@ -16,7 +16,7 @@
     .logo_and_ueid_container
       .logos_container
         .company_logo
-          img(:src='content_asset.account.logo_url')
+          figure(v-html='content_asset.account.svg_logo_mark')
         .ue_logo
           Logo(:fill='fill')
       .ueid_container
