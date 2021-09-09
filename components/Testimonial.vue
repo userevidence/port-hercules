@@ -15,7 +15,7 @@
           h6 {{content_asset.recipient.best_company_name}}
         .testimonial_author(v-else)
           h6 {{content_asset.recipient.title}}
-          h6 {{content_asset.recipient.best_company_name}}
+          h6 {{content_asset.recipient.company_attribution}}
       .testimonial_nps_container(v-if='content_asset.show_nps')
         .nps_score {{content_asset.recipient.nps_score}}
         .nps_badge NPS
