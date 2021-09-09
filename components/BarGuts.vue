@@ -3,7 +3,7 @@
     .chart(:class='orientation')
       .legend
         .legendy % of Users
-      .bar-group(v-for='(stat, i) in stats' :class='barChartCount' v-if='showBar(stat)' )
+      .bar_group(v-for='(stat, i) in shown_stats' :class='barChartCount')
         .channel
           .bar(:class='statClass(i)' :style='barSize(stat.count)')
             .stat 
@@ -32,19 +32,19 @@ export default {
       return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
     },
     barChartCount() {
-      if (this.stats.length > 6)
+      if (this.shown_stats.length > 6)
         return 'many_bars'
-      else if (this.stats.length == 6)
+      else if (this.shown_stats.length == 6)
         return 'six_bars'
-      else if (this.stats.length == 5)
+      else if (this.shown_stats.length == 5)
         return 'five_bars'
-      else if (this.stats.length == 4)
+      else if (this.shown_stats.length == 4)
         return 'four_bars'
-      else if (this.stats.length == 3)
+      else if (this.shown_stats.length == 3)
         return 'three_bars'
-      else if (this.stats.length == 2)
+      else if (this.shown_stats.length == 2)
         return 'two_bars'
-      else if (this.stats.length == 1)
+      else if (this.shown_stats.length == 1)
         return 'one_bar'
       else
         return
@@ -52,6 +52,9 @@ export default {
     orientation() {
       return Math.max(...this.stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
+    shown_stats() { 
+      return this.stats.filter(s => !s.exclude_from_asset)
+    }
   },
   methods: {
     statPercent(value) {
@@ -85,47 +88,13 @@ export default {
 </script>
 <style lang='sass' scoped>
   .bar_guts
-    font-family: 'Inter-Black', sans-serif
   .horizontal
     .chart
-      .bar-group
-        margin-bottom: 24px
-        .channelx
-          border-radius: 0 10px 10px 0
-          background: #F2F6F7
-      .many_bars > .channel .bar
-        height: 36px
-        border-radius: 0 8px 8px 0
-        .stat
-          font-size: 24px
-          bottom: -3px
-      .six_bars > .channel .bar
-        height: 40px
-        border-radius: 0 10px 10px 0
-        .stat
-          font-size: 28px
-      .five_bars > .channel .bar
-        height: 44px
-        border-radius: 0 11px 11px 0
-        .stat
-          font-size: 28px
-      .four_bars > .channel .bar
-        height: 48px
-        border-radius: 0 12px 12px 0
-        .stat
-          font-size: 30px
-      .three_bars > .channel .bar
-        height: 52px
-        border-radius: 0 13px 13px 0
-        .stat
-          font-size: 32px
-      .two_bars > .channel .bar
-        height: 56px
-        border-radius: 0 14px 14px 0
-        .stat
-          font-size: 32px
+      .bar_group
+        &:not(:last-child)
+          margin-bottom: 16px
       .bar
-        border-radius: 0 10px 10px 0
+        border-radius: 0 8px 8px 0
         padding: 0
         height: 40px
         color: white
@@ -135,187 +104,84 @@ export default {
       .answer
         margin-top: 4px
       .stat
-        font-feature-settings: 'cv01' on, 'salt' on
-        font-style: normal
-        font-weight: 900
-        letter-spacing: -1.5px
-        font-size: 28px
-        line-height: 1
-        position: relative
-        bottom: -5px
-        left: 14px
-        text-shadow: 2px 0px 0 hsla(200, 8%, 8%, 0.2)
-        span
-          font-size: 16px
-          position: relative
-          left: 2px
+        left: 12px
     .legendy, .legendx
-      display: none
   .vertical
     .chart
       display: flex
       justify-content: space-between
-      // height: 260px
       position: relative
-      .many_bars > .channel .bar
-        border-radius: 11px 11px 0 0
-        width: 64px
-      .six_bars > .channel .bar
-        border-radius: 12px 12px 0 0
-        width: 72px
-      .five_bars > .channel .bar
-        border-radius: 13px 13px 0 0
-        width: 80px
-      .four_bars > .channel .bar
-        border-radius: 14px 14px 0 0
-        width: 88px
-        margin: 0 24px
-        .stat
-          font-size: 28px
-      .three_bars > .channel .bar
-        border-radius: 15px 15px 0 0
-        width: 96px
-        margin: 0 32px
-        .stat
-          font-size: 32px
-      .two_bars > .channel .bar
-        border-radius: 16px 16px 0 0
-        width: 104px
-        margin: 0 40px
-        .stat
-          font-size: 34px
-      .bar-group
-        font-family: 'Inter-Black', sans-serif
+      .many_bars
+        width: 8%
+      .six_bars
+        width: 14%
+      .five_bars
+        width: 18%
+      .four_bars
+        width: 23%
+      .three_bars
+        width: 31%
+      .two_bars
+        width: 48%
+      .one_bar
+        width: 100%
+      .bar_group
         display: flex
         flex-direction: column
         justify-content: flex-end
       .bar
-        border-radius: 18px 18px 0px 0px
+        border-radius: 8px 8px 0px 0px
         padding: 0
         color: white
         display: flex
         justify-content: center
         align-items: flex-end
         height: 100%
-        width: 64px
-      .stat
-        font-feature-settings: 'cv01' on, 'salt' on
-        font-style: normal
-        font-weight: 900
-        letter-spacing: -0.05em
-        font-size: 1.4rem
-        line-height: 0.8rem
-        bottom: -1px
-        position: relative
-        span
-          font-size: 14px
-          margin-left: 2px
-          font-family: 'Inter', sans-serif
-          font-weight: 100
-          opacity: 0.9
+        width: 100%
       .answer
         margin-top: 8px
         justify-content: center
     .legend
       position: absolute
-      left: -52px
+      left: -42px
       top: 50%
-      font-size: 14px
+      font-size: 12px
     .legendy
-      font-family: 'Inter', sans-serif
-      font-weight: 400
       transform:  rotate(-90deg)
     .legendx
-      font-family: 'Inter', sans-serif
       text-align: center
       margin-bottom: 20px
-
-  .share
-    stroke: blue !important
-    &:hover
-      stroke: red !important
-  .footer
-    display: inline-flex
-    margin-bottom: 16px
-    width: 100%
-    height: 24px
-    align-items: center
-    justify-content: space-between
-    .company_logo
-      max-width: 192px
-      height: 24px
-      margin-right: 8px
-      &::after
-        content: ''
-        height: 16px
-        width: 1px
-        background-color: hsl(200, 16%, 88%)
-        position: relative
-        left: 8px
-        display: inline-block
-        top: 0
-      img
-        height: 24px
-    .ue_logo
-      width: 120px
-    .company_logo, .ue_logo
-      display: flex
-      align-items: center
-    svg
-      justify-content: center
-      align-items: center
-      max-height: 24px
-      width: 120px
-      padding-left: 12px
-      margin-top: auto
-
-    .ueid-container
-      margin-left: auto
-      text-align: right
-      font-size: 10px
-      line-height: 1
-      .ueid 
-        font-family: 'Inter', sans-serif
-        font-weight: 400
-        margin-bottom: 4px
-        span
-          font-weight: 800
-      .url a
-        color: hsl(270, 100%, 52%) !important
-        font-family: 'Inter-Black', sans-serif
-        &:hover
-          color: hsl(270, 100%, 24%) !important
-          text-decoration: none !important
-  .disclaimer
-    font-family: 'Inter', sans-serif
-    font-size: 11px
-    font-weight: 400
-    line-height: 1.4
-    color: hsl(200, 8%, 32%)
+    .legend, .legendx, .legendy
+      color: hsl(200, 16%, 44%)
 
   .vertical .chart .answer, .horizontal .chart .answer
-    font-family: 'Inter', sans-serif
     display: flex
-    font-weight: 500
-    font-size: 13px
-    font-feature-settings: 'salt' on
-    color: hsl(200, 12%, 16%)
-    letter-spacing: -.25px
+    letter-spacing: -0.02em
+    font-size: 12px
+    line-height: 16px
+    color: hsl(200, 8%, 8%)
 
-  @media (max-width: 1024px)
-    .vertical .chart
-      .six_bars > .channel .bar
-        width: 64px
-        .stat
-          font-size: 18px
-      .five_bars > .channel .bar
-        width: 72px
-        .stat
-          font-size: 20px
-      .four_bars > .channel .bar
-        margin: 0
-      .three_bars > .channel .bar
-        .stat
-          font-size: 26px
+  .stat
+    font-size: 30px
+    letter-spacing: -0.04em
+    line-height: 1
+    position: relative
+    bottom: -4px
+    text-shadow: 1px 0px 0 hsla(200, 8%, 8%, 0.5)
+    span
+      font-size: 14px
+      letter-spacing: 0
+      line-height: 1
+      color: hsla(200, 100%, 100%, 0.8)
+      position: relative
+      left: 2px
+
+  .vertical .chart .answer, .horizontal .chart .answer, .stat span, .legend, .legendx, .legendy
+    font-weight: 500
+    font-family: 'Inter-Medium', sans-serif
+
+  .bar_guts, .bar_group, .stat
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
 
 </style>

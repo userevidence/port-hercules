@@ -1,9 +1,9 @@
 <template lang='pug'>
-.bar_chart.variant-red
+.bar_chart
   .header
     .titles(v-if='content_asset.show_title && content_asset.show_question')
-      h2 {{content_asset.title}}
       h6 {{content_asset.question.the_question}}
+      h2 {{content_asset.title}}
     .titles(v-else-if='content_asset.show_title')
       h2 {{content_asset.title}}
     .titles(v-else-if='content_asset.show_question')
@@ -11,19 +11,20 @@
     .titles(v-else)
       
   BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='colorScheme')
-  //- .legendx &nbsp; 
-  .footer
-    .company_logo
-      img(:src='content_asset.account.logo_url')
-    .ue_logo
-      Logo(:fill='fill')
-    .ueid-container
-      .ueid 
-        | UEID: 
-        span {{content_asset.identifier}}
-      .url
-        a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-  .disclaimer Source: Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
+
+  .content_asset_footer
+    .logo_and_ueid_container
+      .logos_container
+        .company_logo
+          img(:src='content_asset.account.logo_url')
+        .ue_logo
+          Logo(:fill='fill')
+      .ueid_container
+        .url
+          a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
+    .verification_text
+      p Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
+
 </template>
 <script>
 import BarGuts from './BarGuts.vue'
@@ -71,102 +72,97 @@ export default {
 </script>
 <style lang='sass' scoped>
   .bar_chart
-    font-family: 'Inter-Black', sans-serif
-    min-width: 480px
-    max-width: 640px
-    background: white
-    padding: 32px
-    // box-shadow: 0 -4px 8px hsla(200, 100%, 40%, .02) inset, 0 16px 40px hsla(200, 16%, 32%, .12), 0 1px 0 hsl(206, 23%, 94%)
-    border: 1px solid hsl(200, 24%, 92%)
+    position: relative
     border-radius: 24px
+    width: 100%
+    margin: 0
+    padding: 24px
+    border: 1px solid hsl(200, 24%, 90%)
+    overflow: hidden
   .header
-    font-family: 'Inter', sans-serif
-    .titles
+    .titles h2
       margin-bottom: 24px
     h2
-      color: hsl(200, 32%, 8%)
-      font-weight: 800
-      font-size: 20px
-      line-height: 24px
-      letter-spacing: -.25px
-      transition: all 0.15s ease-in-out
+      margin: 0
+      padding: 0
+      font-family: 'Inter-Regular', sans-serif
+      font-weight: 400
+      font-size: 16px
+      line-height: 23px
+      letter-spacing: -0.015em
+      color: #131516
     h6
-      font-size: 14px
-      line-height: 1.35
-      font-weight: 600
-      letter-spacing: -.25px
-      color: hsl(200, 24%, 32%)
-      margin-top: 4px
-      transition: all 0.15s ease-in-out
-  .share
-    stroke: blue !important
-    &:hover
-      stroke: red !important
-  .footer
-    display: inline-flex
-    margin-bottom: 16px
-    width: 100%
-    height: 24px
-    align-items: center
-    justify-content: space-between
-    .company_logo
-      max-width: 192px
-      height: 24px
-      margin-right: 8px
-      &::after
-        content: ''
-        height: 16px
-        width: 1px
-        background-color: hsl(200, 16%, 88%)
-        position: relative
-        left: 8px
-        display: inline-block
-        top: 0
-      img
-        height: 24px
-    .ue_logo
-      width: 120px
-    .company_logo, .ue_logo
+      margin: 0 0 16px 0
+      font-size: 12px
+      line-height: 16px
       display: flex
       align-items: center
-    svg
-      justify-content: center
-      align-items: center
-      max-height: 24px
-      width: 120px
-      padding-left: 12px
-      margin-top: auto
+      letter-spacing: -0.015em
+      color: hsl(200, 8%, 8%)
 
-    .ueid-container
+  .content_asset_footer
+    padding-top: 24px
+    display: block
+    width: 100%
+    .logo_and_ueid_container
+      width: 100%
+      display: inline-flex
+      align-items: center
+      justify-content: space-between
+    .logos_container
+      width: 100%
+      height: 16px
+      display: flex
+      align-items: center
+      order: 1
+      flex-grow: 0
+      .company_logo
+        width: 16px
+        height: 16px
+        margin-right: 8px
+        &::after
+          content: ''
+          height: 16px
+          width: 1px
+          background-color: hsl(200, 24%, 90%)
+          position: relative
+          left: 8px
+          display: inline-block
+          top: 0
+        img
+          height: 16px
+      .ue_logo
+        width: 16px
+        height: 16px
+      .company_logo, .ue_logo
+        display: flex
+        align-items: center
+
+    .ueid_container
       margin-left: auto
       text-align: right
       font-size: 10px
       line-height: 1
-      .ueid 
-        font-family: 'Inter', sans-serif
-        font-weight: 400
-        margin-bottom: 4px
-        span
-          font-weight: 800
+      order: 2
+      flex-grow: 0
       .url a
-        color: hsl(270, 100%, 52%) !important
-        font-family: 'Inter-Black', sans-serif
+        color: hsl(270, 100%, 52%)
         &:hover
-          color: hsl(270, 100%, 24%) !important
-          text-decoration: none !important
-  .disclaimer
-    font-family: 'Inter', sans-serif
-    font-size: 11px
-    font-weight: 400
-    line-height: 1.4
-    color: hsl(200, 8%, 32%)
+          color: hsl(270, 100%, 24%)
+          text-decoration: none
+  .verification_text
+    width: 100%
+    margin-top: 12px
+    display: inline-block
+    p
+      font-weight: 500
+      font-family: 'Inter-Medium', sans-serif
+      font-size: 10px
+      line-height: 12px
+      color: hsl(200, 12%, 40%)
+
+  h6, .ueid_container .url a
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
+
 </style>
-
-<!-- So I’ve been thinking that they will have a set aspect ratio (1:1, 4:3, 3:2, etc.) and that will shrink down to a minimum size
-So on desktop we could have the element be able to expand to fill a larger area, always having a maximum and minimum width set
-
-For minimum widths, let’s use the component sizes to guide those for now. For maximum, it’ll likely be dependent on the orientation of the bar graph (whether horizontal or vertical) but for now let’s say no more than 150% of the minimum width. So, the “Long Form Answer Bar Chart - Desktop” would be no wider than 1080px
-2:44
-The container (Currently, the white background box with drop shadows) will have a fixed equal padding of 32px for start (in the future, we can offer “small”, “medium”, “large” padding - or none, if they so choose) (edited) 
-2:45
-And then for the “Bar Chart - Mobile”, those should have minimum values set to the current designs, I’m not sure the maximum values will need to be much larger, I was thinking that those would function as essentially width: calc(100% - 64px); (edited)  -->
