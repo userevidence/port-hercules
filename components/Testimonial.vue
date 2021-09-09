@@ -4,7 +4,7 @@
       .titles
         h4(v-if='content_asset.show_title') {{content_asset.title}}
         h4(v-else-if='content_asset.show_question') {{content_asset.question.the_question}}
-      h3(v-html='contentAssetText')
+      h3(v-html='content_asset_text')
     .testimonial_card_body
       .testimonial_author_container
         figure.testimonial_card_avatar
@@ -28,9 +28,9 @@
             Logo(:fill='fill')
         .ueid_container
           .url
-            a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
+            a(:href='`https://${uevico_link}`' :class='link_class' target='_blank') {{uevico_link}}
       .verification_text
-        p Survey conducted by UserEvidence. Testimonial verified {{verifiedDate}}.
+        p Survey conducted by UserEvidence. Testimonial verified {{verified_date}}.
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -51,22 +51,28 @@ export default {
     company() {
       return this.recipient?.company
     },
-    contentAssetText() {
+    content_asset_text() {
       var asset_text = this.content_asset.text || this.content_asset.survey_response.text_answer || ''
       return '<span>"</span>' + asset_text + '<span>"</span>'
     },
-    verifiedDate() {
-      return dayjs(this.verifiedAt).format('MM/D/YYYY')
+    verified_date() {
+      return dayjs(this.verified_at).format('MM/D/YYYY')
     },
-    colorScheme() {
+    color_scheme() {
       return this.content_asset.color_scheme || 'purple'
     },
-    verifiedAt() {
+    verified_at() {
       return this.content_asset.verified_at || new Date()
     },
-    linkClass() {
-      return this.colorScheme + 'Text'
+    link_class() {
+      return this.color_scheme + 'Text'
     },
+    uevico_link() {
+      return `uevi.co/${this.content_asset.identifier}`
+    },
+    uevico_url() {
+      return `https://#uevi.co/{{this.content_asset.identifier}}`
+    }
   },
 }
 </script>
