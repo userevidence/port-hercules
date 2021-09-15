@@ -32,8 +32,14 @@ export default {
       return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
     },
     barChartCount() {
-      if (this.shown_stats.length > 6)
+      if (this.shown_stats.length > 9)
         return 'many_bars'
+      else if (this.shown_stats.length == 9)
+        return 'nine_bars'
+      else if (this.shown_stats.length == 8)
+        return 'eight_bars'
+      else if (this.shown_stats.length == 7)
+        return 'seven_bars'
       else if (this.shown_stats.length == 6)
         return 'six_bars'
       else if (this.shown_stats.length == 5)
@@ -112,7 +118,13 @@ export default {
       justify-content: space-between
       position: relative
       .many_bars
-        width: 8%
+        width: 9%
+      .nine_bars
+        width: 10%
+      .eight_bars
+        width: 11%
+      .seven_bars
+        width: 13%
       .six_bars
         width: 14%
       .five_bars
@@ -175,6 +187,30 @@ export default {
       color: hsla(200, 100%, 100%, 0.8)
       position: relative
       left: 2px
+
+  .seven_bars .stat, .eight_bars .stat, .nine_bars .stat
+    bottom: -3px
+    span
+      font-size: 10px
+
+  .seven_bars .stat
+    font-size: 20px
+    span
+      font-size: 12px
+
+  .eight_bars .stat
+    font-size: 19px
+    span
+      font-size: 11px
+
+  .nine_bars .stat
+    font-size: 18px
+
+  .many_bars .stat
+    bottom: -2px
+    font-size: 16px
+    span
+      font-size: 9px
 
   .vertical .chart .answer, .horizontal .chart .answer, .stat span, .legend, .legendx, .legendy
     font-weight: 500
