@@ -1,42 +1,39 @@
 <template lang='pug'>
 .stat_social_191
-  .stat_header
+  .header
+    figure(v-html='content_asset.account.svg_logo')
+    a(:href='asset_url' target='_blank' :style='horizontal_gradient')
+      Logo
+      | {{asset_link}}
+  .statistic
     .mb-4(v-if='content_asset.stat_type == "star_rating"')
       StarIcons(:stars='headline')
-    h2(v-else v-html='headline')
-    h3(v-html='sentence')
-  
-  .content_asset_footer
-    .logo_and_ueid_container
-      .logos_container
-        .company_logo
-          img(:src='content_asset.account.logo_url')
-        .ue_logo
-          Logo(:fill='fill')
-      .ueid_container
-        .url
-          a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-    .verification_text
-      p Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} users, conducted by UserEvidence. Statistic verified {{verifiedDate}}.
+    h1(v-else v-html='headline')
+    h2(v-html='sentence')
+  .gradient(:style='vertical_gradient')
+  .arc1
+  .arc2
+
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
 import StarIcons from './graphics/StarIcons'
+import AvatarIcon from './graphics/AvatarIcon.vue'
 import dayjs from 'dayjs'
 
 export default {
-  name: 'Stat',
-  props: ['content_asset'],
-  components: { StarIcons, Logo },
+  name: 'StatlSocial191',
+  props: ['content_asset', 'theme'],
+  components: { Logo, AvatarIcon, StarIcons },
   computed: {
-    verifiedDate() {
-      return dayjs(this.verifiedAt).format('MM/D/YYYY')
+    testimonial_text() {
+      return `"${this.content_asset.text}"`
     },
-    colorScheme() {
-      return this.content_asset.color_scheme || 'purple'
+    asset_link() {
+      return `uevi.co/${this.content_asset.identifier}`
     },
-    linkClass() {
-      return this.colorScheme + 'Text'
+    asset_url() {
+      return `https://${this.asset_link}`
     },
     headline() {
       return this.content_asset.headline || this.content_asset.rendered_headline
@@ -44,13 +41,140 @@ export default {
     sentence() {
       return this.content_asset.sentence || this.content_asset.rendered_sentence
     },
+    horizontal_gradient() {
+      return {
+        background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+      }
+    },
+    vertical_gradient() {
+      return {
+        background: `linear-gradient(180deg, ${this.content_asset?.account?.brand_color_1} 0%, hsla(200, 100%, 100%, 0) 100%)`,
+        transform: 'matrix(1, 0, 0, -1, 0, 0)'
+      }
+    },
   }
 }
-}
+
 </script>
 <style lang='sass' scoped>
 .stat_social_191
-  font-family: 'Inter', sans-serif
+  background: white
+  width: 616px
+  height: 320px
+  padding: 32px 0px
+  position: relative
+  overflow: hidden
+  .gradient
+    z-index: 10
+    position: absolute
+    width: 32px
+    height: 100%
+    top: 0
+    right: 0
+  .arc1, .arc2
+    position: absolute
+    z-index: 9
+    width: 196px
+    height: 196px
+    border: 4px solid hsl(200, 24%, 96%)
+    border-radius: 50%
+    bottom: -104px
+  .arc1
+    left: -104px
+  .arc2
+    right: -104px
+  .header
+    z-index: 11
+    padding-left: 48px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    figure
+      height: 24px
+      margin: 0
+      padding: 0
+    a
+      font-family: 'Inter-ExtraBold'
+      font-size: 9px
+      border-radius: 20px 0 0 20px
+      line-height: 1
+      padding: 6px 48px 6px 6px
+      color: white
+      display: flex
+      align-items: center
+      svg::v-deep
+        width: 12px
+        height: 12px
+        margin-right: 12px
+        path
+          fill: hsla(0, 0%, 100%, 0.6) !important
+  .statistic
+    position: absolute
+    top: calc(50% - 16px)
+    transform: translateY(-50%)
+    padding: 0 48px
+    h2::v-deep
+      dispay: inline-flex
+      font-size: 18px
+      line-height: 26px
+      font-family: 'Inter-Regular'
+      letter-spacing: -0.015em
+      strong
+        font-family: 'Inter-ExtraBold' !important
+      span
+        div
+          display: inline
+  .footer
+    position: absolute
+    z-index: 11
+    display: flex
+    height: 48px
+    bottom: 32px
+    left: 48px
+    h4, h6
+      color: hsl(200, 8%, 8%)
+      font-family: 'Inter-Medium'
+      letter-spacing: -0.02em
+    .avatar
+      margin-right: 12px
+      height: 48px
+      width: 48px
+      border-radius: 32px 32px 32px 0px
+      display: flex
+      align-items: center
+      position: relative
+      svg
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        ::v-deep path
+          fill: hsla(200, 100%, 100%, 0.5) !important
+    h4
+      font-size: 14px
+      line-height: 16px
+      margin-bottom: 4px
+    h6
+      font-size: 10px
+      line-height: 12px
+      letter-spacing: inherit
+    
+    .author_information
+      display: flex
+      flex-direction: column
+      text-align: left
+      justify-content: center
+      h6:not(:last-child)
+        margin-bottom: 4px
+
+
+.stat_social_191
+  background: white
+  width: 616px
+  height: 320px
+  padding: 32px 0px
+  position: relative
+  overflow: hidden
 
   .content_asset_container
     background: white
