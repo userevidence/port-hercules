@@ -46,17 +46,17 @@ export default {
     },
     horizontal_gradient() {
       return {
-        background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+        background: `linear-gradient(90deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
       }
-    },
-    content_asset_text() {
-      return this.content_asset.text || this.content_asset.survey_response.text_answer || ''
     },
     vertical_gradient() {
       return {
         background: `linear-gradient(180deg, ${this.content_asset?.account?.brand_color_1} 0%, hsla(200, 100%, 100%, 0) 100%)`,
         transform: 'matrix(1, 0, 0, -1, 0, 0)'
       }
+    },
+    content_asset_text() {
+      return this.content_asset.text || this.content_asset.survey_response.text_answer || ''
     },
   }
 }
