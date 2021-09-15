@@ -8,8 +8,8 @@
   .statistic
     .mb-4(v-if='content_asset.stat_type == "star_rating"')
       StarIcons(:stars='headline')
-    h1(v-else v-html='headline')
-    h2(v-html='sentence')
+    h2(v-else v-html='headline')
+    h3(v-html='sentence')
   .gradient(:style='vertical_gradient')
   .arc1
   .arc2
@@ -43,7 +43,7 @@ export default {
     },
     horizontal_gradient() {
       return {
-        background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+        background: `linear-gradient(90deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
       }
     },
     vertical_gradient() {
@@ -110,160 +110,30 @@ export default {
           fill: hsla(0, 0%, 100%, 0.6) !important
   .statistic
     position: absolute
-    top: calc(50% - 16px)
+    top: calc(50% + 32px)
     transform: translateY(-50%)
     padding: 0 48px
-    h2::v-deep
+    z-index: 10
+    h2
+      font-size: 44px
+      font-weight: 800
+      font-family: 'Inter-ExtraBold'
+      letter-spacing: -.035em
+    h3::v-deep
       dispay: inline-flex
-      font-size: 18px
-      line-height: 26px
+      font-size: 22px
+      line-height: 30px
       font-family: 'Inter-Regular'
+      color: hsl(200, 24%, 44%)
       letter-spacing: -0.015em
+      margin-top: 20px
       strong
         font-family: 'Inter-ExtraBold' !important
       span
         div
           display: inline
-  .footer
-    position: absolute
-    z-index: 11
-    display: flex
-    height: 48px
-    bottom: 32px
-    left: 48px
-    h4, h6
-      color: hsl(200, 8%, 8%)
-      font-family: 'Inter-Medium'
-      letter-spacing: -0.02em
-    .avatar
-      margin-right: 12px
-      height: 48px
-      width: 48px
-      border-radius: 32px 32px 32px 0px
-      display: flex
-      align-items: center
-      position: relative
-      svg
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-        ::v-deep path
-          fill: hsla(200, 100%, 100%, 0.5) !important
-    h4
-      font-size: 14px
-      line-height: 16px
-      margin-bottom: 4px
-    h6
-      font-size: 10px
-      line-height: 12px
-      letter-spacing: inherit
-    
-    .author_information
-      display: flex
-      flex-direction: column
-      text-align: left
-      justify-content: center
-      h6:not(:last-child)
-        margin-bottom: 4px
 
-
-.stat_social_191
-  background: white
-  width: 616px
-  height: 320px
-  padding: 32px 0px
-  position: relative
-  overflow: hidden
-
-  .content_asset_container
-    background: white
-    padding: 24px
-    border: 1px solid hsl(200, 24%, 90%)
-    border-radius: 24px
-    display: flex
-    flex-wrap: wrap
-
-  .stat_header
-    h2
-      font-size: 30px
-      line-height: 22px
-      letter-spacing: -0.015em
-      text-transform: capitalize
-      color: #131516
-      margin: 0px 2px 16px 0
-    h3
-      margin: 0
-      padding: 0
-      font-weight: 400
-      font-size: 16px
-      line-height: 23px
-      letter-spacing: -0.015em
-      color: #131516
-
-  h2, .ueid_container .url a
+  .ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
-
-  .content_asset_footer
-    padding-top: 24px
-    display: block
-    width: 100%
-    .logo_and_ueid_container
-      width: 100%
-      display: inline-flex
-      align-items: center
-      justify-content: space-between
-    .logos_container
-      width: 100%
-      height: 16px
-      display: flex
-      align-items: center
-      order: 1
-      flex-grow: 0
-      .company_logo
-        width: 16px
-        height: 16px
-        margin-right: 8px
-        &::after
-          content: ''
-          height: 16px
-          width: 1px
-          background-color: hsl(200, 24%, 90%)
-          position: relative
-          left: 8px
-          display: inline-block
-          top: 0
-        img
-          height: 16px
-      .ue_logo
-        width: 16px
-        height: 16px
-      .company_logo, .ue_logo
-        display: flex
-        align-items: center
-
-    .ueid_container
-      margin-left: auto
-      text-align: right
-      font-size: 10px
-      line-height: 1
-      order: 2
-      flex-grow: 0
-      .url a
-        color: hsl(270, 100%, 52%)
-        &:hover
-          color: hsl(270, 100%, 24%)
-          text-decoration: none
-  .verification_text
-    width: 100%
-    margin-top: 12px
-    display: inline-block
-    p
-      font-weight: 500
-      font-family: 'Inter-Medium', sans-serif
-      font-size: 10px
-      line-height: 12px
-      color: hsl(200, 12%, 40%)
-
 </style>
