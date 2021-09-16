@@ -120,7 +120,6 @@ export default {
       font-family: 'Inter-ExtraBold'
       letter-spacing: -.035em
     h3::v-deep
-      dispay: inline-flex
       font-size: 22px
       line-height: 30px
       font-family: 'Inter-Regular'
