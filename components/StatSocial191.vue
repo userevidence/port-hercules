@@ -123,7 +123,7 @@ export default {
       font-size: 22px
       line-height: 30px
       font-family: 'Inter-Regular'
-      color: hsl(200, 24%, 44%)
+      color: hsl(200, 16%, 16%)
       letter-spacing: -0.015em
       margin-top: 20px
       strong
