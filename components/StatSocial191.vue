@@ -110,7 +110,7 @@ export default {
           fill: hsla(0, 0%, 100%, 0.6) !important
   .statistic
     position: absolute
-    top: calc(50% + 32px)
+    top: calc(50% + 24px)
     transform: translateY(-50%)
     padding: 0 48px
     z-index: 10
