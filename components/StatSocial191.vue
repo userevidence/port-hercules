@@ -6,7 +6,7 @@
       Logo
       | {{asset_link}}
   .statistic
-    .mb-4(v-if='content_asset.stat_type == "star_rating"')
+    .star_container(v-if='content_asset.stat_type == "star_rating"')
       StarIcons(:stars='headline')
     h2(v-else v-html='headline')
     h3(v-html='sentence')
@@ -116,16 +116,17 @@ export default {
     z-index: 10
     h2
       font-size: 44px
+      line-height: 36px
       font-weight: 800
       font-family: 'Inter-ExtraBold'
       letter-spacing: -.035em
+      margin-bottom: 16px
     h3::v-deep
       font-size: 22px
       line-height: 30px
       font-family: 'Inter-Regular'
       color: hsl(200, 16%, 16%)
       letter-spacing: -0.015em
-      margin-top: 20px
       strong
         font-family: 'Inter-ExtraBold' !important
       span
