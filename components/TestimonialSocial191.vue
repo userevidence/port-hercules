@@ -154,7 +154,7 @@ export default {
         left: 50%
         transform: translate(-50%, -50%)
         ::v-deep path
-          fill: hsla(200, 100%, 100%, 0.5) !important
+          fill: hsla(200, 100%, 100%, 0.9) !important
     h4
       font-size: 14px
       line-height: 16px
