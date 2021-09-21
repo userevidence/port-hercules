@@ -88,6 +88,8 @@ export default {
     display: flex
     flex-wrap: wrap
 
+  h6
+    margin: 0px
   .testimonial_card_header
     position: relative
     width: 100%
@@ -222,6 +224,7 @@ export default {
       .ue_logo
         width: 16px
         height: 16px
+        margin-left: 8px
       .company_logo, .ue_logo
         display: flex
         align-items: center

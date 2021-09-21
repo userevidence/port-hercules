@@ -112,6 +112,7 @@ export default {
       .stat
         left: 12px
     .legendy, .legendx
+      display: none
   .vertical
     .chart
       display: flex

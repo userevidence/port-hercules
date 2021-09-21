@@ -78,6 +78,7 @@ export default {
     margin: 0
     padding: 24px
     border: 1px solid hsl(200, 24%, 90%)
+    background: white
     overflow: hidden
   .header
     .titles h2
@@ -134,6 +135,7 @@ export default {
       .ue_logo
         width: 16px
         height: 16px
+        margin-left: 8px
       .company_logo, .ue_logo
         display: flex
         align-items: center
