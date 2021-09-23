@@ -2,7 +2,7 @@
   .content_asset_container(v-if='content_asset')
     .stat_header
       .mb-4(v-if='content_asset.stat_type == "star_rating"')
-        StarIcons(:stars='headline')
+        StarIcons(:stars='headline' :account='content_asset.account')
       h2(v-else v-html='headline')
       h3(v-html='sentence')
     

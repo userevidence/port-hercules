@@ -1,42 +1,38 @@
 <template lang='pug'>
 .stat_social_191
-  .stat_header
-    .mb-4(v-if='content_asset.stat_type == "star_rating"')
+  .header
+    figure(v-html='content_asset.account.svg_logo')
+    a(:href='asset_url' target='_blank' :style='horizontal_gradient')
+      Logo
+      | {{asset_link}}
+  .statistic
+    .star_container(v-if='content_asset.stat_type == "star_rating"')
       StarIcons(:stars='headline')
     h2(v-else v-html='headline')
     h3(v-html='sentence')
-  
-  .content_asset_footer
-    .logo_and_ueid_container
-      .logos_container
-        .company_logo
-          img(:src='content_asset.account.logo_url')
-        .ue_logo
-          Logo(:fill='fill')
-      .ueid_container
-        .url
-          a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-    .verification_text
-      p Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} users, conducted by UserEvidence. Statistic verified {{verifiedDate}}.
+  .gradient(:style='vertical_gradient')
+  .arc1
+  .arc2
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
 import StarIcons from './graphics/StarIcons'
+import AvatarIcon from './graphics/AvatarIcon.vue'
 import dayjs from 'dayjs'
 
 export default {
-  name: 'Stat',
+  name: 'StatlSocial191',
   props: ['content_asset'],
-  components: { StarIcons, Logo },
+  components: { Logo, AvatarIcon, StarIcons },
   computed: {
-    verifiedDate() {
-      return dayjs(this.verifiedAt).format('MM/D/YYYY')
+    testimonial_text() {
+      return `"${this.content_asset.text}"`
     },
-    colorScheme() {
-      return this.content_asset.color_scheme || 'purple'
+    asset_link() {
+      return `uevi.co/${this.content_asset.identifier}`
     },
-    linkClass() {
-      return this.colorScheme + 'Text'
+    asset_url() {
+      return `https://${this.asset_link}`
     },
     headline() {
       return this.content_asset.headline || this.content_asset.rendered_headline
@@ -44,102 +40,99 @@ export default {
     sentence() {
       return this.content_asset.sentence || this.content_asset.rendered_sentence
     },
+    horizontal_gradient() {
+      return {
+        background: `linear-gradient(90deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+      }
+    },
+    vertical_gradient() {
+      return {
+        background: `linear-gradient(180deg, ${this.content_asset?.account?.brand_color_1} 0%, hsla(200, 100%, 100%, 0) 100%)`,
+        transform: 'matrix(1, 0, 0, -1, 0, 0)'
+      }
+    },
   }
 }
-}
+
 </script>
 <style lang='sass' scoped>
 .stat_social_191
-  font-family: 'Inter', sans-serif
-
-  .content_asset_container
-    background: white
-    padding: 24px
-    border: 1px solid hsl(200, 24%, 90%)
-    border-radius: 24px
+  background: white
+  width: 616px
+  height: 320px
+  padding: 32px 0px
+  position: relative
+  overflow: hidden
+  .gradient
+    z-index: 10
+    position: absolute
+    width: 32px
+    height: 100%
+    top: 0
+    right: 0
+  .arc1, .arc2
+    position: absolute
+    z-index: 9
+    width: 196px
+    height: 196px
+    border: 4px solid hsl(200, 24%, 96%)
+    border-radius: 50%
+    bottom: -104px
+  .arc1
+    left: -104px
+  .arc2
+    right: -104px
+  .header
+    z-index: 11
+    padding-left: 48px
     display: flex
-    flex-wrap: wrap
-
-  .stat_header
-    h2
-      font-size: 30px
-      line-height: 22px
-      letter-spacing: -0.015em
-      text-transform: capitalize
-      color: #131516
-      margin: 0px 2px 16px 0
-    h3
+    justify-content: space-between
+    align-items: center
+    figure
+      height: 24px
       margin: 0
       padding: 0
-      font-weight: 400
-      font-size: 16px
-      line-height: 23px
-      letter-spacing: -0.015em
-      color: #131516
-
-  h2, .ueid_container .url a
-    font-weight: 800
-    font-family: 'Inter-Extrabold', sans-serif
-
-  .content_asset_footer
-    padding-top: 24px
-    display: block
-    width: 100%
-    .logo_and_ueid_container
-      width: 100%
-      display: inline-flex
-      align-items: center
-      justify-content: space-between
-    .logos_container
-      width: 100%
-      height: 16px
+    a
+      font-family: 'Inter-ExtraBold'
+      font-size: 9px
+      border-radius: 20px 0 0 20px
+      line-height: 1
+      padding: 6px 48px 6px 6px
+      color: white
       display: flex
       align-items: center
-      order: 1
-      flex-grow: 0
-      .company_logo
-        width: 16px
-        height: 16px
-        margin-right: 8px
-        &::after
-          content: ''
-          height: 16px
-          width: 1px
-          background-color: hsl(200, 24%, 90%)
-          position: relative
-          left: 8px
-          display: inline-block
-          top: 0
-        img
-          height: 16px
-      .ue_logo
-        width: 16px
-        height: 16px
-      .company_logo, .ue_logo
-        display: flex
-        align-items: center
+      svg::v-deep
+        width: 12px
+        height: 12px
+        margin-right: 12px
+        path
+          fill: hsla(0, 0%, 100%, 0.6) !important
+  .statistic
+    position: absolute
+    top: calc(50% + 24px)
+    transform: translateY(-50%)
+    padding: 0 48px
+    z-index: 10
+    h2
+      font-size: 44px
+      line-height: 36px
+      font-weight: 800
+      font-family: 'Inter-ExtraBold'
+      letter-spacing: -.035em
+      margin-bottom: 16px
+    h3::v-deep
+      font-size: 22px
+      line-height: 30px
+      font-family: 'Inter-Regular'
+      color: hsl(200, 16%, 16%)
+      letter-spacing: -0.015em
+      strong
+        font-family: 'Inter-ExtraBold' !important
+      span
+        div
+          display: inline
 
-    .ueid_container
-      margin-left: auto
-      text-align: right
-      font-size: 10px
-      line-height: 1
-      order: 2
-      flex-grow: 0
-      .url a
-        color: hsl(270, 100%, 52%)
-        &:hover
-          color: hsl(270, 100%, 24%)
-          text-decoration: none
-  .verification_text
-    width: 100%
-    margin-top: 12px
-    display: inline-block
-    p
-      font-weight: 500
-      font-family: 'Inter-Medium', sans-serif
-      font-size: 10px
-      line-height: 12px
-      color: hsl(200, 12%, 40%)
-
+  .ueid_container .url a
+    font-weight: 800
+    font-family: 'Inter-Extrabold', sans-serif
 </style>
