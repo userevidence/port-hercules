@@ -48,6 +48,8 @@ export default {
       margin-top: 0
       svg
         opacity: 0.5
+        height: 12px
+        width: 12px
     //&::before
       content: ''
       display: block

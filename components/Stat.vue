@@ -77,6 +77,11 @@ export default {
       letter-spacing: -0.015em
       color: #131516
 
+  .star_icons
+    svg
+      height: 32px
+      width: 32px
+
   h2, .ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
