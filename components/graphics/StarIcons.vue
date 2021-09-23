@@ -12,10 +12,14 @@ export default {
   props: ['stars', 'account'],
   components: { Star100, Star75, Star50, Star25 },
   mounted() {
-    if(!this.account.brand_color_1 == null)
-      this.account.brand_color_1 = '#850AFF'
-    if(this.account.brand_color_2 == null)
-      this.account.brand_color_2 = '#850AFF'
+    this.brand_color_1 = this.account.brand_color_1 || '#850AFF'
+    this.brand_color_2 = this.account.brand_color_3 || '#850AFF'
+  },
+  data() {
+    return {
+      brand_color_1: '#850AFF',
+      brand_color_2: '#850AFF',
+    }
   },
   computed: {
     star_count() {
@@ -37,9 +41,7 @@ export default {
         return 'Star100'
     },
     star_gradient() {
-      return {
-        fill: `linear-gradient(180deg, ${this.content_asset?.account?.brand_color_1} 0%, ${this.content_asset?.account?.brand_color_2} 100%)`
-      }
+      return `fill: linear-gradient(180deg, ${this.brand_color_1} 0%, ${this.brand_color_2} 100%)`
     },
   },
 }
