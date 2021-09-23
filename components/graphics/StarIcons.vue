@@ -9,13 +9,13 @@ import Star50 from './Star50'
 import Star75 from './Star75'
 import Star100 from './Star100'
 export default {
-  props: ['stars', 'brand_color_1', 'brand_color_2'],
+  props: ['stars', 'account'],
   components: { Star100, Star75, Star50, Star25 },
   mounted() {
-    if(!this.content_asset.account.brand_color_1 == null)
-      this.content_asset.account.brand_color_1 = '#850AFF'
-    if(this.content_asset.account.brand_color_2 == null)
-      this.content_asset.account.brand_color_2 = '#850AFF'
+    if(!this.account.brand_color_1 == null)
+      this.account.brand_color_1 = '#850AFF'
+    if(this.account.brand_color_2 == null)
+      this.account.brand_color_2 = '#850AFF'
   },
   computed: {
     star_count() {
