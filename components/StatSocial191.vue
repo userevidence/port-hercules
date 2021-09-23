@@ -13,7 +13,6 @@
   .gradient(:style='vertical_gradient')
   .arc1
   .arc2
-
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -23,7 +22,7 @@ import dayjs from 'dayjs'
 
 export default {
   name: 'StatlSocial191',
-  props: ['content_asset', 'theme'],
+  props: ['content_asset'],
   components: { Logo, AvatarIcon, StarIcons },
   computed: {
     testimonial_text() {
