@@ -10,31 +10,17 @@
       h2 {{content_asset.question.the_question}}
     .titles(v-else)
       
-  BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='colorScheme')
-
-  .content_asset_footer
-    .logo_and_ueid_container
-      .logos_container
-        .company_logo
-          figure(v-html='content_asset.account.svg_logo_mark')
-        .ue_logo
-          Logo(:fill='fill')
-      .ueid_container
-        .url
-          a(href='' :class='linkClass') uevi.co/{{content_asset.identifier}}
-    .verification_text
-      p Survey of {{content_asset.recipient_stats[0].count}} {{content_asset.account.name}} {{filterText}} users, conducted by UserEvidence. Data verified {{verifiedAt}}.
-
+  BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='color_scheme')
+  AssetFooter(:content_asset='content_asset')
 </template>
 <script>
 import BarGuts from './BarGuts.vue'
-import Logo from './graphics/Logo.vue'
-import dayjs from 'dayjs'
+import AssetFooter from './AssetFooter.vue'
 
 export default {
   name: 'Bar',
   props: ['content_asset', 'theme'],
-  components: { BarGuts, Logo },
+  components: { BarGuts, AssetFooter },
   data() {
     return {
       fill: '#3E5865',
@@ -52,20 +38,10 @@ export default {
       return this.content_asset[filter].filter(group  => this.content_asset.filter_data.includes(group.id))
     },
     stats() {
-      // return this.content_asset.response_stats.sort((a, b) => b.count - a.count)
       return this.content_asset.response_stats
     },
-    colorScheme() {
+    color_scheme() {
       return this.content_asset.color_scheme || 'purple'
-    },
-    verifiedAt() {
-      if(this.content_asset.verified_at)
-        return dayjs(this.content_asset.verified_at).format('MMMM D, YYYY')
-      else
-        return dayjs().format('MMMM D, YYYY')
-    },
-    linkClass() {
-      return this.colorScheme + 'Text'
     },
   },
 }
@@ -100,71 +76,4 @@ export default {
       align-items: center
       letter-spacing: -0.015em
       color: hsl(200, 8%, 8%)
-
-  .content_asset_footer
-    padding-top: 24px
-    display: block
-    width: 100%
-    .logo_and_ueid_container
-      width: 100%
-      display: inline-flex
-      align-items: center
-      justify-content: space-between
-    .logos_container
-      width: 100%
-      height: 16px
-      display: flex
-      align-items: center
-      order: 1
-      flex-grow: 0
-      .company_logo
-        width: 16px
-        height: 16px
-        margin-right: 8px
-        &::after
-          content: ''
-          height: 16px
-          width: 1px
-          background-color: hsl(200, 24%, 90%)
-          position: relative
-          left: 8px
-          display: inline-block
-          top: 0
-        img
-          height: 16px
-      .ue_logo
-        width: 16px
-        height: 16px
-        margin-left: 8px
-      .company_logo, .ue_logo
-        display: flex
-        align-items: center
-
-    .ueid_container
-      margin-left: auto
-      text-align: right
-      font-size: 10px
-      line-height: 1
-      order: 2
-      flex-grow: 0
-      .url a
-        color: hsl(270, 100%, 52%)
-        &:hover
-          color: hsl(270, 100%, 24%)
-          text-decoration: none
-  .verification_text
-    width: 100%
-    margin-top: 12px
-    display: inline-block
-    p
-      font-weight: 500
-      font-family: 'Inter-Medium', sans-serif
-      font-size: 10px
-      line-height: 12px
-      color: hsl(200, 12%, 40%)
-
-  h6, .ueid_container .url a
-    font-weight: 800
-    font-family: 'Inter-Extrabold', sans-serif
-
 </style>
