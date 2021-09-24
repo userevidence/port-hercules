@@ -148,6 +148,9 @@ export default {
       display: flex
       align-items: center
       position: relative
+      img
+        border-radius: 40px
+        width: 48px
       svg
         position: absolute
         top: 50%
