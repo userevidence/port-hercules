@@ -46,7 +46,7 @@ export default {
     },
   }
 }
-}
+
 </script>
 <style lang='sass' scoped>
 .stat_social_191
