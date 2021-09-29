@@ -35,6 +35,18 @@
                     DownloadIcon
               p Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
 
+        //.downloads(v-else)
+          .download_card
+            figure.download_preview.customer_spotlight_preview_image
+            .download_text
+              .header
+                h3 Customer Spotlight
+                .download_buttons
+                  a.span(title='Download Customer Spotlight as PDF')(:href='`/variants/${variant.id}`' target='_blank')
+                    | PDF
+                    DownloadIcon
+              p Download and share the Customer Spotlight with customers.
+
       .modal_footer
         span
           LinkIcon
@@ -103,6 +115,8 @@ export default {
       background-image: url('./graphics/share_modal_images/vertical_bar_chart_preview_basic_theme.png')
     .vertical_bar_chart_preview_image_styled
       background-image: url('./graphics/share_modal_images/vertical_bar_chart_preview_styled_theme.png')
+    .customer_spotlight_preview_image
+      background-image: url('./graphics/share_modal_images/customer_spotlight_preview_image.png')
     .download_text
       padding: 24px
       .header
