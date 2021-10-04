@@ -108,7 +108,6 @@ export default {
     border: 1px solid hsl(200, 24%, 90%)
     border-radius: 24px
     overflow: hidden
-    // margin: 0 auto 16px auto
     .preview
       background-color: hsl(200, 24%, 96%)
       img
