@@ -5,53 +5,32 @@
         h2 Share Content Asset
         .closer(@click='$modal.hide("share_asset_modal")')
           TimesIcon
-      .modal_body                
-        .downloads(v-if='pngs.length > 0')(v-for='variant in pngs')
-          .download_card
-            figure.download_preview.stat_preview_image_basic
-            .download_text
-              .header
-                h3 Basic Theme
-                .download_buttons
-                  a.span(title='Download Basic Theme Asset as PDF')(:href='`/variants/${variant.id}`' target='_blank')
-                    | PDF
-                    DownloadIcon
-                  a.span(title='Download Basic Theme Asset as PNG')(:href='`/variants/${variant.id}`' target='_blank')
-                    | PNG
-                    DownloadIcon
-              p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
-  
-          .download_card
-            figure.download_preview.stat_preview_image_styled
-            .download_text
-              .header
-                h3 Styled Theme
-                .download_buttons
-                  a.span(title='Download Styled Theme Asset as PDF')(:href='`/variants/${variant.id}`' target='_blank')
-                    | PDF
-                    DownloadIcon
-                  a.span(title='Download Styled Theme Asset as PNG')(:href='`/variants/${variant.id}`' target='_blank')
-                    | PNG
-                    DownloadIcon
-              p Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
-
-        //.downloads(v-else)
-          .download_card
-            figure.download_preview.customer_spotlight_preview_image
-            .download_text
-              .header
-                h3 Customer Spotlight
-                .download_buttons
-                  a.span(title='Download Customer Spotlight as PDF')(:href='`/variants/${variant.id}`' target='_blank')
-                    | PDF
-                    DownloadIcon
-              p Download and share the Customer Spotlight with customers.
-
+      .modal_body
+        .download_container
+          .downloads(:class='download_class')
+            .download(v-for='variant in content_asset.variants')
+              .preview
+                img(:src='variantImage(variant)')
+              .text
+                .header
+                  h3(v-if='content_asset.type == "CustomerSpotlightAsset"') Customer Spotlight
+                  h3(v-else-if='isBasic(variant)') Basic Theme
+                  h3(v-else) Styled Theme
+                  .buttons
+                    a.span(:href='variantUrl(variant)' title='Download PDF' target='_blank' v-if='isPdf(variant)')
+                      | PDF
+                      DownloadIcon
+                    a.span(:href='variantUrl(variant)' title='Download PNG' target='_blank' v-if='isPng(variant)')
+                      | PNG
+                      DownloadIcon
+                p(v-if='content_asset.type == "CustomerSpotlightAsset"') Download and share the Customer Spotlight with customers.
+                p(v-else-if='isBasic(variant)') With a simple, rounded border design, this theme is best suited for slide decks and text documents.
+                p(v-else) Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
       .modal_footer
-        span
+        span(@click='copyUrl') 
           LinkIcon
           | Copy Asset URL
-        span
+        //- span
           EmbedIcon
           | Copy Embed Code
 </template>
@@ -60,6 +39,7 @@ import DownloadIcon from 'src/port-hercules/components/graphics/DownloadIcon'
 import LinkIcon from 'src/port-hercules/components/graphics/LinkIcon'
 import EmbedIcon from 'src/port-hercules/components/graphics/EmbedIcon'
 import TimesIcon from 'src/port-hercules/components/graphics/TimesIcon'
+
 export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
   props: ['content_asset'],
@@ -73,58 +53,99 @@ export default {
     multiple_pngs() {
       return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
     },
-    
+    basic_variant() {
+      return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
+    },
+    download_class() {
+      return this.content_asset.variants.count == 1 ? 'single' : ''
+    }
+  },
+  methods: {
+    isPng(variant) {
+      return ['UePngVariant', 'Social191PngVariant'].includes(variant.type)
+    },
+    isPdf(variant) {
+      return variant.type == 'PdfVariant'
+    },
+    isBasic(variant) {
+      return (variant.type.indexOf('Social') >= 0) ? false : true
+    },
+    variantUrl(variant) {
+      return `/variants/${variant.id}?d=`
+    },
+    variantImage(variant) {
+      if(this.content_asset.type == 'TestimonialAsset')
+        return require(this.isBasic(variant) ? `../static/testimonial_preview_basic_theme.png` : `../static/testimonial_preview_styled_theme.png`)
+      if(this.content_asset.type == 'StatAsset')
+        return require(this.isBasic(variant) ? `../static/stat_preview_basic_theme.png` : `../static/stat_preview_styled_theme.png`)
+      if(this.content_asset.type == 'ChartAsset')
+        return require(this.isBasic(variant) ? `../static/vertical_bar_chart_preview_basic_theme.png` : `../static/vertical_bar_chart_preview_styled_theme.png`)
+      if(this.content_asset.type == 'CustomerSpotlightAsset')
+        return require(`../static/customer_spotlight_preview_image.png`)
+    },
+    copyUrl() {
+      navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
+      this.$toast('Asset URL Copied to Clipboard')
+    },
   }
 }
 </script>
 <style lang='sass' scoped>
+  .download_container  
+    position: relative
+    height: 470px
+    overflow: scroll
   .downloads
     display: flex
+    justify-content: space-between
     margin: 0 auto
-    max-width: 640px
-    overflow-y: scroll
-  .download_card
-    height: 464px
-    min-width: 312px
-    max-width: 312px
+    flex-wrap: wrap
+    &.single
+      justify-content: space-around
+  .download
+    width: 312px
     margin-bottom: 16px
-    margin-left: auto
-    margin-right: auto
     border: 1px solid hsl(200, 24%, 90%)
     border-radius: 24px
-    display: block
     overflow: hidden
-    &:not(:last-child)
-      margin-right: 16px
-    .download_preview
-      width: 312px
-      height: 312px
+    // margin: 0 auto 16px auto
+    .preview
       background-color: hsl(200, 24%, 96%)
-      background-size: cover
-      background-repeat: no-repeat
-      margin: 0
-    .testimonial_preview_image_basic
-      background-image: url('./graphics/share_modal_images/testimonial_preview_basic_theme.png')
-    .testimonial_preview_image_styled
-      background-image: url('./graphics/share_modal_images/testimonial_preview_styled_theme.png')
-    .stat_preview_image_basic
-      background-image: url('./graphics/share_modal_images/stat_preview_basic_theme.png')
-    .stat_preview_image_styled
-      background-image: url('./graphics/share_modal_images/stat_preview_styled_theme.png')
-    .vertical_bar_chart_preview_image_basic
-      background-image: url('./graphics/share_modal_images/vertical_bar_chart_preview_basic_theme.png')
-    .vertical_bar_chart_preview_image_styled
-      background-image: url('./graphics/share_modal_images/vertical_bar_chart_preview_styled_theme.png')
-    .customer_spotlight_preview_image
-      background-image: url('./graphics/share_modal_images/customer_spotlight_preview_image.png')
-    .download_text
+      img
+        width: 100%
+    .text
       padding: 24px
+      .buttons
+        display: flex
+        align-items: center
+        line-height: 1
+        a.span
+          color: hsl(200, 12%, 32%)
+          font-size: 14px
+          font-weight: 800
+          font-family: 'Inter-ExtraBold', sans-serif
+          line-height: 1
+          letter-spacing: -0.015em
+          &:not(:last-child)
+            margin-right: 16px
+          &:hover
+            color: hsl(200, 8%, 8%)
+            cursor: pointer
+            text-decoration: none
+            svg ::v-deep path
+              stroke: hsl(270, 100%, 52%)
+          svg
+            margin-left: 6px
       .header
-        display: inline-flex
+        display: flex
         justify-content: space-between
         align-items: center
-        width: 100%
         line-height: 1
+        h3
+          font-size: 15px
+          font-weight: 500
+          line-height: 12px
+          letter-spacing: -0.02em
         .download_buttons
           display: flex
           align-items: center
@@ -146,20 +167,15 @@ export default {
                 stroke: hsl(270, 100%, 52%)
             svg
               margin-left: 6px
-        h3
-          font-size: 15px
-          font-weight: 500
-          line-height: 12px
-          letter-spacing: -0.02em
       p
         color: #6C7F89
         font-size: 14px
         font-weight: 400
         line-height: 20px
         margin-top: 16px
-    &:hover
-      text-decoration: none
-      cursor: default
+      &:hover
+        text-decoration: none
+        cursor: default
   .modal_footer
     span
       font-size: 13px
