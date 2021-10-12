@@ -1,24 +1,42 @@
 <template lang='pug'>
-.bar_social_191
+.bar_chart.bar_social_191
+  a.uevi(:href='asset_url' target='_blank' :style='horizontal_gradient')
+    Logo
+    | {{asset_link}}
   .header
     figure(v-html='content_asset.account.svg_logo')
-    a(:href='asset_url' target='_blank')
-      Logo
-      | {{asset_link}}
+  .caption {{content_asset.question.the_question}}
   .bars
-    BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='colorScheme')
+    .bar_guts(:class='[orientation, bar_class]')
+      .chart
+        .legend
+          .legendy % of Users
+        .bar_group(v-for='(stat, i) in shown_stats')
+          .channel(:style='barSize(stat.count)')
+            .bar(:class='statClass(i)')
+              .stat 
+                | {{statPercent(stat.count)}}
+                span %
+          .answer {{stat.the_answer}}
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
 import AvatarIcon from './graphics/AvatarIcon.vue'
-import BarGuts from './BarGuts.vue'
 import dayjs from 'dayjs'
+import chart_helpers from '../mixins/chart_helpers'
 
 export default {
+  mixins: [ chart_helpers ],
   name: 'StatlSocial191',
   props: ['content_asset'],
-  components: { Logo, AvatarIcon, BarGuts },
+  components: { Logo, AvatarIcon },
   computed: {
+    stats() {
+      return this.content_asset.response_stats
+    },
+    total() {
+      return this.content_asset.recipient_stats[0].count
+    },
     testimonial_text() {
       return `"${this.content_asset.text}"`
     },
@@ -28,8 +46,13 @@ export default {
     asset_url() {
       return `https://${this.asset_link}`
     },
-    stats() {
-      return this.content_asset.response_stats
+    color_scheme() {
+      return this.content_asset.color_scheme || 'purple'
+    },
+    horizontal_gradient() {
+      return {
+        background: `linear-gradient(90deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+      }
     },
   }
 }
@@ -40,37 +63,48 @@ export default {
   background: white
   width: 520px
   height: 520px
-  padding: 32px 0px
+  padding: 32px
   position: relative
   overflow: hidden
+  border: 1px solid red
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  a.uevi
+    position: absolute
+    right: 0
+    font-family: 'Inter-ExtraBold'
+    font-size: 9px
+    border-radius: 20px 0 0 20px
+    line-height: 1
+    padding: 6px 48px 6px 6px
+    color: white
+    display: flex
+    align-items: center
+    svg::v-deep
+      width: 12px
+      height: 12px
+      margin-right: 12px
+      path
+        fill: hsla(0, 0%, 100%, 0.6) !important
   .header
-    z-index: 11
-    padding-left: 48px
     display: flex
     justify-content: space-between
     align-items: center
+    margin-bottom: 32px
     figure
       height: 24px
       margin: 0
       padding: 0
-    a
-      font-family: 'Inter-ExtraBold'
-      font-size: 9px
-      border-radius: 20px 0 0 20px
-      line-height: 1
-      padding: 6px 48px 6px 6px
-      color: white
-      display: flex
-      align-items: center
-      svg::v-deep
-        width: 12px
-        height: 12px
-        margin-right: 12px
-        path
-          fill: hsla(0, 0%, 100%, 0.6) !important
+  .caption
+    margin-bottom: 32px
   .bars
     height: 100%
   .ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
+.bar
+  background: linear-gradient(180deg, rgb(204, 51, 51), rgb(171, 43, 43))
+.legend .legendy
+  font-family: 'Inter-ExtraBold'
 </style>
