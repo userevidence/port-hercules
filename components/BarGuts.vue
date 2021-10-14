@@ -1,15 +1,14 @@
 <template lang='pug'>
   .bar_guts(:class='[orientation, bar_class]')
-    .chart
-      .legend
-        .legendy % of Users
-      .bar_group(v-for='(stat, i) in shown_stats')
-        .channel(:style='barSize(stat.count)')
-          .bar(:class='statClass(i)')
-            .stat 
-              | {{statPercent(stat.count)}}
-              span %
-        .answer {{stat.the_answer}}
+    .legend
+      .legendy % of Users
+    .bar_group(v-for='(stat, i) in shown_stats')
+      .channel(:style='barSize(stat.count)')
+        .bar(:class='statClass(i)')
+          .stat 
+            | {{statPercent(stat.count)}}
+            span %
+      .answer {{stat.the_answer}}
 </template>
 
 <script>

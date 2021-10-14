@@ -6,18 +6,16 @@
   .header
     figure(v-html='content_asset.account.svg_logo')
   .caption {{content_asset.question.the_question}}
-  .bars
-    .bar_guts(:class='[orientation, bar_class]')
-      .chart
-        .legend
-          .legendy % of Users
-        .bar_group(v-for='(stat, i) in shown_stats')
-          .channel(:style='barSize(stat.count)')
-            .bar(:class='statClass(i)')
-              .stat 
-                | {{statPercent(stat.count)}}
-                span %
-          .answer {{stat.the_answer}}
+  .bar_guts(:class='orientation')
+    .legend
+      .legendy % of Users
+    .bar_group(v-for='(stat, i) in shown_stats')
+      .channel(:style='barSize(stat.count)')
+        .bar(:style='bar_style')
+          .stat 
+            | {{statPercent(stat.count)}}
+            span %
+      .answer {{stat.the_answer}}
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -49,6 +47,11 @@ export default {
     color_scheme() {
       return this.content_asset.color_scheme || 'purple'
     },
+    bar_style() {
+      return {
+        background: `linear-gradient(180deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
+      }
+    },
     horizontal_gradient() {
       return {
         background: `linear-gradient(90deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
@@ -65,8 +68,6 @@ export default {
   height: 520px
   padding: 32px
   position: relative
-  overflow: hidden
-  border: 1px solid red
   display: flex
   flex-direction: column
   justify-content: space-between
@@ -98,13 +99,14 @@ export default {
       padding: 0
   .caption
     margin-bottom: 32px
-  .bars
-    height: 100%
-  .ueid_container .url a
+  .bar_guts, .bar_group
+    height: 300px
+  
+    
+  
+.ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
-.bar
-  background: linear-gradient(180deg, rgb(204, 51, 51), rgb(171, 43, 43))
 .legend .legendy
   font-family: 'Inter-ExtraBold'
 </style>
