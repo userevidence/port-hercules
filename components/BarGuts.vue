@@ -38,9 +38,6 @@ export default {
         background: `linear-gradient(180deg, ${this.gradient_1}, ${this.gradient_2})`,
       }
     },
-    // total() {
-    //   return this.content_asset.recipient_stats[0].count
-    // },
   },
   methods: {
     statPercent(value) {
