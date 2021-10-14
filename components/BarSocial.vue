@@ -13,10 +13,8 @@ import BarGuts from './BarGuts.vue'
 import Logo from './graphics/Logo.vue'
 import AvatarIcon from './graphics/AvatarIcon.vue'
 import dayjs from 'dayjs'
-import chart_helpers from '../mixins/chart_helpers'
 
 export default {
-  mixins: [ chart_helpers ],
   name: 'StatlSocial191',
   props: ['content_asset'],
   components: { BarGuts, Logo, AvatarIcon },
