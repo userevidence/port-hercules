@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     isPng(variant) {
-      return ['UePngVariant', 'Social191PngVariant'].includes(variant.type)
+      return ['UePngVariant', 'Social191PngVariant', 'Social11PngVariant'].includes(variant.type)
     },
     isPdf(variant) {
       return variant.type == 'PdfVariant'
