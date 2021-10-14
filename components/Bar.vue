@@ -10,7 +10,7 @@
       h2 {{content_asset.question.the_question}}
     .titles(v-else)
   .bars(:class='orientation')
-    BarGuts(:stats='stats' :total='content_asset.recipient_stats[0].count'  :color_scheme='color_scheme')
+    BarGuts(:stats='content_asset.response_stats' :total='content_asset.recipient_stats[0].count' :color1='content_asset.account.gradient_2' :color2='content_asset.account.gradient_2')
   AssetFooter(:content_asset='content_asset')
 </template>
 <script>

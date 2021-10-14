@@ -6,18 +6,10 @@
   .header
     figure(v-html='content_asset.account.svg_logo')
   .caption {{content_asset.question.the_question}}
-  .bar_guts(:class='orientation')
-    .legend
-      .legendy % of Users
-    .bar_group(v-for='(stat, i) in shown_stats')
-      .channel(:style='barSize(stat.count)')
-        .bar(:style='bar_style')
-          .stat 
-            | {{statPercent(stat.count)}}
-            span %
-      .answer {{stat.the_answer}}
+  BarGuts(:stats='content_asset.response_stats' :total='content_asset.recipient_stats[0].count' :color1='content_asset.account.gradient_2' :color2='content_asset.account.gradient_2')
 </template>
 <script>
+import BarGuts from './BarGuts.vue'
 import Logo from './graphics/Logo.vue'
 import AvatarIcon from './graphics/AvatarIcon.vue'
 import dayjs from 'dayjs'
@@ -27,7 +19,7 @@ export default {
   mixins: [ chart_helpers ],
   name: 'StatlSocial191',
   props: ['content_asset'],
-  components: { Logo, AvatarIcon },
+  components: { BarGuts, Logo, AvatarIcon },
   computed: {
     stats() {
       return this.content_asset.response_stats
@@ -43,14 +35,6 @@ export default {
     },
     asset_url() {
       return `https://${this.asset_link}`
-    },
-    color_scheme() {
-      return this.content_asset.color_scheme || 'purple'
-    },
-    bar_style() {
-      return {
-        background: `linear-gradient(180deg, ${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2})`,
-      }
     },
     horizontal_gradient() {
       return {
