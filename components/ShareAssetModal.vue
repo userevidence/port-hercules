@@ -92,7 +92,7 @@ export default {
       this.$toast('Asset URL Copied to Clipboard')
     },
     copySnippet() {
-      var snippet = `<iframe src='${window.location.protocol}://${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.content_asset.variants[0].width/2}' height='${this.content_asset.variants[0].height/2}' frameBorder='0'></iframe>`
+      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.content_asset.variants[0].width/2}' height='${this.content_asset.variants[0].height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
       this.$toast('Snippet Copied to Clipboard')
     }
