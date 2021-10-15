@@ -7,7 +7,6 @@
           TimesIcon
       .modal_body
         .download_container
-          pre location {{url}}
           .downloads(:class='download_class')
             .download(v-for='variant in content_asset.variants')
               .preview
@@ -31,7 +30,7 @@
         span(@click='copyUrl') 
           LinkIcon
           | Copy Asset URL
-        span(@click='copySnippet()')
+        span(@click='copySnippet()' v-if='copyable_variant')
           EmbedIcon
           | Copy Embed Code
 </template>
@@ -54,8 +53,8 @@ export default {
     multiple_pngs() {
       return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
     },
-    basic_variant() {
-      return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
+    copyable_variant() {
+      return this.content_asset.variants.find(v => ['UePngVariant'].includes(v.type))
     },
     download_class() {
       return this.content_asset.variants.count == 1 ? 'single' : ''
@@ -92,7 +91,7 @@ export default {
       this.$toast('Asset URL Copied to Clipboard')
     },
     copySnippet() {
-      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.content_asset.variants[0].width/2}' height='${this.content_asset.variants[0].height/2}' frameBorder='0'></iframe>`
+      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
       this.$toast('Snippet Copied to Clipboard')
     }
