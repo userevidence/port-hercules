@@ -30,7 +30,7 @@
         span(@click='copyUrl') 
           LinkIcon
           | Copy Asset URL
-        //- span
+        span(@click='copySnippet()' v-if='copyable_variant')
           EmbedIcon
           | Copy Embed Code
 </template>
@@ -53,16 +53,19 @@ export default {
     multiple_pngs() {
       return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
     },
-    basic_variant() {
-      return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
+    copyable_variant() {
+      return this.content_asset.variants.find(v => ['UePngVariant'].includes(v.type))
     },
     download_class() {
       return this.content_asset.variants.count == 1 ? 'single' : ''
-    }
+    },
+    url() {
+      return `${window.location.protocol}://${window.location.host}/`
+    },
   },
   methods: {
     isPng(variant) {
-      return ['UePngVariant', 'Social191PngVariant'].includes(variant.type)
+      return ['UePngVariant', 'Social191PngVariant', 'Social11PngVariant'].includes(variant.type)
     },
     isPdf(variant) {
       return variant.type == 'PdfVariant'
@@ -87,6 +90,12 @@ export default {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL Copied to Clipboard')
     },
+    copySnippet() {
+      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
+      navigator.clipboard.writeText(snippet)
+      this.$toast('Snippet Copied to Clipboard')
+    }
+    
   }
 }
 </script>
