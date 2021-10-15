@@ -7,6 +7,7 @@
           TimesIcon
       .modal_body
         .download_container
+          pre location {{url}}
           .downloads(:class='download_class')
             .download(v-for='variant in content_asset.variants')
               .preview
@@ -30,7 +31,7 @@
         span(@click='copyUrl') 
           LinkIcon
           | Copy Asset URL
-        //- span
+        span(@click='copySnippet()')
           EmbedIcon
           | Copy Embed Code
 </template>
@@ -58,7 +59,10 @@ export default {
     },
     download_class() {
       return this.content_asset.variants.count == 1 ? 'single' : ''
-    }
+    },
+    url() {
+      return `${window.location.protocol}://${window.location.host}/`
+    },
   },
   methods: {
     isPng(variant) {
@@ -87,6 +91,12 @@ export default {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL Copied to Clipboard')
     },
+    copySnippet() {
+      var snippet = `<iframe src='${window.location.protocol}://${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.content_asset.variants[0].width/2}' height='${this.content_asset.variants[0].height/2}' frameBorder='0'></iframe>`
+      navigator.clipboard.writeText(snippet)
+      this.$toast('Snippet Copied to Clipboard')
+    }
+    
   }
 }
 </script>
