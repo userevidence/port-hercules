@@ -1,66 +1,43 @@
 <template lang='pug'>
   .bar_guts(:class='orientation')
-    .chart(:class='orientation')
-      .legend
-        .legendy % of Users
-      .bar_group(v-for='(stat, i) in shown_stats' :class='barChartCount')
-        .channel
-          .bar(:class='statClass(i)' :style='barSize(stat.count)')
-            .stat 
-              | {{statPercent(stat.count)}}
-              span %
-        .answer {{stat.the_answer}}
+    .legend
+      .legendy % of Users
+    .bar_group(v-for='(stat, i) in stats')
+      .channel(:style='barSize(stat.count)')
+        .bar(:style='bar_style')
+          .stat 
+            | {{statPercent(stat.count)}}
+            span %
+      .answer {{stat.the_answer}}
 </template>
 
 <script>
 export default {
   props: {
-    stats: {
-      default: []
-    },
-    total: {
-      type: Number,
-      default: 0
-    },
-    color_scheme: {
-      type: String,
-      default: 'purple'
-    }
+    stats: { default: {} },
+    total: { default: 0 },
+    gradient_1: { default: 'hsl(270, 100%, 48%)' },
+    gradient_2: { default: 'hsl(270, 100%, 40%)' },
   },
   computed: {
-    shortChart() {
+    short_chart() {
       return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
-    },
-    barChartCount() {
-      if (this.shown_stats.length > 9)
-        return 'many_bars'
-      else if (this.shown_stats.length == 9)
-        return 'nine_bars'
-      else if (this.shown_stats.length == 8)
-        return 'eight_bars'
-      else if (this.shown_stats.length == 7)
-        return 'seven_bars'
-      else if (this.shown_stats.length == 6)
-        return 'six_bars'
-      else if (this.shown_stats.length == 5)
-        return 'five_bars'
-      else if (this.shown_stats.length == 4)
-        return 'four_bars'
-      else if (this.shown_stats.length == 3)
-        return 'three_bars'
-      else if (this.shown_stats.length == 2)
-        return 'two_bars'
-      else if (this.shown_stats.length == 1)
-        return 'one_bar'
-      else
-        return
     },
     orientation() {
       return Math.max(...this.stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
-    shown_stats() { 
-      return this.stats.filter(s => !s.exclude_from_asset)
-    }
+    max_percent() {
+      return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count))))
+    },
+    bar_class() {
+      if(this.orientation == 'vertical') 
+        return this.stats.length > 6 ? 'barx' : `bar${this.stats.length}`
+    },
+    bar_style() {
+      return {
+        background: `linear-gradient(180deg, ${this.gradient_1}, ${this.gradient_2})`,
+      }
+    },
   },
   methods: {
     statPercent(value) {
@@ -69,105 +46,84 @@ export default {
     barSize(value) {
       if(this.orientation == 'horizontal') {
         var width = this.statPercent(value)
-        if(this.shortChart)
+        if(this.short_chart)
           width = Math.log10(Number(width))*50
         return 'width: ' + width + '%'
       }
         
       else {
         var height = Number(this.statPercent(value))
-        
-        if(this.shortChart)
-          height = height*3
-        return 'height: ' + 300 * height / 100 + 'px'
-        
+        return 'height: ' + height / this.max_percent * 100 + '%'
       }
     },
-    statClass(value) {
-      return this.color_scheme + (9 - value)
-    },
-    showBar(stat) {
-      return stat.count > 0 && !stat.exclude_from_asset 
-    }
   }
 }
 </script>
 <style lang='sass' scoped>
+.bar_chart
   .bar_guts
+    height: 100%
+    width: 100%
+    margin: 0 auto
   .horizontal
-    .chart
-      .bar_group
-        &:not(:last-child)
-          margin-bottom: 16px
-      .bar
-        border-radius: 0 8px 8px 0
-        padding: 0
-        height: 40px
-        color: white
-        display: flex
-        align-items: flex-end
-        min-width: 48px
-      .answer
-        margin-top: 4px
-      .stat
-        left: 12px
-    .legendy, .legendx
-      display: none
-  .vertical
-    .chart
+    .bar_group
+      &:not(:last-child)
+        margin-bottom: 16px
+    .bar
+      border-radius: 0 8px 8px 0
+      padding: 0
+      height: 40px
+      color: white
       display: flex
-      justify-content: space-between
-      position: relative
-      .many_bars
-        width: 9%
-      .nine_bars
-        width: 10%
-      .eight_bars
-        width: 11%
-      .seven_bars
-        width: 13%
-      .six_bars
-        width: 14%
-      .five_bars
-        width: 18%
-      .four_bars
-        width: 23%
-      .three_bars
-        width: 31%
-      .two_bars
-        width: 48%
-      .one_bar
-        width: 100%
-      .bar_group
-        display: flex
-        flex-direction: column
-        justify-content: flex-end
-      .bar
-        border-radius: 8px 8px 0px 0px
-        padding: 0
-        color: white
-        display: flex
-        justify-content: center
-        align-items: flex-end
-        height: 100%
-        width: 100%
-      .answer
-        margin-top: 8px
-        justify-content: center
-    .legend
-      position: absolute
-      left: -42px
-      top: 50%
-      font-size: 12px
-    .legendy
-      transform:  rotate(-90deg)
-    .legendx
-      text-align: center
-      margin-bottom: 20px
-    .legend, .legendx, .legendy
-      color: hsl(200, 16%, 44%)
+      align-items: flex-end
+      min-width: 48px
+    .answer
+      margin-top: 4px
+      width: 100%
+    .stat
+      left: 12px
+  .legendy, .legendx
+    display: none
+  .vertical
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    margin-left: -1%
+    margin-right: -1%
+    .bar_group
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      width: 100%
+      height: 100%
+      margin-left: 1%
+      margin-right: 1%
+    .bar
+      border-radius: 8px 8px 0px 0px
+      padding: 0
+      color: white
+      display: flex
+      justify-content: center
+      align-items: flex-end
+      height: 100%
+      width: 100%
+    .answer
+      margin-top: 8px
+      justify-content: center
+  .legend
+    position: absolute
+    left: -45px
+    top: 50%
+    font-size: 12px
+  .legendy
+    transform:  rotate(-90deg)
+  .legendx
+    text-align: center
+    margin-bottom: 20px
+  .legend, .legendx, .legendy
+    color: hsl(200, 16%, 44%)
 
-  .vertical .chart .answer, .horizontal .chart .answer
+  .vertical .answer, .horizontal .answer
     display: flex
     letter-spacing: -0.02em
     font-size: 12px
@@ -188,37 +144,40 @@ export default {
       color: hsla(200, 100%, 100%, 0.8)
       position: relative
       left: 2px
-
-  .seven_bars .stat, .eight_bars .stat, .nine_bars .stat
+  .bar3
+    width: 80%
+    .channel, .answer
+      width: 90% !important
+    
+  .bar7 .stat, .bar8 .stat, .bar9 .stat
     bottom: -3px
     span
       font-size: 10px
 
-  .seven_bars .stat
+  .bar7 .stat
     font-size: 20px
     span
       font-size: 12px
 
-  .eight_bars .stat
+  .bar8 .stat
     font-size: 19px
     span
       font-size: 11px
 
-  .nine_bars .stat
+  .bar9 .stat
     font-size: 18px
 
-  .many_bars .stat
+  .barx .stat
     bottom: -2px
     font-size: 16px
     span
       font-size: 9px
 
-  .vertical .chart .answer, .horizontal .chart .answer, .stat span, .legend, .legendx, .legendy
+  .vertical .answer, .horizontal .answer, .stat span, .legend, .legendx, .legendy
     font-weight: 500
     font-family: 'Inter-Medium', sans-serif
 
   .bar_guts, .bar_group, .stat
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
-
 </style>
