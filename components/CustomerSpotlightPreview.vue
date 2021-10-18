@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .customer_spotlight_card(:style='card_style')
+  .customer_spotlight_card.content_asset
     .header
       UserIcon
       h6 Customer Spotlight
@@ -17,11 +17,6 @@ export default {
   props: ['content_asset'],
   components: { UserIcon },
   computed: {
-    card_style() {
-      return {
-        //background: `linear-gradient(${this.content_asset?.account?.gradient_1}, ${this.content_asset?.account?.gradient_2}),
-      }
-    },
     verified_at() {
       return dayjs(this.content_asset.verified_at).format('MMMM D, YYYY')
     },
