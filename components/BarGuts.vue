@@ -112,7 +112,7 @@ export default {
       justify-content: center
   .legend
     position: absolute
-    left: -15px
+    left: -13px
     top: 50%
     font-size: 12px
   .legendy
