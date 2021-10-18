@@ -1,5 +1,5 @@
 <template lang="pug">
-  .content_asset_container(v-if='content_asset')
+  .content_asset_container.content_asset(v-if='content_asset')
     .stat_header
       .mb-4(v-if='content_asset.stat_type == "star_rating"')
         StarIcons(:stars='headline' :account='content_asset.account')

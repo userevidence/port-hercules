@@ -1,5 +1,5 @@
 <template lang='pug'>
-.bar_chart
+.bar_chart.content_asset
   .header
     .titles(v-if='content_asset.show_title && content_asset.show_question')
       h6 {{content_asset.question.the_question}}
