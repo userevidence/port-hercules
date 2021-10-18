@@ -52,6 +52,9 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
+  .bars
+    display: flex
+    justify-content: center
   .bar_chart
     position: relative
     border-radius: 24px
