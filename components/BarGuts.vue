@@ -82,8 +82,8 @@ export default {
       width: 100%
     .stat
       left: 12px
-  .legendy, .legendx
-    display: none
+    .legendy, .legendx
+      display: none
   .vertical
     display: flex
     justify-content: space-between
@@ -112,7 +112,7 @@ export default {
       justify-content: center
   .legend
     position: absolute
-    left: -45px
+    left: -13px
     top: 50%
     font-size: 12px
   .legendy

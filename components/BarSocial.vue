@@ -1,5 +1,5 @@
 <template lang='pug'>
-.bar_chart.bar_social_191
+.bar_chart.bar_social_191.content_asset
   a.uevi(:href='asset_url' target='_blank' :style='horizontal_gradient')
     Logo
     | {{asset_link}}

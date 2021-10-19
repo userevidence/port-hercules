@@ -1,5 +1,5 @@
 <template lang="pug">
-  .testimonial_container(:class='theme')
+  .testimonial_container.content_asset(:class='theme')
     .testimonial_card_header
       .titles
         h4(v-if='content_asset.show_title') {{content_asset.title}}
