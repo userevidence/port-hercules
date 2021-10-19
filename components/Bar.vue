@@ -1,5 +1,5 @@
 <template lang='pug'>
-.bar_chart
+.bar_chart.content_asset
   .header
     .titles(v-if='content_asset.show_title && content_asset.show_question')
       h6 {{content_asset.question.the_question}}
@@ -52,6 +52,9 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
+  .bars
+    display: flex
+    justify-content: center
   .bar_chart
     position: relative
     border-radius: 24px
@@ -83,5 +86,5 @@ export default {
       color: hsl(200, 8%, 8%)
   .bars
     .vertical
-      height: 350px
+      height: 387px
 </style>

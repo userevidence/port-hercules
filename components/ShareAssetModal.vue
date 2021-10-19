@@ -35,10 +35,10 @@
           | Copy Embed Code
 </template>
 <script>
-import DownloadIcon from 'src/port-hercules/components/graphics/DownloadIcon'
-import LinkIcon from 'src/port-hercules/components/graphics/LinkIcon'
-import EmbedIcon from 'src/port-hercules/components/graphics/EmbedIcon'
-import TimesIcon from 'src/port-hercules/components/graphics/TimesIcon'
+import DownloadIcon from './graphics/DownloadIcon'
+import LinkIcon from './graphics/LinkIcon'
+import EmbedIcon from './graphics/EmbedIcon'
+import TimesIcon from './graphics/TimesIcon'
 
 export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
@@ -74,7 +74,7 @@ export default {
       return (variant.type.indexOf('Social') >= 0) ? false : true
     },
     variantUrl(variant) {
-      return `/variants/${variant.id}?d=`
+      return `${variant.variant_url}?d=`
     },
     variantImage(variant) {
       if(this.content_asset.type == 'TestimonialAsset')
@@ -103,7 +103,7 @@ export default {
   .download_container  
     position: relative
     height: 470px
-    overflow: scroll
+    overflow-y: auto
   .downloads
     display: flex
     justify-content: space-between
@@ -154,6 +154,8 @@ export default {
           font-weight: 500
           line-height: 12px
           letter-spacing: -0.02em
+          margin: 0
+          font-family: 'Inter-Regular'
         .download_buttons
           display: flex
           align-items: center
@@ -180,7 +182,7 @@ export default {
         font-size: 14px
         font-weight: 400
         line-height: 20px
-        margin-top: 16px
+        margin: 16px 0 0 0
       &:hover
         text-decoration: none
         cursor: default
