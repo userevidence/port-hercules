@@ -86,5 +86,5 @@ export default {
       color: hsl(200, 8%, 8%)
   .bars
     .vertical
-      height: 387px
+      height: 387px !important
 </style>
