@@ -1,5 +1,5 @@
 <template lang='pug'>
-.stat_social_191
+.stat_social_191.content_asset
   .header
     figure(v-html='content_asset.account.svg_logo')
     a(:href='asset_url' target='_blank' :style='horizontal_gradient')
