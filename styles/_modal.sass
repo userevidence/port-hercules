@@ -1,0 +1,69 @@
+.vm--modal
+  overflow: visible !important
+  border-radius: 24px !important
+  box-shadow: 0 8px 8px 0 hsla(200, 8%, 16%, 0.02), 0 16px 48px 0 hsla(0, 0%, 0%, 0.12)
+
+.modal_container
+  border-radius: 16px
+  .modal_header
+    //box-shadow: 0px 1px 0px hsl(200, 24%, 96%)
+    padding: 24px
+    margin-bottom: 16px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: white
+    border-top-left-radius: 24px
+    border-top-right-radius: 24px
+    overflow-y: auto
+    h2
+      font-size: 20px
+      font-family: 'Inter-ExtraBold'
+      line-height: 1
+      font-weight: 800
+      letter-spacing: -0.01em
+      color: hsl(200, 16%, 4%)
+      margin: 0px
+      padding: 0px
+    .closer
+      cursor: pointer
+  .modal_body 
+    padding: 0 24px
+    label
+      font-size: 14px
+      margin: 0 0 4px 0
+      padding: 0
+    input, .ue_selector .vs__search, .ue_selector .vs__selected, .ue_selector, .ue_selector .v-select, .ue_selector .vs__selected-options, .ue_selector #vs1__combobox, .vs--single .vs__selected, .ue_selector #vs2__combobox, #vs3__combobox, .ue_selector #vs4__combobox
+      border-radius: 10px
+      height: 40px
+      min-height: 40px
+    input
+      padding: 12px
+      &:focus
+        box-shadow: 0 0 0 2px hsl(200, 16%, 16%)
+    a
+      color: hsl(270, 100%, 52%)
+    .ue_selector .vs__search, .ue_selector .vs__selected
+      padding: 0 12px !important
+    .ue_selector .vs__actions
+      padding: 7px 12px
+    .ue_selector .v-select ul
+      top: 40px !important
+    .vs__dropdown-toggle
+      border-color: transparent !important
+
+  .modal_footer
+    position: absolute
+    z-index: 10
+    bottom: 0
+    left: 0
+    width: 100%
+    display: inline-flex
+    align-items: center
+    margin-top: 16px
+    padding: 24px
+    background-color: white
+    border-bottom-left-radius: 24px
+    border-bottom-right-radius: 24px
+  .flex_end
+    justify-content: end
