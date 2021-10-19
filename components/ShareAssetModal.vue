@@ -74,7 +74,7 @@ export default {
       return (variant.type.indexOf('Social') >= 0) ? false : true
     },
     variantUrl(variant) {
-      return `${variant.variant_url}?d=`
+      return `${variant.the_url}?d=`
     },
     variantImage(variant) {
       if(this.content_asset.type == 'TestimonialAsset')
