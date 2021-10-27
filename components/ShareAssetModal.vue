@@ -9,6 +9,8 @@
         .download_container
           .downloads(:class='download_class')
             .download(v-for='variant in content_asset.variants')
+              .mutli_tag(v-if='variant.page_count') {{pageCountTag(variant)}}
+              
               .preview
                 img(:src='variantImage(variant)')
               .text
@@ -65,16 +67,19 @@ export default {
   },
   methods: {
     isPng(variant) {
-      return ['UePngVariant', 'Social191PngVariant', 'Social11PngVariant'].includes(variant.type)
+      return ['UePngVariant', 'Social191PngVariant', 'Social11PngVariant', 'MultiPagePngVariant'].includes(variant.type)
     },
     isPdf(variant) {
       return variant.type == 'PdfVariant'
     },
     isBasic(variant) {
-      return (variant.type.indexOf('Social') >= 0) ? false : true
+      return ['Social191PngVariant', 'Social11PngVariant', 'MultiPagePngVariant'].includes(variant.type) ? false : true
     },
     variantUrl(variant) {
-      return `${variant.the_url}?d=`
+      if(variant.type == 'MultiPagePngVariant')
+        return `${variant.the_url}.zip`
+      else
+        return `${variant.the_url}?d=`
     },
     variantImage(variant) {
       if(this.content_asset.type == 'TestimonialAsset')
@@ -94,8 +99,14 @@ export default {
       var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
       this.$toast('Snippet Copied to Clipboard')
+    },
+    pageCountTag(variant) {
+      if(variant.page_count > 1)
+        return `${variant.page_count} Images`
+      else
+        return `${variant.page_count} Image`
+      
     }
-    
   }
 }
 </script>
@@ -112,11 +123,22 @@ export default {
     &.single
       justify-content: space-around
   .download
+    position: relative
     width: 312px
     margin-bottom: 16px
     border: 1px solid hsl(200, 24%, 90%)
     border-radius: 24px
     overflow: hidden
+    .mutli_tag
+      position: absolute
+      top: 12px
+      right: 12px
+      border: 1px solid #DFE8EC
+      border-radius: 15px
+      padding: 6px 12px 
+      background: white
+      font: normal 12px 'Inter-Regular'
+      letter-spacing: -0.015em
     .preview
       background-color: hsl(200, 24%, 96%)
       img
