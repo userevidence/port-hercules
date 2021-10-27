@@ -1,6 +1,6 @@
 <template lang='pug'>
 .content_asset.testimonial_social
-  .testimonial_page(v-for='page, i in content_asset.pages')
+  .asset_page(v-for='page, i in content_asset.pages')
     .asset_contents
       .header
         figure(v-html='content_asset.account.svg_logo')
@@ -85,7 +85,7 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
-.testimonial_page
+.asset_page
   position: relative
   overflow: hidden
   background: white
