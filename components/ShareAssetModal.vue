@@ -49,14 +49,8 @@ export default {
     pdf_variant() {
       return this.content_asset.variants.find(v => v.type == 'PdfVariant')
     },
-    pngs() {
-      return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type))
-    },
-    multiple_pngs() {
-      return this.content_asset.variants.filter(v => ['UePngVariant', 'Social191PngVariant'].includes(v.type)).length > 1
-    },
     copyable_variant() {
-      return this.content_asset.variants.find(v => ['UePngVariant'].includes(v.type))
+      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
     },
     download_class() {
       return this.content_asset.variants.count == 1 ? 'single' : ''
@@ -67,16 +61,16 @@ export default {
   },
   methods: {
     isPng(variant) {
-      return ['UePngVariant', 'Social191PngVariant', 'Social11PngVariant', 'MultiPagePngVariant'].includes(variant.type)
+      return variant.type.indexOf('Png') > 0
     },
     isPdf(variant) {
       return variant.type == 'PdfVariant'
     },
     isBasic(variant) {
-      return ['Social191PngVariant', 'Social11PngVariant', 'MultiPagePngVariant'].includes(variant.type) ? false : true
+      return ['TestimonialPngVariant', 'ChartPngVariant', 'StatPngVariant'].includes(variant.type) ? true : false
     },
     variantUrl(variant) {
-      if(variant.type == 'MultiPagePngVariant')
+      if(variant.type == 'TestimonialMultiPagePngVariant')
         return `${variant.the_url}.zip`
       else
         return `${variant.the_url}?d=`
