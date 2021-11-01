@@ -121,7 +121,7 @@ export default {
       height: 12px
       margin-right: 12px
       path
-        fill: #ccc !important
+        fill: #ffffff99 !important
   .footer
     z-index: 11
     display: flex
