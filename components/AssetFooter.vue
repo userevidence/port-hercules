@@ -89,7 +89,6 @@ export default {
     order: 2
     flex-grow: 0
     .url a
-      color: hsl(270, 100%, 52%)
       font-weight: 800
       font-family: 'Inter-Extrabold', sans-serif
       &:hover
