@@ -39,7 +39,7 @@ import RightArrowIcon from './graphics/RightArrowIcon'
 import dayjs from 'dayjs'
 
 export default {
-  name: 'TestimonialSocial',
+  name: 'MultiPageTestimonialSocial',
   props: ['content_asset'],
   components: { Logo, AvatarIcon, RightArrowIcon },
   computed: {
@@ -87,6 +87,8 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
+.testimonial_social
+  width: 360px
 .asset_page
   position: relative
   overflow: hidden
@@ -94,6 +96,7 @@ export default {
   width: 360px
   height: 360px
   padding: 32px
+  page-break-after: always
   .asset_contents
     height: 100%
     display: flex
