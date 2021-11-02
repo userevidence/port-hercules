@@ -5,7 +5,7 @@
       .header
         figure(v-html='content_asset.account.svg_logo')
         a(:href='asset_url' target='_blank' :style='linkStyle(i)')
-          Logo
+          Logo(:fill='content_asset.account.brand_color_1' :class='{ last_page: lastPage(i)}')
           | {{asset_link}}
       .testimonial
         h2
@@ -25,7 +25,7 @@
         .author_information(v-else)
           h4 {{content_asset.recipient.person_attribution}}
           h6 {{content_asset.recipient.company_attribution}}
-    .gradient(:style='vertical_gradient' v-if='i+1 == content_asset.pages.length')
+    .gradient(:style='vertical_gradient' v-if='lastPage(i)')
     .arc1
       div(v-if='content_asset.pages.length > 1') {{pageIndicator(i)}}
     .arc2
@@ -80,7 +80,9 @@ export default {
       else
         return { color: this.content_asset.account.brand_color_1 }
     },
-    
+    lastPage(i) {
+      return i == (this.content_asset.pages.length - 1)
+    },
   }
 }
 </script>
@@ -120,8 +122,9 @@ export default {
       width: 12px
       height: 12px
       margin-right: 12px
-      path
-        fill: #ffffff99 !important
+      &.last_page
+        path
+          fill: #ffffff99 !important
   .footer
     z-index: 11
     display: flex
