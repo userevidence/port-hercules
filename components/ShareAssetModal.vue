@@ -45,26 +45,6 @@
                       | PDF
                       DownloadIcon
                 p Download and share the Customer Spotlight with customers.
-            //- .download(v-for='variant in content_asset.variants')
-              .mutli_tag(v-if='variant.page_count') {{pageCountTag(variant)}}
-              
-              .preview
-                img(:src='variantImage(variant)')
-              .text
-                .header
-                  h3(v-if='content_asset.type == "CustomerSpotlightAsset"') Customer Spotlight
-                  h3(v-else-if='isBasic(variant)') Basic Theme
-                  h3(v-else) Styled Theme
-                  .buttons
-                    a.span(:href='variantUrl(variant)' title='Download PDF' target='_blank' v-if='isPdf(variant)')
-                      | PDF
-                      DownloadIcon
-                    a.span(:href='variantUrl(variant)' title='Download PNG' target='_blank' v-if='isPng(variant)')
-                      | PNG
-                      DownloadIcon
-                p(v-if='content_asset.type == "CustomerSpotlightAsset"') Download and share the Customer Spotlight with customers.
-                p(v-else-if='isBasic(variant)') With a simple, rounded border design, this theme is best suited for slide decks and text documents.
-                p(v-else) Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
       .modal_footer
         span(@click='copyUrl') 
           LinkIcon
