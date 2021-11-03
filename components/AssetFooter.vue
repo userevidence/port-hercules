@@ -34,7 +34,7 @@ export default {
       return `uevi.co/${this.content_asset.identifier}`
     },
     filter_text() {
-      if(this.content_asset.filtered_by.length > 0)
+      if(this.content_asset.filtered_by?.length > 0)
         return this.content_asset.filtered_by.join(', ')// + ' and ' + this.filters.slice(-1)[0].name
       else
         return
