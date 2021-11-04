@@ -27,16 +27,6 @@ export default {
     }
   },
   computed: {
-    filterText() {
-      if(this.content_asset.filtered_by.length > 0)
-        return this.content_asset.filtered_by.join(', ')// + ' and ' + this.filters.slice(-1)[0].name
-      else
-        return
-    },
-    filters() {
-      var filter = `${this.content_asset.filter}_stats`
-      return this.content_asset[filter].filter(group  => this.content_asset.filter_data.includes(group.id))
-    },
     stats() {
       return this.content_asset.response_stats
     },
