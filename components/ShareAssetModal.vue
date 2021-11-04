@@ -8,26 +8,43 @@
       .modal_body
         .download_container
           .downloads(:class='download_class')
-            .download(v-for='variant in content_asset.variants')
-              .mutli_tag(v-if='variant.page_count') {{pageCountTag(variant)}}
-              
+            .download(v-if='basic_variant')
               .preview
-                img(:src='variantImage(variant)')
+                img(:src='variantImage(basic_variant)')
               .text
                 .header
-                  h3(v-if='content_asset.type == "CustomerSpotlightAsset"') Customer Spotlight
-                  h3(v-else-if='isBasic(variant)') Basic Theme
-                  h3(v-else) Styled Theme
+                  h3 Basic Theme
                   .buttons
-                    a.span(:href='variantUrl(variant)' title='Download PDF' target='_blank' v-if='isPdf(variant)')
-                      | PDF
-                      DownloadIcon
-                    a.span(:href='variantUrl(variant)' title='Download PNG' target='_blank' v-if='isPng(variant)')
+                    a.span(:href='variantUrl(basic_variant)' title='Download PNG' target='_blank')
                       | PNG
                       DownloadIcon
-                p(v-if='content_asset.type == "CustomerSpotlightAsset"') Download and share the Customer Spotlight with customers.
-                p(v-else-if='isBasic(variant)') With a simple, rounded border design, this theme is best suited for slide decks and text documents.
-                p(v-else) Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
+                p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
+            .download(v-if='styled_png_variant')
+              .mutli_tag(v-if='styled_png_variant.page_count') {{pageCountTag(styled_png_variant)}}
+              .preview
+                img(:src='variantImage(styled_png_variant)')
+              .text
+                .header
+                  h3 Styled Theme
+                  .buttons
+                    a.span(:href='variantUrl(pdf_variant)' title='Download PDF' target='_blank' v-if='pdf_variant')
+                      | PDF
+                      DownloadIcon
+                    a.span(:href='variantUrl(styled_png_variant)' title='Download PNG' target='_blank')
+                      | PNG
+                      DownloadIcon
+                p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
+            .download(v-if='customer_spotlight_variant')
+              .preview
+                img(src='../static/customer_spotlight_preview_image.png')
+              .text
+                .header
+                  h3 Customer Spotlight
+                  .buttons
+                    a.span(:href='variantUrl(customer_spotlight_variant)' title='Download PDF' target='_blank')
+                      | PDF
+                      DownloadIcon
+                p Download and share the Customer Spotlight with customers.
       .modal_footer
         span(@click='copyUrl') 
           LinkIcon
@@ -46,11 +63,23 @@ export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
   props: ['content_asset'],
   computed: {
+    basic_variant() {
+      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
+    },
     pdf_variant() {
-      return this.content_asset.variants.find(v => v.type == 'PdfVariant')
+      return this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
+    },
+    styled_png_variant() {
+      return this.content_asset.variants.find(v => ['ChartSocial11PngVariant', 'StatSocial191PngVariant', 'TestimonialMultiPagePngVariant', 'TestimonialSocial191PngVariant'].includes(v.type))
+    },
+    customer_spotlight_variant() {
+      if(this.content_asset.type == 'CustomerSpotlightAsset')
+        return this.content_asset.variants.find(v => ['PdfVariant'].includes(v.type))
+      else 
+        return null
     },
     copyable_variant() {
-      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
+      return this.basic_variant
     },
     download_class() {
       return this.content_asset.variants.count == 1 ? 'single' : ''
@@ -66,9 +95,6 @@ export default {
     isPdf(variant) {
       return variant.type == 'PdfVariant'
     },
-    isBasic(variant) {
-      return ['TestimonialPngVariant', 'ChartPngVariant', 'StatPngVariant'].includes(variant.type) ? true : false
-    },
     variantUrl(variant) {
       if(variant.type == 'TestimonialMultiPagePngVariant')
         return `${variant.the_url}.zip`
@@ -76,14 +102,24 @@ export default {
         return `${variant.the_url}?d=`
     },
     variantImage(variant) {
-      if(this.content_asset.type == 'TestimonialAsset')
-        return require(this.isBasic(variant) ? `../static/testimonial_preview_basic_theme.png` : `../static/testimonial_preview_styled_theme.png`)
-      if(this.content_asset.type == 'StatAsset')
-        return require(this.isBasic(variant) ? `../static/stat_preview_basic_theme.png` : `../static/stat_preview_styled_theme.png`)
-      if(this.content_asset.type == 'ChartAsset')
-        return require(this.isBasic(variant) ? `../static/vertical_bar_chart_preview_basic_theme.png` : `../static/vertical_bar_chart_preview_styled_theme.png`)
-      if(this.content_asset.type == 'CustomerSpotlightAsset')
-        return require(`../static/customer_spotlight_preview_image.png`)
+      switch(variant.type) {
+        case 'ChartPngVariant':
+          return require('../static/vertical_bar_chart_preview_basic_theme.png')
+        case 'StatPngVariant':
+          return require('../static/stat_preview_basic_theme.png')
+        case 'TestimonialPngVariant':
+          return require('../static/testimonial_preview_basic_theme.png')
+        case 'ChartSocial11PngVariant':
+          return require('../static/vertical_bar_chart_preview_styled_theme.png')
+        case 'StatSocial191PngVariant':
+          return require('../static/stat_preview_styled_theme.png')
+        case 'TestimonialMultiPagePngVariant':
+        case 'TestimonialMultiPagePdfVariant':
+          return require('../static/testimonial_preview_styled_theme.png')
+        case 'TestimonialSocial191PngVariant':
+          return require('../static/testimonial_preview_styled_theme.png')
+      }
+
     },
     copyUrl() {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
