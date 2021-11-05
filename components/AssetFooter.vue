@@ -11,7 +11,7 @@
         a(:href='`https://${uevico_link}`' :class='link_class') {{uevico_link}}
   .verification_text
     p(v-if='content_asset.type == "TestimonialAsset"') Survey conducted by UserEvidence. Testimonial verified {{verified_date}}.
-    p(v-else) Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} users, conducted by UserEvidence. Statistic verified {{verified_date}}.
+    p(v-else) Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} {{filter_text}} users, conducted by UserEvidence. Statistic verified {{verified_date}}.
 </template>
 <script>
 import Logo from './graphics/Logo.vue'
@@ -32,6 +32,12 @@ export default {
     },
     uevico_link() {
       return `uevi.co/${this.content_asset.identifier}`
+    },
+    filter_text() {
+      if(this.content_asset.filtered_by?.length > 0)
+        return this.content_asset.filtered_by.join(', ')// + ' and ' + this.filters.slice(-1)[0].name
+      else
+        return
     },
   }
 }
@@ -89,7 +95,6 @@ export default {
     order: 2
     flex-grow: 0
     .url a
-      color: hsl(270, 100%, 52%)
       font-weight: 800
       font-family: 'Inter-Extrabold', sans-serif
       &:hover
