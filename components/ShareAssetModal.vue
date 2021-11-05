@@ -33,7 +33,7 @@
                     a.span(:href='variantUrl(styled_png_variant)' title='Download PNG' target='_blank')
                       | PNG
                       DownloadIcon
-                p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
+                p Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
             .download(v-if='customer_spotlight_variant')
               .preview
                 img(src='../static/customer_spotlight_preview_image.png')
