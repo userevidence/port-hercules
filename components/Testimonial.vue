@@ -8,7 +8,8 @@
     .testimonial_card_body
       .testimonial_author_container
         figure.testimonial_card_avatar
-          AvatarIcon
+          img(:src='content_asset.recipient.recipient_gravatar_url' v-if='content_asset.recipient.recipient_gravatar_url')
+          AvatarIcon(v-else)
         .testimonial_author(v-if='content_asset.recipient.named')
           h4 {{content_asset.recipient.person_attribution}}
           h6 {{content_asset.recipient.title}}
@@ -153,6 +154,10 @@ export default {
       background: white
       border-radius: 50%
       border: 1px solid hsl(200, 24%, 90%)
+      img
+        border-radius: 50%
+        padding: 1px
+        border: 1px solid hsl(200, 24%, 90%)
       svg
         width: 24px
         height: 24px
