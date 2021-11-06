@@ -158,6 +158,7 @@ export default {
         border-radius: 50%
         padding: 1px
         border: 1px solid hsl(200, 24%, 90%)
+        width: 100%
       svg
         width: 24px
         height: 24px
