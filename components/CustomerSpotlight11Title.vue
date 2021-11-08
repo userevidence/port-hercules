@@ -7,10 +7,10 @@
       LongArrow
     .uevi
       a(:href='asset_url' target='_blank')
-        Logo(:fill='content_asset.account.brand_color_1')
+        Logo
         | {{asset_link}}
   .title
-    h2 Yellowbrick "Slashes Data Center Costs to a Fifth" and "Improves Query Performance by More Than 10x" for Medium-Sized Software Company
+    h2 {{content_asset.title}}
   .asset_type
     p Customer <br> Spotlight
     .avatar
@@ -49,7 +49,6 @@ export default {
 .content_asset
   width: 360px
   height: 360px
-  border: 1px solid black
   padding: 32px
   position: relative
   overflow: hidden
@@ -133,6 +132,7 @@ p
     position: absolute
     z-index: -1
 .customer_logo
+  z-index: 100
   position: absolute
   top: 288px
   ::v-deep svg
@@ -144,8 +144,17 @@ p
   position: absolute
   width: 50px
   height: 25px
-  border: 1px solid red
+  border: 1px solid #f2f6f7
   border-radius: 40px
-  top: 30px
-  left: -10px
+  top: 33px
+  left: -35px
+.arc2
+  z-index: 99
+  position: absolute
+  width: 112px
+  height: 112px
+  border: 4px solid #f2f6f7
+  border-radius: 150px
+  top: 304px
+  left: -56px
 </style>
