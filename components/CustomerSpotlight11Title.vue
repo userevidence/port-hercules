@@ -17,6 +17,8 @@
       CustomerSpotlightAvatarIcon
   .customer_logo
     div(v-html='content_asset.account.svg_logo_mark')
+  .arc1
+  .arc2
 </template>
 <script>
 import Logo from './graphics/Logo'
@@ -50,6 +52,7 @@ export default {
   border: 1px solid black
   padding: 32px
   position: relative
+  overflow: hidden
 h2
   font-size: 22px
   line-height: 30px
@@ -72,11 +75,12 @@ h2
       top: 6px
       ::v-deep path
         fill: var(--brand-color-1)
+        stroke: var(--brand-color-1)
   .uevi
     background: white
     border-radius: 15px
     position: relative
-    padding: 2px 0px 2px 7px
+    padding: 1px 0px 2px 7px
     box-sizing: border-box
     svg
       width: 15px
@@ -128,12 +132,6 @@ p
     right: -1px
     position: absolute
     z-index: -1
-
-
-
-
-
-    
 .customer_logo
   position: absolute
   top: 288px
@@ -142,4 +140,12 @@ p
     height: 144px
     path
       fill: var(--brand-color-1)
+.arc1
+  position: absolute
+  width: 50px
+  height: 25px
+  border: 1px solid red
+  border-radius: 40px
+  top: 30px
+  left: -10px
 </style>
