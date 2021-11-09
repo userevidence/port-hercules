@@ -39,7 +39,7 @@ import RightArrowIcon from './graphics/RightArrowIcon'
 import dayjs from 'dayjs'
 
 export default {
-  name: 'MultiPageTestimonialSocial',
+  name: 'TestimonialMultiPageSocial',
   props: ['content_asset'],
   components: { Logo, AvatarIcon, RightArrowIcon },
   computed: {
