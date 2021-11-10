@@ -1,0 +1,362 @@
+<template lang='pug'>
+  .customer_spotlight_multi_page.content_asset(:style='css_vars')
+    .title_page.page
+      .customer_logo
+        div(v-html='content_asset.account.svg_logo_mark')
+      .uevi
+        Logo
+        a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        h2 {{content_asset.title}}
+      .asset_type
+        p Customer <br> Spotlight
+        .avatar
+          CustomerSpotlightAvatarIcon
+      .page_indicator {{pageIndicator(1)}}
+      .right_arrow
+        RightArrowIcon
+    .profile_page.page
+      .header
+        h6 Customer Profile
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        .facts
+          .fact(v-if='content_asset.recipient.company_size == "fortune_500"') 
+            Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | Fortune 500 Company
+          .fact(v-if='company_size')
+            CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{company_size}} Employees
+          .fact(v-if='content_asset.recipient.industry_name')
+            IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.recipient.industry_name}}
+          .fact(v-if='content_asset.recipient.company_country_code')
+            LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.recipient.company_country_code}}
+      .arc
+      .page_indicator {{pageIndicator(2)}}
+      .right_arrow
+        RightArrowIcon
+    .introduction_page.page
+      .header
+        h6 Introduction
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        p This Customer Spotlight is a synopsis of how {{company_qualifier}} used {{this.content_asset.account.name}} to benefit their business.  The feedback included was collected and verified in a {{survayed_at | dayjs('MMMM')}} {{survayed_at | dayjs('YYYY')}} survey of {{this.content_asset.account.name}} customers conducted by UserEvidence, an independent research firm. 
+      .customer_logo
+        div(v-html='content_asset.account.svg_logo_mark')
+      .arc
+      .page_indicator {{pageIndicator(3)}}
+      .right_arrow
+        RightArrowIcon
+    .key_results_page.page(v-if='stats')
+      .header
+        h6 Key Results
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        .stats
+          .stat(v-for='stat in stats')
+            h1
+              | {{statMidpoint(stat)}}
+              .qualifier(:style='text_color_1') {{stat.qualifier}}
+            p {{stat.stat_tagline}}
+      .arc
+      .page_indicator {{pageIndicator(4)}}
+      .right_arrow
+        RightArrowIcon
+
+    .testimonial_page.page
+      .header
+        h6 Testimonial
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        h2 {{testimonials[0].answers[0].response.text_answer}}
+      .arc
+      .page_indicator {{pageIndicator(4)}}
+      .right_arrow
+        RightArrowIcon
+    .scenario_page.page
+      .header
+        h6 Scenario
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        .question
+          p {{scenario_questions[0].the_question}}
+          ul
+            li(v-for='answer in scenario_questions[0].answers') 
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6" cy="6" r="4" fill="white" stroke="#1B97FA" stroke-width="4"/>
+              </svg>
+            
+              | {{answer.answer.the_answer}}
+      .arc
+      .page_indicator {{pageIndicator(4)}}
+      .right_arrow
+        RightArrowIcon
+  </template>
+  <script>
+  import Logo from './graphics/Logo'
+  import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon.vue'
+  import Fortune500Icon from 'src/app/graphics/Fortune500Icon'
+  import CompanySizeIcon from 'src/app/graphics/CompanySizeIcon'
+  import IndustryIcon from 'src/app/graphics/IndustryIcon'
+  import LocationIcon from 'src/app/graphics/LocationIcon'
+  import RightArrowIcon from './graphics/RightArrowIcon'
+
+  export default {
+    name: 'CustomerSpotlight11Title',
+    props: ['content_asset'],
+    components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon },
+    computed: {
+      asset_link() {
+        return `uevi.co/${this.content_asset.identifier}`
+      },
+      asset_url() {
+        return `https://${this.asset_link}`
+      },
+      company_size() {
+        if(this.content_asset.recipient.company_size) {
+          var sizes = {
+            small_business: '1-50',
+            medium_enterprise: '50-1000',
+            large_enterprise: '> 1000',
+            fortune_500: '> 5000',
+          }
+          return sizes[this.content_asset.recipient.company_size]
+        }
+        else 
+          return null
+      },
+      company_qualifier() {
+        if(this.content_asset.recipient.named && this.content_asset.recipient.best_company_name)
+          return this.content_asset.recipient.best_company_name
+        else {
+          var size_string = this.content_asset?.recipient?.company_size?.split('_').map(w => w[0].toUpperCase() + w.substring(1)).join(' ')
+          return `a ${size_string} ${this.content_asset.recipient.industry_name} company`
+        }
+      },
+      survayed_at() {
+        return this.content_asset.first_sent_at || new Date()
+      },
+      stats() {
+        return this.content_asset.recipient.questions.filter(q => q.distribution_direction != null && 
+          q.type == 'MultipleChoiceOne' &&
+          q.stat_tagline != null &&
+          q.stat_tagline != '' &&
+          q.qualifier != null &&
+          q.qualifier != ''
+        ).slice(0, 2)
+      },
+      testimonials() {
+        return this.content_asset.recipient.questions.filter(q => q.type == 'Testimonial' &&
+          q.answers[0].response.text_answer != '' &&
+          q.answers[0].response.text_answer != null
+        )
+      },
+      multiple_choice_questions() {
+        return this.content_asset.recipient.questions.filter(q => ['MultipleChoiceOne', 'MultipleChoiceMany'].includes(q.type))
+      },
+      outcome_questions() {
+        return this.multiple_choice_questions.filter(q => q.category == 'outcome')
+      },
+      scenario_questions() {
+        return this.multiple_choice_questions.filter(q => q.category == 'scenario')
+      },
+      css_vars() {
+        return {
+          '--brand-color-1': this.content_asset.account.brand_color_1,
+          '--avatar-gradient': `linear-gradient(to right, #fff 30%, ${this.content_asset.account.brand_color_1} 100%)`
+        }
+      },
+    },
+    methods: {
+      statMidpoint(stat) {
+        return Math.round((stat.answers[0].answer.low_value + stat.answers[0].answer.high_value) / 2)
+      },
+      pageIndicator(page) {
+        // return `${page + 1} / ${this.content_asset.pages.length}`
+        return `${page}/4`
+      },
+    }
+  }
+</script>
+<style lang='sass' scoped>
+  .content_asset
+    width: 100%
+    height: 360px
+    display: flex
+    .page
+      width: 360px
+      padding: 40px 32px
+      border: 1px solid black
+      position: relative
+  .header
+    h6 
+      font-family: 'Inter-Regular'
+      font-weight: 600
+      text-transform: uppercase
+      font-size: 10px
+      letter-spacing: 0.32em
+      color: #48555b
+  .content
+    z-index: 99
+    margin-top: 34px
+    height: 220px
+  .uevi
+    position: absolute
+    display: flex
+    align-items: center
+    top: 33px
+    left: 190px
+    width: 170px
+    background: white
+    border-radius: 15px
+    padding: 4px 0px 4px 7px
+    a
+      background: white
+      border-radius: 10px
+      font-family: 'Inter-SemiBold'
+      color: black
+      font-size: 10px
+    svg
+      width: 15px
+      height: 15px
+      margin-right: 10px
+  .uevi::before
+    border-radius: 25px
+    content: ''
+    background-image: linear-gradient(to right, rgba(223, 232, 236, 1) 0%, #f2f6f7 100%)
+    
+    top: -2px
+    left: -2px
+    bottom: -2px
+    right: -2px
+    position: absolute
+    z-index: -1
+
+  .asset_type
+    position: absolute
+    bottom: 32px
+    left: 32px
+    display: flex
+    .avatar
+      background: white
+      border-radius: 50px
+      position: relative
+      padding: 6px
+      box-sizing: border-box
+      svg
+        width: 25px
+        height: 25px
+        ::v-deep path
+          fill: var(--brand-color-1)
+    .avatar::before
+      border-radius: 50px
+      content: ''
+      background-image: var(--avatar-gradient)
+      top: -1px
+      left: -1px
+      bottom: -1px
+      right: -1px
+      position: absolute
+      z-index: -1
+  .customer_logo
+    z-index: 1
+    position: absolute
+    ::v-deep svg
+      width: 144px
+      height: 144px
+      path
+        fill: var(--brand-color-1)
+  .arc
+    z-index: 99
+    position: absolute
+    width: 112px
+    height: 112px
+    border: 4px solid #f2f6f7
+    border-radius: 150px
+    top: 304px
+    left: -56px
+
+  .title_page
+    .customer_logo
+      top: -80px
+  .introduction_page
+    .customer_logo
+      top: 100px
+      left: -100px
+    .content
+      padding-left: 40px
+  
+
+  .facts
+    .fact 
+      font-weight: 600
+      font-family: 'Inter', sans-serif
+      font-size: 14px
+      margin-bottom: 18px
+      color: #48555b
+      svg
+        margin-right: 12px
+
+  .stats
+    justify-content: space-between
+    display: flex
+    height: 100%
+    flex-direction: column
+  .stat
+    h1
+      font-size: 56px
+      margin-bottom: 4px
+      line-height: 1
+    .qualifier
+      display: inline-block
+      font-size: 20px
+      font-family: 'Inter', sans-serif
+      font-weight: 100 !important
+      margin-left: 4px
+      color: var(--brand-color-1)
+
+  .right_arrow
+    position: absolute
+    bottom: 10px
+    right: 10px
+  .page_indicator
+    font-size: 10px
+    position: absolute
+    bottom: 10px
+    left: 10px
+    
+  .question
+    display: block
+    margin: 0 auto 48px
+    padding: 0 !important
+    p
+      margin-bottom: 8px
+    &:last-child
+      margin-bottom: -32px
+    &:hover
+      border: 1px solid white
+  ul
+    padding: 0px !important
+    li
+      font-family: 'Inter-ExtraBold'
+      font-weight: 700
+      list-style: none
+      ::v-deep svg
+        width: 20px
+        height: 20px
+        margin-right: 20px
+        circle
+          stroke: var(--brand-color-1)
+</style>
