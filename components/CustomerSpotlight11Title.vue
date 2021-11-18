@@ -52,6 +52,7 @@ export default {
   padding: 32px
   position: relative
   overflow: hidden
+  background: white
 h2
   font-size: 22px
   line-height: 30px
