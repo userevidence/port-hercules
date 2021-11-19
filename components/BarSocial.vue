@@ -6,7 +6,7 @@
   .header
     figure(v-html='content_asset.account.svg_logo')
   .caption {{content_asset.question.the_question}}
-  BarGuts(:stats='content_asset.response_stats' :total='content_asset.recipient_stats[0].count' :gradient_1='content_asset.account.gradient_2' :gradient_2='content_asset.account.gradient_2')
+  BarGuts(:stats='content_asset.answer_stats' :total='content_asset.response_count' :gradient_1='content_asset.account.gradient_2' :gradient_2='content_asset.account.gradient_2')
 </template>
 <script>
 import BarGuts from './BarGuts.vue'
@@ -19,12 +19,6 @@ export default {
   props: ['content_asset'],
   components: { BarGuts, Logo, AvatarIcon },
   computed: {
-    stats() {
-      return this.content_asset.response_stats
-    },
-    total() {
-      return this.content_asset.recipient_stats[0].count
-    },
     testimonial_text() {
       return `"${this.content_asset.text}"`
     },

@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     stats() {
-      return this.content_asset.response_stats.sort((a, b) => b.count - a.count )
+      return this.content_asset.answer_stats.sort((a, b) => b.count - a.count )
     },
     shortChart() {
       return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
