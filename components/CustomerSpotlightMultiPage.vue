@@ -39,7 +39,7 @@
       .page_indicator {{pageIndicator(2)}}
       .right_arrow
         RightArrowIcon
-    .introduction_page.page
+    .introduction_page.page(v-if='false')
       .header
         h6 Introduction
         .uevi
@@ -50,7 +50,7 @@
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
       .arc
-      .page_indicator {{pageIndicator(3)}}
+      .page_indicator {{pageIndicator(2)}}
       .right_arrow
         RightArrowIcon
     .key_results_page.page(v-if='stats')
@@ -67,7 +67,9 @@
               .qualifier(:style='text_color_1') {{stat.qualifier}}
             p {{stat.stat_tagline}}
       .arc
-      .page_indicator {{pageIndicator(4)}}
+      .customer_logo
+        div(v-html='content_asset.account.svg_logo_mark')
+      .page_indicator {{pageIndicator(3)}}
       .right_arrow
         RightArrowIcon
 
@@ -78,12 +80,35 @@
           Logo
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
-        h2 {{testimonials[0].answers[0].response.text_answer}}
+        h2 {{testimonial_pages[0]}}...
+        .profile
+          .avatar
+            img(:src='content_asset.recipient.recipient_gravatar_url' v-if='content_asset.recipient.recipient_gravatar_url')
+            AvatarIcon(v-else)
+          .author_information(v-if='content_asset.recipient.named')
+            h4 {{content_asset.recipient.person_attribution}}
+            h6 {{content_asset.recipient.title}}
+            h6 {{content_asset.recipient.best_company_name}}
+          .author_information(v-else)
+            h4 {{content_asset.recipient.person_attribution}}
+            h6 {{content_asset.recipient.company_attribution}}
       .arc
       .page_indicator {{pageIndicator(4)}}
       .right_arrow
         RightArrowIcon
-    .scenario_page.page
+    .testimonial_page.page(v-for='(page, i) in testimonial_pages.slice(1)')
+      .header
+        h6 Testimonial
+        .uevi
+          Logo
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .content
+        h2 {{page}}
+      .arc
+      .page_indicator {{pageIndicator(5 + i)}}
+      .right_arrow
+        RightArrowIcon
+    .scenario_page.page(v-if='false')
       .header
         h6 Scenario
         .uevi
@@ -103,6 +128,18 @@
       .page_indicator {{pageIndicator(4)}}
       .right_arrow
         RightArrowIcon
+    .cta_page.page
+      .header
+        h6 Learn More
+      .content
+        h3 
+          | See the full {{content_asset.account.name}} Customer Spotlight here:
+          br
+          a(:href='asset_url' target='_blank') {{asset_link}}
+      .customer_logo
+        div(v-html='content_asset.account.svg_logo_mark')
+      .arc
+      .page_indicator {{pageIndicator(total_pages)}}
   </template>
   <script>
   import Logo from './graphics/Logo'
@@ -112,11 +149,12 @@
   import IndustryIcon from 'src/app/graphics/IndustryIcon'
   import LocationIcon from 'src/app/graphics/LocationIcon'
   import RightArrowIcon from './graphics/RightArrowIcon'
+  import AvatarIcon from './graphics/AvatarIcon.vue'
 
   export default {
     name: 'CustomerSpotlight11Title',
     props: ['content_asset'],
-    components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon },
+    components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
     computed: {
       asset_link() {
         return `uevi.co/${this.content_asset.identifier}`
@@ -157,11 +195,26 @@
           q.qualifier != ''
         ).slice(0, 2)
       },
-      testimonials() {
+      testimonial() {
         return this.content_asset.recipient.questions.filter(q => q.type == 'Testimonial' &&
           q.answers[0].response.text_answer != '' &&
           q.answers[0].response.text_answer != null
-        )
+        )[0]
+      },
+      words() {
+        return this.testimonial.answers[0].response.text_answer.split(' ')
+      },
+      testimonial_pages() {
+        var pages = []
+        pages.push(this.page(170))
+        
+        while(this.words.length > 0)
+          pages.push(this.page(240))
+          
+        return pages
+      },
+      total_pages() {
+        return 4 + this.testimonial_pages.length
       },
       multiple_choice_questions() {
         return this.content_asset.recipient.questions.filter(q => ['MultipleChoiceOne', 'MultipleChoiceMany'].includes(q.type))
@@ -180,12 +233,22 @@
       },
     },
     methods: {
+      page(length) {
+        var the_page = ''
+        while(the_page.length < length && this.words.length > 0) {
+          if(this.words[0].length + the_page.length > length) {
+            break;
+          }
+          the_page += this.words.shift() + ' '
+        }
+        return the_page.trim()
+
+      },
       statMidpoint(stat) {
         return Math.round((stat.answers[0].answer.low_value + stat.answers[0].answer.high_value) / 2)
       },
       pageIndicator(page) {
-        // return `${page + 1} / ${this.content_asset.pages.length}`
-        return `${page}/4`
+        return `${page}/${this.total_pages}`
       },
     }
   }
@@ -200,6 +263,7 @@
       padding: 40px 32px
       border: 1px solid black
       position: relative
+      z-index: 1
   .header
     h6 
       font-family: 'Inter-Regular'
@@ -209,15 +273,47 @@
       letter-spacing: 0.32em
       color: #48555b
   .content
-    z-index: 99
+    z-index: 199
+    position: relative
     margin-top: 34px
-    height: 220px
+    height: 210px
+    h2
+      line-height: 26px
+      margin-bottom: 44px
+    .profile
+      display: flex
+      align-items: center
+      .avatar
+        margin-right: 12px
+        height: 48px
+        width: 48px
+        background: white
+        border-radius: 50% 50% 50% 0%
+        padding: 5px
+        display: flex
+        img
+          border-radius: 40px
+          width: 48px
+        svg
+          height: 100%
+          width: 100%
+          // ::v-deep path
+            fill: hsla(200, 100%, 100%, 0.9) !important
+      .author_information
+      h4
+        font-size: 14px
+        line-height: 16px
+        margin-bottom: 4px
+      h6
+        font-size: 10px
+        line-height: 12px
+        letter-spacing: inherit
   .uevi
     position: absolute
     display: flex
     align-items: center
     top: 33px
-    left: 190px
+    left: 210px
     width: 170px
     background: white
     border-radius: 15px
@@ -291,13 +387,29 @@
   .title_page
     .customer_logo
       top: -80px
-  .introduction_page
+  .key_results_page
     .customer_logo
       top: 100px
       left: -100px
     .content
-      padding-left: 40px
-  
+      text-align: right
+  .testimonial_page
+    .content
+  .cta_page
+    .customer_logo
+      top: -20px
+      right: 0
+    .content
+      display: flex
+      align-items: center
+      h3
+        line-height: 32px
+        font-size: 20px
+        color: #131516
+    a
+      color: var(--brand-color-1)
+      font-family: Inter-ExtraBold
+      
 
   .facts
     .fact 
