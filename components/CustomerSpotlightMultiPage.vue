@@ -136,6 +136,12 @@
           | See the full {{content_asset.account.name}} Customer Spotlight here:
           br
           a(:href='asset_url' target='_blank') {{asset_link}}
+      .footer
+        .text
+          p Generate Customer Content
+          a(href='https://www.userevidence.com') UserEvidence.com
+        Logo
+        
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
       .arc
@@ -261,7 +267,6 @@
     .page
       width: 360px
       padding: 40px 32px
-      border: 1px solid black
       position: relative
       z-index: 1
   .header
@@ -351,6 +356,8 @@
       position: relative
       padding: 6px
       box-sizing: border-box
+      width: 49px
+      height: 56px
       svg
         width: 25px
         height: 25px
@@ -409,12 +416,25 @@
     a
       color: var(--brand-color-1)
       font-family: Inter-ExtraBold
-      
+    .footer
+      position: absolute
+      bottom: 32px
+      right: 32px
+      display: flex
+      align-items: center
+      text-align: right
+      .text
+        margin-right: 10px
+        line-height: 20px
+      p
+        font-size: 12px
+      a
+        font-size: 12px
+        color: $uePurple
 
   .facts
     .fact 
-      font-weight: 600
-      font-family: 'Inter', sans-serif
+      font-family: 'Inter-Medium', sans-serif
       font-size: 14px
       margin-bottom: 18px
       color: #48555b
