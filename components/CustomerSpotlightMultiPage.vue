@@ -354,13 +354,14 @@
       background: white
       border-radius: 50px
       position: relative
-      padding: 6px
       box-sizing: border-box
-      width: 49px
+      width: 56px
       height: 56px
+      display: flex
+      justify-content: center
+      align-items: center
       svg
-        width: 25px
-        height: 25px
+        height: 28px
         ::v-deep path
           fill: var(--brand-color-1)
     .avatar::before
