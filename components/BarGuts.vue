@@ -88,16 +88,14 @@ export default {
     display: flex
     justify-content: space-between
     align-items: flex-end
-    margin-left: -1%
-    margin-right: -1%
     .bar_group
       display: flex
       flex-direction: column
       justify-content: flex-end
       width: 100%
       height: 100%
-      margin-left: 1%
-      margin-right: 1%
+      &:not(:last-child)
+        margin-right: 2%
     .bar
       border-radius: 8px 8px 0px 0px
       padding: 0
