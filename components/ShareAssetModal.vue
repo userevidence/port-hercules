@@ -15,7 +15,7 @@
                 .header
                   h3 Basic Theme
                   .buttons
-                    a.span(:href='variantUrl(basic_variant)' title='Download PNG' target='_blank')
+                    a(:href='variantUrl(basic_variant)' title='Download PNG' target='_blank')
                       | PNG
                       DownloadIcon
                 p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
@@ -27,7 +27,7 @@
                 .header
                   h3 Styled Theme
                   .buttons
-                    a.span(:href='variantUrl(pdf_variant)' title='Download PDF' target='_blank' v-if='pdf_variant')
+                    a(:href='variantUrl(pdf_variant)' title='Download PDF' target='_blank' v-if='pdf_variant')
                       | PDF
                       DownloadIcon
                     a.span(:href='variantUrl(styled_png_variant)' title='Download PNG' target='_blank')
@@ -46,10 +46,10 @@
                       DownloadIcon
                 p Download and share the Customer Spotlight with customers.
       .modal_footer
-        span(@click='copyUrl') 
+        a(@click='copyUrl') 
           LinkIcon
           | Copy Asset URL
-        span(@click='copySnippet()' v-if='copyable_variant')
+        a(@click='copySnippet()' v-if='copyable_variant')
           EmbedIcon
           | Copy Embed Code
 </template>
@@ -123,12 +123,12 @@ export default {
     },
     copyUrl() {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
-      this.$toast('Asset URL Copied to Clipboard')
+      this.$toast('Asset URL copied to clipboard')
     },
     copySnippet() {
       var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
-      this.$toast('Snippet Copied to Clipboard')
+      this.$toast('Embed Code copied to clipboard')
     },
     pageCountTag(variant) {
       if(variant.page_count > 1)
@@ -143,7 +143,7 @@ export default {
 <style lang='sass' scoped>
   .download_container  
     position: relative
-    height: 470px
+    //height: 470px
     overflow-y: auto
   .downloads
     display: flex
@@ -155,7 +155,7 @@ export default {
   .download
     position: relative
     width: 312px
-    margin-bottom: 16px
+    //margin-bottom: 16px
     border: 1px solid hsl(200, 24%, 90%)
     border-radius: 24px
     overflow: hidden
@@ -179,13 +179,14 @@ export default {
         display: flex
         align-items: center
         line-height: 1
-        a.span
+        a
           color: hsl(200, 12%, 32%)
           font-size: 14px
           font-weight: 800
           font-family: 'Inter-ExtraBold', sans-serif
           line-height: 1
           letter-spacing: -0.015em
+          display: flex
           &:not(:last-child)
             margin-right: 16px
           &:hover
@@ -239,7 +240,7 @@ export default {
         text-decoration: none
         cursor: default
   .modal_footer
-    span
+    a
       font-size: 13px
       font-weight: 800
       font-family: 'Inter-ExtraBold', sans-serif
@@ -247,6 +248,7 @@ export default {
       line-height: 1
       color: hsl(200, 12%, 32%)
       background: white
+      display: flex
       svg
         margin-right: 8px
       &:not(:last-child)
