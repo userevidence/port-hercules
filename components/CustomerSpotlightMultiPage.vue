@@ -61,6 +61,7 @@
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
         .stats
+          | &nbsp;
           .stat(v-for='stat in stats')
             h1
               | {{statMidpoint(stat)}}
@@ -263,6 +264,7 @@
   .content_asset
     width: 100%
     height: 360px
+    background: white
     display: flex
     .page
       width: 360px
