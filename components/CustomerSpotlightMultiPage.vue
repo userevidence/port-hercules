@@ -397,7 +397,10 @@
   .title_page
     .customer_logo
       top: -80px
+  .profile_page
+    z-index: 5 !important
   .key_results_page
+    z-index: 4 !important
     .customer_logo
       top: 100px
       left: -100px
