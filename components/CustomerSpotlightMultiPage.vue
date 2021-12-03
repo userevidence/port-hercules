@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .customer_spotlight_multi_page.content_asset(:style='css_vars')
+  .customer_spotlight_multi_page.content_asset(:style='css_vars' :class='{ pdf: type == "CustomerSpotlightMultiPagePdfVariant" }')
     .title_page.page
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
@@ -12,6 +12,7 @@
         p Customer <br> Spotlight
         .avatar
           CustomerSpotlightAvatarIcon
+      .arc.arc2
       .page_indicator {{pageIndicator(1)}}
       .right_arrow
         RightArrowIcon
@@ -35,7 +36,8 @@
           .fact(v-if='content_asset.recipient.company_country_code')
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             | {{content_asset.recipient.company_country_code}}
-      .arc
+      .arc.arc1
+      .arc.arc2
       .page_indicator {{pageIndicator(2)}}
       .right_arrow
         RightArrowIcon
@@ -49,7 +51,8 @@
         p This Customer Spotlight is a synopsis of how {{company_qualifier}} used {{this.content_asset.account.name}} to benefit their business.  The feedback included was collected and verified in a {{survayed_at | dayjs('MMMM')}} {{survayed_at | dayjs('YYYY')}} survey of {{this.content_asset.account.name}} customers conducted by UserEvidence, an independent research firm. 
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
-      .arc
+      .arc.arc1
+      .arc.arc2
       .page_indicator {{pageIndicator(2)}}
       .right_arrow
         RightArrowIcon
@@ -67,7 +70,8 @@
               | {{statMidpoint(stat)}}
               .qualifier(:style='text_color_1') {{stat.qualifier}}
             p {{stat.stat_tagline}}
-      .arc
+      .arc.arc1
+      .arc.arc2
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
       .page_indicator {{pageIndicator(3)}}
@@ -93,7 +97,8 @@
           .author_information(v-else)
             h4 {{content_asset.recipient.person_attribution}}
             h6 {{content_asset.recipient.company_attribution}}
-      .arc
+      .arc.arc1
+      .arc.arc2
       .page_indicator {{pageIndicator(4)}}
       .right_arrow
         RightArrowIcon
@@ -105,7 +110,8 @@
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
         h2 {{page}}
-      .arc
+      .arc.arc1
+      .arc.arc2
       .page_indicator {{pageIndicator(5 + i)}}
       .right_arrow
         RightArrowIcon
@@ -125,7 +131,8 @@
               </svg>
             
               | {{answer.answer.the_answer}}
-      .arc
+      .arc.arc1
+      .arc.arc2
       .page_indicator {{pageIndicator(4)}}
       .right_arrow
         RightArrowIcon
@@ -145,7 +152,7 @@
         
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
-      .arc
+      .arc.arc1
       .page_indicator {{pageIndicator(total_pages)}}
   </template>
   <script>
@@ -159,8 +166,8 @@
   import AvatarIcon from './graphics/AvatarIcon.vue'
 
   export default {
-    name: 'CustomerSpotlight11Title',
-    props: ['content_asset'],
+    // name: 'CustomerSpotlight11Title',
+    props: ['content_asset', 'type'],
     components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
     computed: {
       asset_link() {
@@ -261,6 +268,16 @@
   }
 </script>
 <style lang='sass' scoped>
+  .pdf
+    display: block !important
+    .page
+      overflow: hidden
+      height: 360px
+      page-break-after: always
+      .arc2
+        display: block
+        top: 304px
+        right: -56px
   .content_asset
     width: 100%
     height: 360px
@@ -391,8 +408,11 @@
     height: 112px
     border: 4px solid #f2f6f7
     border-radius: 150px
-    top: 304px
-    left: -56px
+    &.arc1
+      top: 304px
+      left: -56px
+    &.arc2
+      display: none
 
   .title_page
     .customer_logo
