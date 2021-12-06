@@ -118,7 +118,10 @@ h2
         width: 15px
         height: 15px
         margin-right: 10px
-
+.title
+  height: 65%
+  display: flex
+  align-items: center
 .asset_type
   display: flex
 p
