@@ -61,9 +61,12 @@ export default {
     flex-grow: 0
     figure
       margin: 0
+      height: 16px
+      width: 16px
     ::v-deep svg
       width: 100%
       height: 100%
+      display: block
     .company_logo
       width: 16px
       height: 16px

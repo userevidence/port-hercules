@@ -364,7 +364,7 @@
     a
       background: white
       border-radius: 10px
-      font-family: 'Inter-SemiBold'
+      font-family: 'Inter-Medium'
       color: black
       font-size: 10px
     svg
