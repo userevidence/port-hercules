@@ -36,6 +36,8 @@
           .fact(v-if='content_asset.recipient.company_country_code')
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             | {{content_asset.recipient.company_country_code}}
+      .customer_logo
+        div(v-html='content_asset.account.svg_logo_mark')
       .arc.arc1
       .arc.arc2
       .page_indicator {{pageIndicator(2)}}
@@ -270,6 +272,9 @@
 <style lang='sass' scoped>
   .pdf
     display: block !important
+    .uevi::before
+      background: white
+    
     .page
       overflow: hidden
       height: 360px
@@ -278,6 +283,20 @@
         display: block
         top: 304px
         right: -56px
+    .profile_page
+      .customer_logo
+        display: block
+        top: 100px
+        right: -43px
+    .cta_page
+      position: relative
+      .customer_logo
+        position: absolute
+        height: 30%
+        ::v-deep svg
+          position: absolute
+          top: -20px
+          right: 0px
   .content_asset
     width: 100%
     height: 360px
@@ -399,7 +418,7 @@
     ::v-deep svg
       width: 144px
       height: 144px
-      path
+      pathx
         fill: var(--brand-color-1)
   .arc
     z-index: 99
@@ -419,6 +438,8 @@
       top: -80px
   .profile_page
     z-index: 5 !important
+    .customer_logo
+      display: none
   .key_results_page
     z-index: 4 !important
     .customer_logo
@@ -477,13 +498,14 @@
       font-size: 56px
       margin-bottom: 4px
       line-height: 1
+      color: var(--brand-color-1)
     .qualifier
       display: inline-block
       font-size: 20px
       font-family: 'Inter', sans-serif
       font-weight: 100 !important
       margin-left: 4px
-      color: var(--brand-color-1)
+      color: black
 
   .right_arrow
     position: absolute
