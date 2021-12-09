@@ -11,7 +11,7 @@
         a(:href='`https://${uevico_link}`' :class='link_class') {{uevico_link}}
   .verification_text
     p(v-if='content_asset.type == "TestimonialAsset"') Survey conducted by UserEvidence. Testimonial verified {{verified_date}}.
-    p(v-else) Survey of {{content_asset.recipient_count}} {{content_asset.account.name}} {{filter_text}} users, conducted by UserEvidence. Statistic verified {{verified_date}}.
+    p(v-else) Survey of {{content_asset.response_count}} {{content_asset.account.name}} {{filter_text}} users, conducted by UserEvidence. Statistic verified {{verified_date}}.
 </template>
 <script>
 import Logo from './graphics/Logo.vue'

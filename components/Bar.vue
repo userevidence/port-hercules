@@ -10,7 +10,7 @@
       h2 {{content_asset.question.the_question}}
     .titles(v-else)
   .bars(:class='orientation')
-    BarGuts(:stats='content_asset.response_stats' :total='content_asset.recipient_stats[0].count' :gradient_1='content_asset.account.gradient_2' :gradient_2='content_asset.account.gradient_2')
+    BarGuts(:stats='content_asset.answer_stats' :total='content_asset.response_count' :gradient_1='content_asset.account.gradient_2' :gradient_2='content_asset.account.gradient_2')
   AssetFooter(:content_asset='content_asset')
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     stats() {
-      return this.content_asset.response_stats
+      return this.content_asset.answer_stats
     },
     orientation() {
       // we need to know the orientation here so we can fix the height 

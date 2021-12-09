@@ -96,7 +96,8 @@ export default {
       return variant.type == 'PdfVariant'
     },
     variantUrl(variant) {
-      if(variant.type == 'TestimonialMultiPagePngVariant')
+      
+      if(['CustomerSpotlightMultiPagePngVariant', 'TestimonialMultiPagePngVariant'].includes(variant.type))
         return `${variant.the_url}.zip`
       else
         return `${variant.the_url}?d=`
