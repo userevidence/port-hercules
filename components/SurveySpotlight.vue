@@ -32,7 +32,7 @@
       section
         h5 Introduction
         p.intro_text
-          | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM D') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM DD, YYYY')}}, of {{content_asset.survey.recipient_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
+          | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM D') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM DD, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
           
       section
         h5 Key Results
@@ -58,7 +58,7 @@
           h4 {{scenario_question.the_question}}
           .bar_chart
             BarGuts(:stats='scenario_question.stats' :total='stat_total(scenario_question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-          .citation Source: Survey of {{content_asset.survey.recipient_count}} {{account.name}} customers.
+          .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
       
       //- section(v-for='i in 10')
       //-   h1 {{i}}
@@ -70,7 +70,7 @@
           h4 {{question.the_question}}
           .bar_chart(:class='orientation(question.stats)')
             BarGuts(:stats='question.stats' :total='stat_total(question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-          .citation Source: Survey of {{content_asset.survey.recipient_count}} {{account.name}} customers.
+          .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
 
       section
         h5 About {{account.name}}
@@ -79,7 +79,7 @@
     footer
       .ue_logo
         UELogo
-      .disclaimer Source: Survey of {{content_asset.survey.recipient_count}} {{account.name}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
+      .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
       //- .disclaimer(v-else) Source: Survey of {{company_qualifier}}. Independent research conducted by <a href='https://www.userevidence.com'>UserEvidence</a>. Data verified {{published_at | dayjs('MMMM DD, YYYY')}}.
       .ueid-container
         .ueid 
