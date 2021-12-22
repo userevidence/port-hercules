@@ -1,0 +1,262 @@
+.spotlight_asset
+  display: flex
+  overflow: hidden
+  &.horizontal
+    flex-direction: column
+    header
+      position: relative
+      width: 100%
+      .contents
+        position: relative
+        top: 0
+        left: 0
+        max-width: 784px
+        margin: 0 auto
+        padding: 80px 32px
+    .hero_logo
+      left: -48px
+      top: 50%
+      transform: translateY(-50%)
+      position: absolute
+  .cs_container
+    max-width: 816px
+    margin: 0 auto
+
+  header
+    width: 28%
+    background: radial-gradient(134.88% 877.05% at 15.14% -17.75%, #3399FF 0%, #0070E0 100%), no-repeat
+    .contents
+      position: fixed
+      top: 72px
+      max-width: 20%
+      padding: 0 32px
+      margin: 0 auto
+    background-position: left center
+    .cs_container
+      height: 100%
+      color: white
+    .customer
+      display: flex
+      align-items: center
+      margin-bottom: 24px
+      h3
+        font-size: 14px
+        color: white
+        font-weight: 500
+      img
+        margin-right: 10px
+      div
+        svg
+          margin-right: 10px !important
+          path
+            fill: white
+    .spotlight_title
+      h1
+        color: white
+        font-size: 33px
+        line-height: 40px
+        letter-spacing: -0.02em
+        text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16)
+      h6
+        color: white
+        font-family: 'Inter', sans-serif
+        font-weight: 100
+        font-size: 12px
+        line-height: 1
+        letter-spacing: 0.01em
+        margin: 12px 0 0
+    .hero_logo
+      opacity: 0.25
+      position: absolute
+      z-index: 1
+      left: -32px
+      div
+        svg
+          width: 256px
+          height: 256px
+          path
+            fill: white
+
+  .content
+    width: 100%
+    h5
+      line-height: 1
+      margin: 0 0 16px
+      color: hsl(200, 16%, 45%)
+      &:after
+        content: none
+    section
+      margin: 72px auto
+      max-width: 784px
+      padding: 0 32px
+      &.testimonial
+        padding: 0
+        max-width: 768px
+    .intro_text
+      margin-bottom: 32px
+    p
+      font-size: 16px
+      line-height: 175%
+      color: #131516
+      margin: 0
+    .facts, .stats
+      display: flex
+      h6
+        font-size: 15px
+        font-weight: 300
+        font-family: 'Inter', sans-serif
+        line-height: 1
+        letter-spacing: -0.015em
+        color: hsl(200, 16%, 24%)
+    .facts
+      margin-top: 24px
+      .fact 
+        font-weight: 500
+        font-family: 'Inter', sans-serif
+        font-size: 14px
+        margin-right: 48px
+        &:last-child
+          margin-right: 0
+        svg
+          margin-right: 12px
+    .stats
+      justify-content: space-between
+    .stat
+      max-width: 200px
+      h2
+        font-size: 56px
+        margin-bottom: 4px
+        line-height: 1
+      .qualifier
+        display: inline-block
+        font-size: 20px
+        font-family: 'Inter', sans-serif
+        font-weight: 100 !important
+        margin-left: 4px
+        color: #3399ff
+      
+    .question
+      display: block
+      margin: 0 auto 48px
+      padding: 0 !important
+      p
+        margin-bottom: 8px
+      &:last-child
+        margin-bottom: -32px
+      &:hover
+        border: 1px solid white
+    ul
+      li
+        background-position: left center
+        padding-left: 24px
+        font-weight: 700
+        list-style: none
+
+    footer
+      display: block
+      margin: 0 auto
+      max-width: 784px
+      padding: 0 32px 48px
+      position: relative
+      .ue_logo
+        display: inline-block
+        width: 100%
+      .ue_logo, .disclaimer
+        margin-bottom: 24px
+      .ueid-container
+        text-align: left
+      .ue_logo svg
+        max-height: 24px
+        max-width: 120px
+      .disclaimer
+        font-weight: 500
+        font-family: 'Inter', sans-serif
+        font-size: 12px
+        line-height: 20px
+        letter-spacing: -0.015em
+        color: #131516
+      .ueid-container
+        font-family: 'Inter', sans-serif
+        font-weight: 300
+        font-size: 10px
+        line-height: 8px
+        text-align: left
+        letter-spacing: -0.01em
+        .ueid
+          color: #131516
+          margin-bottom: 8px
+        .url 
+          color: blue
+
+@media print
+  .spotlight_asset
+    .cs_container
+      max-width: 75%
+    
+    .ue_customer_spotlight_fab
+      display: none
+
+    footer
+      page-break-inside: avoid
+
+@media screen and (max-width: 1200px), print
+  .spotlight_asset
+    h1
+      font-size: 36px !important
+    .quote h2
+      font-size: 24px !important
+    .spotlight_asset
+      flex-direction: column
+      header
+        position: relative
+        width: 100%
+        .contents
+          position: relative
+          top: 0
+          left: 0
+          max-width: 748px
+          margin: 0 auto
+          padding: 100px 0
+      .hero_logo
+        left: -80px
+        top: 32px
+        position: absolute
+
+
+    header
+      position: relative
+      width: 100%
+      height: 320px
+      .spotlight_title h6
+        margin-top: 16px
+@media screen and (max-width: 816px)
+  .spotlight_asset
+    header
+      min-height: 360px
+      .contents
+        padding: 78px 32px !important
+    .facts, .stats
+      display: block
+      margin-top: -16px
+      .fact, .stat
+        display: inline-block
+        margin: 24px 0 0
+        width: 50%
+@media screen and (max-height: 640px)
+  .spotlight_asset
+    .hero_logo
+      opacity: 0.1
+      transition: 0.15s all
+@media screen and (max-width: 520px)
+  .spotlight_asset
+    h1
+      font-size: 28px !important
+    section
+      margin: 64px auto
+    .facts .fact, .stats .stat
+      width: 100%
+    .stats
+      margin-top: -32px
+      .stat
+        margin: 48px 0 0
+        text-align: center
