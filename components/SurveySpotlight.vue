@@ -27,7 +27,8 @@
             | {{content_asset.survey.company_count}} Companies
           .fact
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | US
+            | {{ country_count}}
+            
 
       section
         h5 Introduction
@@ -147,6 +148,10 @@ export default {
     },
     published_at() {
       return this.content_asset.verified_at || new Date()
+    },
+    country_count() {
+      var qual = this.content_asset.survey.country_count > 1 ? 'Countries' : 'Country'
+      return `${this.content_asset.survey.country_count} ${qual}`
     },
     gradient() {
       return `background: radial-gradient(134.88% 877.05% at 15.14% -17.75%, ${this.account.brand_color_1} 0%, ${this.account.brand_color_1} 100%), no-repeat`
