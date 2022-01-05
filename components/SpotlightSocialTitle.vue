@@ -19,7 +19,7 @@
     p Survey <br> Spotlight
     .avatar
       .icon
-        //- CustomerSpotlightAvatarIcon
+        SurveySpotlightIcon
   .customer_logo
     div(v-html='content_asset.account.svg_logo_mark')
   .arc1
@@ -27,12 +27,14 @@
 <script>
 import Logo from './graphics/Logo'
 import LongArrow from './graphics/LongArrow'
-import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon.vue'
+import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon'
+import SurveySpotlightIcon from './graphics/SurveySpotlightIcon'
+
 
 export default {
   name: 'CustomerSpotlighSocialTitle',
   props: ['content_asset', 'type'],
-  components: { CustomerSpotlightAvatarIcon, Logo, LongArrow },
+  components: { CustomerSpotlightAvatarIcon, SurveySpotlightIcon, Logo, LongArrow },
   computed: {
     wide() {
       
