@@ -8,10 +8,15 @@
           UpsideDownQuoteIcon.quote1(:brand_color_1='account.brand_color_1' v-if='i == 0')
           h2 {{testimonial.text_answer}}
           QuoteIcon.quote2(:brand_color_1='account.brand_color_1' v-if='i == testimonials.length - 1')
-        .avatar
-          img(:style='avatar_circle_color' :src='testimonial.recipient.gravatar_url' v-if='testimonial.recipient.gravatar_url')
-          AvatarIcon(:style='avatar_circle_color' v-else)
-          .name
+        .attribution
+          .avatar
+            img(:style='avatar_circle_color' :src='testimonial.recipient.gravatar_url' v-if='testimonial.recipient.gravatar_url')
+            AvatarIcon(:style='avatar_circle_color' v-else)
+          .name(v-if='testimonial.recipient.named')
+            h3 {{testimonial.recipient.person_attribution}}
+            h4 {{testimonial.recipient.title}}
+            h4 {{testimonial.recipient.company_name}}
+          .name(v-else)
             h4 {{testimonial.recipient.person_attribution}}
             h4 {{testimonial.recipient.company_attribution}}
 </template>
@@ -88,7 +93,7 @@ export default {
       line-height: 140%
       letter-spacing: -0.01em
       color: #131516
-    .avatar
+    .attribution
       display: inline-flex
       flex-direction: row
       align-items: center
@@ -100,11 +105,12 @@ export default {
         letter-spacing: -0.015em
         color: #48555B
         line-height: 1
+        h3
+          margin-bottom: 7px
         h4:first-child
           margin-bottom: 4px
       img, svg
-        width: 50px
-        height: 50px
+        width: 50px !important
         border-radius: 50%
         margin-right: 16px
 
