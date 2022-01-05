@@ -54,15 +54,13 @@
           TestimonialHighlight(:testimonials='key_testimonials')
         
       section
-        h5 Scenario
+        //- h5 Scenario
         .chart_preview
           h4 {{scenario_question.the_question}}
           .bar_chart
             BarGuts(:stats='scenario_question.stats' :total='stat_total(scenario_question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
           .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
       
-      //- section(v-for='i in 10')
-      //-   h1 {{i}}
       section(v-for='(question, i) in content_asset.questions')
         .testimonial(v-if='testimonial_groups[i] && testimonial_groups[i].length > 0')
           h5 Testimonials
@@ -71,7 +69,7 @@
           h4 {{question.the_question}}
           .bar_chart(:class='orientation(question.stats)')
             BarGuts(:stats='question.stats' :total='stat_total(question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-          .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
+          .citation Source: Survey of {{question.response_count}} {{account.name}} customers.
 
       section
         h5 About {{account.name}}
