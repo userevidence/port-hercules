@@ -7,7 +7,7 @@
       .contents
         .customer
           div(v-html='content_asset.account.svg_logo')
-          h3 Customer Spotlight
+          h3 Survey Spotlight
         .spotlight_title
           h1 {{content_asset.title}}
           h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
@@ -27,8 +27,8 @@
             | {{content_asset.survey.company_count}} Companies
           .fact
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{ country_count}}
-            
+            span(v-if='this.content_asset.survey.country_count > 1') {{ country_count}}
+            span(v-else) US
 
       section
         h5 Introduction
