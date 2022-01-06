@@ -120,7 +120,9 @@ export default {
   },
   computed: {
     testimonials() {
-      return this.content_asset.responses
+      return this.content_asset.responses.sort( (a, b) => {
+         return b.text_answer?.length - a.text_answer?.length
+      })
     },
     key_testimonials() {
       return this.testimonial_groups.shift()
