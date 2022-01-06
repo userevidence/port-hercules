@@ -37,7 +37,7 @@
           
       section
         h5 Key Results
-        .stats
+        .stats(:class='stats_class')
           .stat(v-for='stat in this.multiple_choice_stat_questions')
             h2 
               | {{stat.aggregate_stat_value}}
@@ -152,6 +152,9 @@ export default {
     country_count() {
       var qual = this.content_asset.survey.country_count > 1 ? 'Countries' : 'Country'
       return `${this.content_asset.survey.country_count} ${qual}`
+    },
+    stats_class() {
+      return this.multiple_choice_stat_questions.length == 2 && this.nps ? 'three' : 'two'
     },
     gradient() {
       return `background: radial-gradient(134.88% 877.05% at 15.14% -17.75%, ${this.account.brand_color_1} 0%, ${this.account.brand_color_1} 100%), no-repeat`
