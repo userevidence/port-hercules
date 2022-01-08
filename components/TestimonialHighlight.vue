@@ -2,11 +2,11 @@
   .testimonial_highlight
     .right(:style='`background-color: ${account.brand_color_1};`')
     .left(:style='`background-color: ${account.brand_color_1};`')
-    .d-flex
-      .testimonial.w-100(v-for='(testimonial, i) in testimonials' :class='{ single: single}')
-        .d-flex.justify-content-between
+    .highlights
+      .testimonial(v-for='(testimonial, i) in testimonials' :class='{ single: single}')
+        .quote
           UpsideDownQuoteIcon.quote1(:brand_color_1='account.brand_color_1' v-if='i == 0')
-          h2 {{testimonial.text_answer}}
+          h2 {{testimonial.text_answer}} 
           QuoteIcon.quote2(:brand_color_1='account.brand_color_1' v-if='i == testimonials.length - 1')
         .attribution
           .avatar
@@ -21,9 +21,9 @@
             h4 {{testimonial.recipient.company_attribution}}
 </template>
 <script lang='ts'>
-import UpsideDownQuoteIcon from 'src/app/graphics/UpsideDownQuoteIcon'
-import QuoteIcon from 'src/app/graphics/QuoteIcon'
-import AvatarIcon from 'src/app/graphics/AvatarIcon'
+import UpsideDownQuoteIcon from './graphics/UpsideDownQuoteIcon'
+import QuoteIcon from './graphics/QuoteIcon'
+import AvatarIcon from './graphics/AvatarIcon'
 
 export default {
   props: ['testimonials'],
@@ -47,6 +47,8 @@ export default {
     position: relative
     z-index: 2
     background: white
+    .highlights
+      display: flex
     .right, .left
       position: absolute
       z-index: 1
@@ -61,6 +63,9 @@ export default {
       left: -150%
     .right
       right: -150%
+    .quote
+      display: flex
+      justify-content: 
     .quote1, .quote2
       position: relative
     .quote1
@@ -75,11 +80,15 @@ export default {
       right: -28px
       bottom: 24px
   .testimonial
+    width: 100%
     min-width: 48%
+    overflow: visible !important
     &:first-of-type
       margin-right: 4%
     &.single
-      margin-right: 0% !important
+      margin-right: 4%
+      margin-left: 8%
+      // margin-right: 0% !important
     h5
       line-height: 1
       margin: 0 0 16px 24px
@@ -107,10 +116,15 @@ export default {
         line-height: 1
         h3
           margin-bottom: 7px
+        h4
+          margin-bottom: 0px
+          padding: 0
+          line-height: 1.3
         h4:first-child
           margin-bottom: 4px
       img, svg
         width: 50px !important
+        height: 50px
         border-radius: 50%
         margin-right: 16px
 
