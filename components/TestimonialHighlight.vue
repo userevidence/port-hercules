@@ -65,7 +65,6 @@ export default {
       right: -150%
     .quote
       display: flex
-      justify-content: 
     .quote1, .quote2
       position: relative
     .quote1
