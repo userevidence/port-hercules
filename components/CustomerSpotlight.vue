@@ -1,23 +1,24 @@
 <template lang='pug'>
 .spotlight_asset(v-if='content_asset' :class='{ horizontal: horizontal }')
   header(:style='gradient')
-    .back-link
-      router-link(:to='`/user-research-library/${content_asset.account.slug}`')
-        BackArrow
-        span {{content_asset.account.name}} Home
+    .content_container
+      .back-link
+        router-link(:to='`/user-research-library/${content_asset.account.slug}`')
+          BackArrow
+          span {{content_asset.account.name}} Home
 
 
 
-    .hero_logo(v-html='content_asset.account.svg_logo_mark')
-    .header_contents
-      .spotlight_header
-        figure(v-html='content_asset.account.svg_logo')
-        h3 Customer Spotlight
-      .title
-        h1 {{content_asset.title}}
-        h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
+      .hero_logo(v-html='content_asset.account.svg_logo_mark')
+      .header_contents
+        .spotlight_header
+          figure(v-html='content_asset.account.svg_logo')
+          h3 Customer Spotlight
+        .title
+          h1 {{content_asset.title}}
+          h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
   .content
-    .cs_container
+    .content_container
       section(v-if='profile_point_count >= 2')
         h5 Customer Profile
         .facts
