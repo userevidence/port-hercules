@@ -149,9 +149,19 @@ export default {
       .right
         display: none
     .testimonial h5
-      margin-left: 0
+      padding: 0 !important
       .left, .right
         display: none
+
+  @media screen and (max-width: 520px)
+    .testimonial_highlight
+      padding: 0px
+      h5 
+        margin: 0px
+      .highlights
+        display: block
+        .testimonial
+          margin-bottom: 32px
 
   @media print
     .testimonial_highlight

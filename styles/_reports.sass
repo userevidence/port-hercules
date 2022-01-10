@@ -317,16 +317,23 @@
     .hero_logo
       opacity: 0.1
       transition: 0.15s all
+
 @media screen and (max-width: 520px)
   .spotlight_asset
+    display: block
+    header, .content
+      width: 100% !important
+      position: relative
+      margin-left: 0px
+    .hero_logo
+      overflow: hidden
     h1
       font-size: 28px !important
-    section
-      margin: 64px auto
-    .facts .fact, .stats .stat
-      width: 100%
-    .stats
-      margin-top: -32px
-      .stat
-        margin: 48px 0 0
-        text-align: center
+    .content
+      section
+        margin: 64px auto
+      .facts, .stats
+        display: block
+      .facts .fact, .stats .stat
+        width: 100%
+        text-align: left !important
