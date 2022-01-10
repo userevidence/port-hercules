@@ -6,88 +6,91 @@
         BackArrow
         span {{content_asset.account.name}} Home
     .hero_logo(v-html='content_asset.account.svg_logo_mark')
-    .header_contents
-      .spotlight_header
-        figure(v-html='content_asset.account.svg_logo')
-        h3 Survey Spotlight
-      .title
-        h1 {{content_asset.title}}
-        h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
+      
+    .content_container
+      .header_contents
+        .spotlight_header
+          figure(v-html='content_asset.account.svg_logo')
+          h3 Survey Spotlight
+        .title
+          h1 {{content_asset.title}}
+          h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
         
   .content
-    section
-      h5 Respondents Profile
-      .facts
-        .fact
-          CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-          | {{content_asset.survey.respondent_count}} Respondents
-        .fact
-          IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-          | {{content_asset.survey.industry_count}} Industries
-        .fact
-          Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-          | {{content_asset.survey.company_count}} Companies
-        .fact
-          LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-          span(v-if='this.content_asset.survey.country_count > 1') {{ country_count}}
-          span(v-else) US
+    .content_container
+      section
+        h5 Respondents Profile
+        .facts
+          .fact
+            CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.survey.respondent_count}} Respondents
+          .fact
+            IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.survey.industry_count}} Industries
+          .fact
+            Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.survey.company_count}} Companies
+          .fact
+            LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            span(v-if='this.content_asset.survey.country_count > 1') {{ country_count}}
+            span(v-else) US
 
-    section
-      h5 Introduction
-      p.intro_text
-        | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM D') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM DD, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
+      section
+        h5 Introduction
+        p.intro_text
+          | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM D') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM DD, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
+          
+      section
+        h5 Key Results
+        .stats(:class='stats_class')
+          .stat(v-for='stat in this.multiple_choice_stat_questions')
+            h2 
+              | {{stat.aggregate_stat_value}}
+              .qualifier(:style='text_color_1') {{stat.aggregate_qualifier}}
+            h6 {{stat.aggregate_stat_tagline}}
+          .stat(v-if='nps')
+            h2 
+              | {{nps.aggregate_stat_value}}
+              .qualifier(:style='text_color_1') {{nps.aggregate_qualifier}}
+            h6 {{nps.aggregate_stat_tagline}}
+      section
+        .testimonial(v-if='key_testimonials.length > 1')
+          h5 Key Testimonials
+          TestimonialHighlight(:testimonials='key_testimonials')
         
-    section
-      h5 Key Results
-      .stats(:class='stats_class')
-        .stat(v-for='stat in this.multiple_choice_stat_questions')
-          h2 
-            | {{stat.aggregate_stat_value}}
-            .qualifier(:style='text_color_1') {{stat.aggregate_qualifier}}
-          h6 {{stat.aggregate_stat_tagline}}
-        .stat(v-if='nps')
-          h2 
-            | {{nps.aggregate_stat_value}}
-            .qualifier(:style='text_color_1') {{nps.aggregate_qualifier}}
-          h6 {{nps.aggregate_stat_tagline}}
-    section
-      .testimonial(v-if='key_testimonials.length > 1')
-        h5 Key Testimonials
-        TestimonialHighlight(:testimonials='key_testimonials')
+      section
+        //- h5 Scenario
+        .chart_preview
+          h4 {{scenario_question.the_question}}
+          .bar_chart
+            BarGuts(:stats='scenario_question.stats' :total='stat_total(scenario_question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
+          .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
       
-    section
-      //- h5 Scenario
-      .chart_preview
-        h4 {{scenario_question.the_question}}
-        .bar_chart
-          BarGuts(:stats='scenario_question.stats' :total='stat_total(scenario_question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-        .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
-    
-    section(v-for='(question, i) in content_asset.questions')
-      .testimonial(v-if='testimonial_groups[i] && testimonial_groups[i].length > 0')
-        h5 Testimonials
-        TestimonialHighlight(:testimonials='testimonial_groups[i]')
-      .chart_preview
-        h4 {{question.the_question}}
-        .bar_chart(:class='orientation(question.stats)')
-          BarGuts(:stats='question.stats' :total='stat_total(question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-        .citation Source: Survey of {{question.response_count}} {{account.name}} customers.
+      section(v-for='(question, i) in content_asset.questions')
+        .testimonial(v-if='testimonial_groups[i] && testimonial_groups[i].length > 0')
+          h5 Testimonials
+          TestimonialHighlight(:testimonials='testimonial_groups[i]')
+        .chart_preview
+          h4 {{question.the_question}}
+          .bar_chart(:class='orientation(question.stats)')
+            BarGuts(:stats='question.stats' :total='stat_total(question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
+          .citation Source: Survey of {{question.response_count}} {{account.name}} customers.
 
-    section
-      h5 About {{account.name}}
-      p(v-html='content_asset.account.introduction')
+      section
+        h5 About {{account.name}}
+        p(v-html='content_asset.account.introduction')
 
-    section.spotlight_footer
-      .ue_logo
-        UELogo
-      .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
-      //- .disclaimer(v-else) Source: Survey of {{company_qualifier}}. Independent research conducted by <a href='https://www.userevidence.com'>UserEvidence</a>. Data verified {{published_at | dayjs('MMMM DD, YYYY')}}.
-      .ueid-container
-        .ueid 
-          | UEID: {{content_asset.identifier}}
-          span 
-        .url
-          a(:href='`https://uevi.co/${content_asset.identifier}`') uevi.co/{{content_asset.identifier}}
+      section.spotlight_footer
+        .ue_logo
+          UELogo
+        .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
+        //- .disclaimer(v-else) Source: Survey of {{company_qualifier}}. Independent research conducted by <a href='https://www.userevidence.com'>UserEvidence</a>. Data verified {{published_at | dayjs('MMMM DD, YYYY')}}.
+        .ueid-container
+          .ueid 
+            | UEID: {{content_asset.identifier}}
+            span 
+          .url
+            a(:href='`https://uevi.co/${content_asset.identifier}`') uevi.co/{{content_asset.identifier}}
 </template>
 <script lang='ts'>
 import axios from 'axios'
