@@ -137,23 +137,23 @@ export default {
       visibility: hidden
       opacity: 0
     .testimonial_highlight
-      padding: 0 32px 0 24px
+      padding: 0 32px 0 0
       max-width: 784px
       display: flex
       .left
         display: block
-        left: 0
+        left: -32px
         width: 8px
         height: 100%
         opacity: 1
       .right
-        display: none
+        display: none !important
+        opacity: 0
     .testimonial h5
       padding: 0 !important
       .left, .right
         display: none
 
-  @media screen and (max-width: 520px)
     .testimonial_highlight
       padding: 0px
       h5 
@@ -161,7 +161,7 @@ export default {
       .highlights
         display: block
         .testimonial
-          margin-bottom: 32px
+          margin-bottom: 64px
 
   @media print
     .testimonial_highlight
