@@ -40,7 +40,7 @@
         p.intro_text
           | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM Do, YYYY') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM Do, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
           
-      section
+      section(v-if='this.multiple_choice_stat_questions.length > 0')
         h5 Key Results
         .stats(:class='stats_class')
           .stat(v-for='stat in this.multiple_choice_stat_questions')
@@ -53,7 +53,7 @@
               | {{nps.aggregate_stat_value}}
               .qualifier(:style='text_color_1') {{nps.aggregate_qualifier}}
             h6 {{nps.aggregate_stat_tagline}}
-      section
+      section(v-if='key_testimonials')
         .testimonial(v-if='key_testimonials.length > 1')
           h5 Key Testimonials
           TestimonialHighlight(:testimonials='key_testimonials')
