@@ -38,7 +38,7 @@
       section
         h5 Introduction
         p.intro_text
-          | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM D') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM DD, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
+          | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM Do, YYYY') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM Do, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
           
       section
         h5 Key Results
