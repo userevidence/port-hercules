@@ -48,7 +48,7 @@ export default {
       if(this.orientation == 'horizontal') {
         var width = this.statPercent(value)
         if(this.short_chart)
-          width = Math.log10(Number(width))*50
+          width = width * 1.9
         return { width: width + '%',
                 background: `linear-gradient(180deg, ${this.gradient_1}, ${this.gradient_2})` }
       }
