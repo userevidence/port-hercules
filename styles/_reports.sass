@@ -277,34 +277,40 @@
 
 @media screen and (max-width: 1200px), print
   .spotlight_asset
+    flex-direction: column
+    header
+      position: relative
+      top: 0px
+      height: inherit
+      width: 100% !important
+      .back-link
+        display: none
+      .header_contents
+        position: relative
+        max-width: 784px
+        margin: 0 auto
+        padding: 80px 32px
+    .spotlight_header
+      display: flex
+      align-items: center
+      margin-bottom: 24px
+      figure
+        margin: 0 10px 0 0
+    .hero_logo
+      left: -48px
+      top: 50%
+      transform: translateY(-50%)
+      position: absolute
+    .content
+      width: 100%
+      margin-left: 0%
+    .testimonial_highlight
+      .left, .right
+        display: block !important
     h1
       font-size: 36px !important
     .quote h2
       font-size: 24px !important
-    .spotlight_asset
-      flex-direction: column
-      header
-        position: relative
-        width: 100%
-        .contents
-          position: relative
-          top: 0
-          left: 0
-          max-width: 748px
-          margin: 0 auto
-          padding: 100px 0
-      .hero_logo
-        left: -80px
-        top: 32px
-        position: absolute
-
-
-    header
-      position: relative
-      width: 100%
-      height: 320px
-      .spotlight_title h6
-        margin-top: 16px
 @media screen and (max-width: 816px)
   .spotlight_asset
     header
