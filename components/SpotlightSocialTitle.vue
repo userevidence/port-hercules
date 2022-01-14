@@ -1,6 +1,5 @@
-
 <template lang='pug'>
-.customer_spotlight_title.content_asset(:style='css_vars' :class='{ wide: wide }')
+.spotlight_title.content_asset(:style='css_vars' :class='{ wide: wide }')
   .header
     p Full Report
     .arrow 
@@ -11,11 +10,16 @@
         | {{asset_link}}
   .title
     h2 {{content_asset.title}}
-  .asset_type
+  .asset_type(v-if='type == "CustomerSpotlight11TitlePngVariant"')
     p Customer <br> Spotlight
     .avatar
       .icon
         CustomerSpotlightAvatarIcon
+  .asset_type(v-else)
+    p Survey <br> Spotlight
+    .avatar
+      .icon
+        SurveySpotlightIcon
   .customer_logo
     div(v-html='content_asset.account.svg_logo_mark')
   .arc1
@@ -23,15 +27,18 @@
 <script>
 import Logo from './graphics/Logo'
 import LongArrow from './graphics/LongArrow'
-import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon.vue'
+import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon'
+import SurveySpotlightIcon from './graphics/SurveySpotlightIcon'
+
 
 export default {
   name: 'CustomerSpotlighSocialTitle',
   props: ['content_asset', 'type'],
-  components: { CustomerSpotlightAvatarIcon, Logo, LongArrow },
+  components: { CustomerSpotlightAvatarIcon, SurveySpotlightIcon, Logo, LongArrow },
   computed: {
     wide() {
-      return this.type == 'CustomerSpotlight191TitlePngVariant'
+      
+      return /.*Spotlight191TitlePngVariant/.test(this.type)
     },
     asset_link() {
       return `uevi.co/${this.content_asset.identifier}`
