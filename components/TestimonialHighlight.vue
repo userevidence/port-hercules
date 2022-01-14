@@ -87,7 +87,6 @@ export default {
     &.single
       margin-right: 4%
       margin-left: 8%
-      // margin-right: 0% !important
     h5
       line-height: 1
       margin: 0 0 16px 24px
@@ -138,7 +137,6 @@ export default {
       opacity: 0
     .testimonial_highlight
       padding: 0 32px 0 0
-      max-width: 784px
       display: flex
       .left
         display: block
@@ -149,6 +147,9 @@ export default {
       .right
         display: none !important
         opacity: 0
+    .testimonial
+      &.single
+        margin-left: 0px !important
     .testimonial h5
       padding: 0 !important
       .left, .right
