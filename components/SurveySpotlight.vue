@@ -79,6 +79,9 @@
       section
         h5 About {{account.name}}
         p(v-html='content_asset.account.introduction')
+      .spotlight_fab(v-if='download_url')
+        a(:href='download_url' title='Download PDF' alt='Download PDF' target='_blank')
+          DownArrow
 
       section.spotlight_footer
         .ue_logo
@@ -160,6 +163,10 @@ export default {
     },
     section_count() {
       return Math.min((this.testimonials.count - 2) / 2, this.content_asset.questions -1)
+    },
+    download_url() {
+      var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
+      return v ? v.the_url : null
     },
     published_at() {
       return this.content_asset.verified_at || new Date()

@@ -80,6 +80,9 @@
       section
         h5 About {{content_asset.account.name}}
         p(v-html='content_asset.account.introduction')
+      .spotlight_fab(v-if='download_url')
+        a(:href='download_url' title='Download PDF' alt='Download PDF' target='_blank')
+          DownArrow
 
     .spotlight_footer
       .ue_logo
@@ -170,9 +173,11 @@ export default {
           var size_string = this.content_asset.recipient.company_size.split('_').map(w => w[0].toUpperCase() + w.substring(1)).join(' ')
           return `a ${size_string} ${this.content_asset.recipient.industry_name} company`
         }
-        // var size_string = this.content_asset?.recipient?.company_size?.split('_').map(w => w[0].toUpperCase() + w.substring(1)).join(' ')
-        // return `a ${size_string} ${this.content_asset.recipient.industry_name} company`
       }
+    },
+    download_url() {
+      var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
+      return v ? v.the_url : null
     },
     profile_point_count() {
       var count = 0
