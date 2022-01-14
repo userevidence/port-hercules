@@ -3,8 +3,8 @@
     .legend
       .legendy % of Users
     .bar_group(v-for='(stat, i) in stats')
-      .channel(:style='barSize(stat.count)')
-        .bar(:style='bar_style')
+      .channel(:style='')
+        .bar(:style='barStyle(stat.count)')
           .stat 
             | {{statPercent(stat.count)}}
             span %
@@ -43,17 +43,20 @@ export default {
     statPercent(value) {
       return Math.round(value / this.total * 100)
     },
-    barSize(value) {
+    barStyle(value) {
+      var style = { }
       if(this.orientation == 'horizontal') {
         var width = this.statPercent(value)
         if(this.short_chart)
-          width = Math.log10(Number(width))*50
-        return 'width: ' + width + '%'
+          width = width * 1.9
+        return { width: width + '%',
+                background: `linear-gradient(180deg, ${this.gradient_1}, ${this.gradient_2})` }
       }
         
       else {
         var height = Number(this.statPercent(value))
-        return 'height: ' + height / this.max_percent * 100 + '%'
+        return { height: height / this.max_percent * 100 + '%',
+                background: `linear-gradient(180deg, ${this.gradient_1}, ${this.gradient_2})` }
       }
     },
   }
@@ -88,6 +91,11 @@ export default {
     display: flex
     justify-content: space-between
     align-items: flex-end
+    .channel
+      height: 100%
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
     .bar_group
       display: flex
       flex-direction: column

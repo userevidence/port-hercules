@@ -1,21 +1,22 @@
 <template lang='pug'>
   .customer_spotlight_card.content_asset
-    .header
+    .header(v-if='content_asset.type == "CustomerSpotlightAsset"')
       UserIcon
       h6 Customer Spotlight
+    .header(v-if='content_asset.type == "SurveySpotlightAsset"')
+      SmallSurveySpotlightIcon
+      h6 Survey Spotlight
     h2 {{content_asset.title}}
-    //pre {{content_asset}}
-    //h4 {{content_asset.recipient.person_attribution}}
-    //h4 {{content_asset.recipient.company_attribution}}
-    h5 {{verified_at}}
+    h5(v-if='content_asset.verified_at') {{verified_at}}
 </template>
 <script>
 import UserIcon from './graphics/UserIcon.vue'
+import SmallSurveySpotlightIcon from './graphics/SmallSurveySpotlightIcon.vue'
 import dayjs from 'dayjs'
 
 export default {
   props: ['content_asset'],
-  components: { UserIcon },
+  components: { UserIcon, SmallSurveySpotlightIcon },
   computed: {
     verified_at() {
       return dayjs(this.content_asset.verified_at).format('MMMM D, YYYY')
