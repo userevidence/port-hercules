@@ -23,13 +23,13 @@
         .facts
           .fact
             CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.survey.respondent_count}} Respondents
+            | {{content_asset.respondent_count}} Respondents
           .fact
             IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.survey.industry_count}} Industries
+            | {{content_asset.sector_count}} {{sector_qualifier}}
           .fact
             Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.survey.company_count}} Companies
+            | {{content_asset.company_count}} {{company_qualifier}}
           .fact
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             span(v-if='this.content_asset.survey.country_count > 1') {{ country_count}}
@@ -64,7 +64,7 @@
           h4 {{scenario_question.the_question}}
           .bar_chart
             BarGuts(:stats='scenario_question.stats' :total='stat_total(scenario_question.stats)' :gradient_1='account.gradient_2' :gradient_2='account.gradient_2')
-          .citation Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers.
+          .citation Source: Survey of {{scenario_question.response_count}} {{account.name}} customers.
       
       section(v-for='(question, i) in content_asset.questions')
         .testimonial(v-if='testimonial_groups[i] && testimonial_groups[i].length > 0')
@@ -163,6 +163,12 @@ export default {
     },
     section_count() {
       return Math.min((this.testimonials.count - 2) / 2, this.content_asset.questions -1)
+    },
+    company_qualifier() {
+      return this.content_asset.company_count > 0 ? 'Companies' : 'Company'
+    },
+    sector_qualifier() {
+      return this.content_asset.sector_count > 0 ? 'Industries' : 'Industry'
     },
     download_url() {
       var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
