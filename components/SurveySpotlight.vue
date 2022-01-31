@@ -165,10 +165,10 @@ export default {
       return Math.min((this.testimonials.count - 2) / 2, this.content_asset.questions -1)
     },
     company_qualifier() {
-      return this.content_asset.company_count > 0 ? 'Companies' : 'Company'
+      return this.content_asset.company_count > 1 ? 'Companies' : 'Company'
     },
     sector_qualifier() {
-      return this.content_asset.sector_count > 0 ? 'Industries' : 'Industry'
+      return this.content_asset.sector_count > 1 ? 'Industries' : 'Industry'
     },
     download_url() {
       var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
