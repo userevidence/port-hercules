@@ -86,7 +86,7 @@
       section.spotlight_footer
         .ue_logo
           UELogo
-        .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
+        .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} {{content_asset.filtered_by}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
         //- .disclaimer(v-else) Source: Survey of {{company_qualifier}}. Independent research conducted by <a href='https://www.userevidence.com'>UserEvidence</a>. Data verified {{published_at | dayjs('MMMM DD, YYYY')}}.
         .ueid-container
           .ueid 
