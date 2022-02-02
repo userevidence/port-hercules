@@ -2,7 +2,7 @@
   .bar_guts(:class='orientation')
     .legend
       .legendy % of Users
-    .bar_group(v-for='(stat, i) in stats')
+    .bar_group(v-for='(stat, i) in non_zero_stats')
       .channel(:style='')
         .bar(:style='barStyle(stat.count)')
           .stat 
@@ -20,18 +20,21 @@ export default {
     gradient_2: { default: 'hsl(270, 100%, 40%)' },
   },
   computed: {
+    non_zero_stats() {
+      return this.stats.filter(s => s.count > 0)
+    },
     short_chart() {
-      return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
+      return Math.max(...this.non_zero_stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
     },
     orientation() {
-      return Math.max(...this.stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
+      return Math.max(...this.non_zero_stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
     max_percent() {
-      return Math.max(...this.stats.map((stat) => Number(this.statPercent(stat.count))))
+      return Math.max(...this.non_zero_stats.map((stat) => Number(this.statPercent(stat.count))))
     },
     bar_class() {
       if(this.orientation == 'vertical') 
-        return this.stats.length > 6 ? 'barx' : `bar${this.stats.length}`
+        return this.non_zero_stats.length > 6 ? 'barx' : `bar${this.non_zero_stats.length}`
     },
     bar_style() {
       return {
