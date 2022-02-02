@@ -104,11 +104,12 @@ import Fortune500Icon from './graphics/Fortune500Icon'
 import CompanySizeIcon from './graphics/CompanySizeIcon'
 import IndustryIcon from './graphics/IndustryIcon'
 import LocationIcon from './graphics/LocationIcon'
+import DownArrow from './graphics/DownArrow'
 import BarGuts from './BarGuts'
 import TestimonialHighlight from './TestimonialHighlight'
 
 export default {
-  components: { UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts },
+  components: { UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownArrow },
   props: ['content_asset', 'horizontal'],
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)
