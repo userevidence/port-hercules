@@ -26,7 +26,7 @@
             | {{content_asset.respondent_count}} Respondents
           .fact
             IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.sector_count}} {{sector_qualifier}}
+            | {{sector_qualifier}}
           .fact
             Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             | {{content_asset.company_count}} {{company_qualifier}}
@@ -86,7 +86,7 @@
       section.spotlight_footer
         .ue_logo
           UELogo
-        .disclaimer Source: Survey of {{content_asset.survey.respondent_count}} {{account.name}} {{content_asset.filtered_by}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
+        .disclaimer Source: Survey of {{content_asset.respondent_count}} {{account.name}} {{content_asset.filtered_by}} customers. Independent research conducted by UserEvidence. Data verified {{published_at | dayjs('MM/DD/YY')}}.
         //- .disclaimer(v-else) Source: Survey of {{company_qualifier}}. Independent research conducted by <a href='https://www.userevidence.com'>UserEvidence</a>. Data verified {{published_at | dayjs('MMMM DD, YYYY')}}.
         .ueid-container
           .ueid 
@@ -168,7 +168,7 @@ export default {
       return this.content_asset.company_count > 1 ? 'Companies' : 'Company'
     },
     sector_qualifier() {
-      return this.content_asset.sector_count > 1 ? 'Industries' : 'Industry'
+      return this.content_asset.sector_count > 1 ? `${this.content_asset.sector_count} Industries` : this.content_asset.filtered_by
     },
     download_url() {
       var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
