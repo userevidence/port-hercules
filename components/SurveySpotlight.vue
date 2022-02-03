@@ -11,14 +11,31 @@
       .header_contents
         .spotlight_header
           figure(v-html='content_asset.account.svg_logo')
-          h3 Survey Spotlight
+          h3(v-if='content_asset.filter == "company"') Account Spotlight
+          h3(v-else) Survey Spotlight
         .title
           h1 {{content_asset.title}}
           h6 Published: {{published_at | dayjs('MMMM DD, YYYY')}}
         
   .content
     .content_container
-      section
+      section(v-if='content_asset.filter == "company"')
+        h5 Customer Profile
+        .facts
+          .fact(v-if='content_asset.company.is_fortune_500')
+            Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | Fortune 500
+          .fact
+            CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{company_sizes[content_asset.company.size_group]}}
+          .fact
+            IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            | {{content_asset.company.sector_name}}
+          .fact
+            LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
+            span(v-if='content_asset.company.country_code') {{ content_asset.company.country_code }}
+            span(v-else) US
+      section(v-else)
         h5 Respondents Profile
         .facts
           .fact
@@ -37,9 +54,10 @@
 
       section
         h5 Introduction
-        p.intro_text
+        p.intro_text(v-if='content_asset.filter == "company"')
+          | This Account Spotlight is a synopsis of how {{ content_asset.named ? '' : 'a' }} {{content_asset.company.name}}, used {{content_asset.account.name}} to benefit their business. The feedback included was collected from {{content_asset.survey.respondent_count}} users of the account in a {{ content_asset.survey.first_sent_at | dayjs('MMMM YYYY') }} survey of {{ content_asset.named ? '' : 'the' }} {{content_asset.company.name}} customers.
+        p.intro_text(v-else)
           | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM Do, YYYY') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM Do, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
-          
       section(v-if='this.multiple_choice_stat_questions.length > 0')
         h5 Key Results
         .stats(:class='stats_class')
@@ -111,6 +129,16 @@ import TestimonialHighlight from './TestimonialHighlight'
 export default {
   components: { UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownArrow },
   props: ['content_asset', 'horizontal'],
+  data() {
+    return {
+      company_sizes: {
+        small_business: '1-50',
+        medium_enterprise: '50-1000',
+        large_enterprise: '> 1000',
+        fortune_500: '> 5000',
+        }
+      }
+  },
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)
       this.content_asset.account.brand_color_1 = '#850AFF'
