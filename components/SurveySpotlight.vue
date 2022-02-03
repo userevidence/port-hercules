@@ -197,7 +197,15 @@ export default {
       return this.content_asset.company_count > 1 ? 'Companies' : 'Company'
     },
     sector_qualifier() {
-      return this.content_asset.sector_count > 1 ? `${this.content_asset.sector_count} Industries` : this.content_asset.filtered_by
+      if(this.content_asset.sector_count > 1)
+        return `${this.content_asset.sector_count} Industries` 
+      else {
+        if(this.content_asset.filter == 'company')
+          return this.content_asset.sector_name
+        else
+          return this.content_asset.filtered_by
+      }
+      // return this.content_asset.sector_count > 1 ? `${this.content_asset.sector_count} Industries` : this.content_asset.filtered_by
     },
     download_url() {
       var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
