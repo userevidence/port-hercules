@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .customer_spotlight_multi_page.content_asset(:style='css_vars' :class='{ pdf: type == "CustomerSpotlightMultiPagePdfVariant" }')
+  .customer_spotlight_multi_page.content_asset(:style='css_vars' :class='{ pdf: type.indexOf("SpotlightMultiPagePdfVariant") >= 0 }')
     .title_page.page
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
@@ -8,8 +8,16 @@
         a(:href='asset_url' target='_blank') {{asset_link}}
       .content
         h2 {{content_asset.title}}
-      .asset_type
+      .asset_type(v-if='is_customer_spotlight')
         p Customer <br> Spotlight
+        .avatar
+          CustomerSpotlightAvatarIcon
+      .asset_type(v-if='is_account_spotlight')
+        p Account <br> Spotlight
+        .avatar
+          CustomerSpotlightAvatarIcon
+      .asset_type(v-else-if='is_survey_spotlight')
+        p Survey <br> Spotlight
         .avatar
           CustomerSpotlightAvatarIcon
       .arc.arc2
@@ -24,18 +32,18 @@
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
         .facts
-          .fact(v-if='content_asset.recipient.company_size == "fortune_500"') 
+          .fact(v-if='is_fortune_500')
             Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | Fortune 500 Company
+            | Fortune 500
           .fact(v-if='company_size')
             CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{company_size}} Employees
-          .fact(v-if='content_asset.recipient.industry_name')
+            | {{company_size}}
+          .fact(v-if='industry_size')
             IndustryIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.recipient.industry_name}}
-          .fact(v-if='content_asset.recipient.company_country_code')
+            | {{industry_size}}
+          .fact(v-if='country_size')
             LocationIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
-            | {{content_asset.recipient.company_country_code}}
+            | {{country_size}}
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
       .arc.arc1
@@ -50,7 +58,7 @@
           Logo
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
-        p This Customer Spotlight is a synopsis of how {{company_qualifier}} used {{this.content_asset.account.name}} to benefit their business.  The feedback included was collected and verified in a {{survayed_at | dayjs('MMMM')}} {{survayed_at | dayjs('YYYY')}} survey of {{this.content_asset.account.name}} customers conducted by UserEvidence, an independent research firm. 
+        p This Customer Spotlight is a synopsis of how {{company_qualifier}} used {{this.content_asset.account.name}} to benefit their business.  The feedback included was collected and verified in a {{surveyed_at | dayjs('MMMM')}} {{surveyed_at | dayjs('YYYY')}} survey of {{this.content_asset.account.name}} customers conducted by UserEvidence, an independent research firm. 
       .customer_logo
         div(v-html='content_asset.account.svg_logo_mark')
       .arc.arc1
@@ -58,13 +66,21 @@
       .page_indicator {{pageIndicator(2)}}
       .right_arrow
         RightArrowIcon
-    .key_results_page.page(v-if='stats')
+    .key_results_page.page(v-if='stats.length > 0')
       .header
         h6 Key Results
         .uevi
           Logo
           a(:href='asset_url' target='_blank') {{asset_link}}
-      .content
+      .content(v-if='is_survey_spotlight')
+        .stats
+          | &nbsp;
+          .stat(v-for='stat in this.stats')
+            h1
+              | {{stat.aggregate_stat_value}}
+              .qualifier(:style='text_color_1') {{stat.aggregate_qualifier}}
+            p {{stat.aggregate_stat_tagline}}
+      .content(v-else)
         .stats
           | &nbsp;
           .stat(v-for='stat in stats')
@@ -87,18 +103,20 @@
           Logo
           a(:href='asset_url' target='_blank') {{asset_link}}
       .content
-        h2 {{testimonial_pages[0]}}...
+        h2 
+          | {{testimonial_pages[0]}}
+          span(v-if='testimonial_pages.length > 1') ...
         .profile
           .avatar
-            img(:src='content_asset.recipient.recipient_gravatar_url' v-if='content_asset.recipient.recipient_gravatar_url')
+            img(:src='recipient.recipient_gravatar_url' v-if='recipient.recipient_gravatar_url')
             AvatarIcon(v-else)
-          .author_information(v-if='content_asset.recipient.named')
-            h4 {{content_asset.recipient.person_attribution}}
-            h6 {{content_asset.recipient.title}}
-            h6 {{content_asset.recipient.best_company_name}}
+          .author_information(v-if='recipient.named')
+            h4 {{recipient.person_attribution}}
+            h6 {{recipient.title}}
+            h6 {{recipient.best_company_name}}
           .author_information(v-else)
-            h4 {{content_asset.recipient.person_attribution}}
-            h6 {{content_asset.recipient.company_attribution}}
+            h4 {{recipient.person_attribution}}
+            h6 {{recipient.company_attribution}}
       .arc.arc1
       .arc.arc2
       .page_indicator {{pageIndicator(4)}}
@@ -172,24 +190,68 @@
     props: ['content_asset', 'type'],
     components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
     computed: {
+      is_customer_spotlight() {
+        return this.content_asset.type.indexOf('CustomerSpotlight') >= 0
+      },
+      is_survey_spotlight() {
+        return this.content_asset.type.indexOf('SurveySpotlight') >= 0
+      },
+      // note an account spotlight is ALSO a survey spotlight
+      is_account_spotlight() {
+        return this.content_asset.filter == 'company'
+      },
+      is_fortune_500() {
+        return this.content_asset?.recipient?.company_size == "fortune_500" || this.content_asset?.company?.is_fortune_500
+      },
+      company_size() {
+        var sizes = {
+          small_business: '1-50',
+          medium_enterprise: '50-1000',
+          large_enterprise: '> 1000',
+          fortune_500: '> 5000',
+        }
+        if(this.content_asset?.recipient?.company_size)
+          return `${sizes[this.content_asset.recipient.company_size]} Employees`
+        else if(this.content_asset.company)
+          return `${sizes[this.content_asset.company.size_group]} Employees`
+        else
+          return null
+      },
+      industry_size() {
+        if(this.is_customer_spotlight)
+          return this.content_asset?.recipient?.industry_name
+        else if(this.is_survey_spotlight)
+          return this.content_asset.sector_count > 1 ? `${this.content_asset.sector_count} Industries` : this.content_asset.filtered_by
+        else if(this.is_account_spotlight)
+          return this.content_asset?.company?.sector_name
+      },
+      country_size() {
+        if(this.is_customer_spotlight)
+          return this.content_asset.recipient.company_country_code
+        else if(this.is_survey_spotlight)
+          return this.content_asset.survey.country_count > 1 ? `${this.content_asset.survey.country_count} Countries` : 'US'
+        else if(this.is_account_spotlight)
+          return this.content_asset.company.country_code
+        else
+          return 'US'
+      },
+      questions() {
+        if(this.is_survey_spotlight)
+          return this.content_asset.questions
+        else
+          return this.content_asset.recipient.questions
+      },
+      recipient() {
+        if(this.is_survey_spotlight)
+          return this.testimonial.recipient
+        else
+          return this.content_asset.recipient
+      },
       asset_link() {
         return `uevi.co/${this.content_asset.identifier}`
       },
       asset_url() {
         return `https://${this.asset_link}`
-      },
-      company_size() {
-        if(this.content_asset.recipient.company_size) {
-          var sizes = {
-            small_business: '1-50',
-            medium_enterprise: '50-1000',
-            large_enterprise: '> 1000',
-            fortune_500: '> 5000',
-          }
-          return sizes[this.content_asset.recipient.company_size]
-        }
-        else 
-          return null
       },
       company_qualifier() {
         if(this.content_asset.recipient.named && this.content_asset.recipient.best_company_name)
@@ -199,26 +261,32 @@
           return `a ${size_string} ${this.content_asset.recipient.industry_name} company`
         }
       },
-      survayed_at() {
+      surveyed_at() {
         return this.content_asset.first_sent_at || new Date()
       },
       stats() {
-        return this.content_asset.recipient.questions.filter(q => q.distribution_direction != null && 
-          q.type == 'MultipleChoiceOne' &&
-          q.stat_tagline != null &&
-          q.stat_tagline != '' &&
-          q.qualifier != null &&
-          q.qualifier != ''
-        ).slice(0, 2)
+        if(this.is_survey_spotlight)
+          return this.content_asset.stat_questions
+        else
+          return this.questions.filter(q => q.distribution_direction != null && 
+            q.type == 'MultipleChoiceOne' &&
+            q.stat_tagline != null &&
+            q.stat_tagline != '' &&
+            q.qualifier != null &&
+            q.qualifier != ''
+          ).slice(0, 2)
       },
       testimonial() {
-        return this.content_asset.recipient.questions.filter(q => q.type == 'Testimonial' &&
-          q.answers[0].response.text_answer != '' &&
-          q.answers[0].response.text_answer != null
-        )[0]
+        if(this.is_survey_spotlight)
+          return this.content_asset?.responses[0]
+        else
+          return this.content_asset.recipient.questions.filter(q => q.type == 'Testimonial' &&
+            q.answers[0].response.text_answer != '' &&
+            q.answers[0].response.text_answer != null
+          )[0].answers[0].response
       },
       words() {
-        return this.testimonial.answers[0].response.text_answer.split(' ')
+        return this.testimonial.text_answer.split(' ')
       },
       testimonial_pages() {
         var pages = []
@@ -234,9 +302,6 @@
       },
       multiple_choice_questions() {
         return this.content_asset.recipient.questions.filter(q => ['MultipleChoiceOne', 'MultipleChoiceMany'].includes(q.type))
-      },
-      outcome_questions() {
-        return this.multiple_choice_questions.filter(q => q.category == 'outcome')
       },
       scenario_questions() {
         return this.multiple_choice_questions.filter(q => q.category == 'scenario')
