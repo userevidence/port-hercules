@@ -1,7 +1,4 @@
 export default {
-  data() {
-    
-  },
   computed: {
     is_customer_spotlight() {
       return this.content_asset.type.indexOf('CustomerSpotlight') >= 0
@@ -17,6 +14,4 @@ export default {
       return this.content_asset?.recipient?.company_size == "fortune_500" || this.content_asset?.company?.is_fortune_500
     },
   },
-  methods: {
-  }
 }

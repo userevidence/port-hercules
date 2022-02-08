@@ -328,8 +328,11 @@
 <style lang='sass' scoped>
   .pdf
     display: block !important
-    .uevi::before
-      background: white
+    .uevi
+      left: 224px
+      width: 160px
+      &::before
+        background: white
     
     .page
       overflow: hidden
@@ -414,8 +417,8 @@
     display: flex
     align-items: center
     top: 33px
-    left: 224px
-    width: 160px
+    left: 210px
+    width: 170px
     background: white
     border-radius: 15px
     padding: 4px 0px 4px 7px
