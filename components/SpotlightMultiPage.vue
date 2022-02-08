@@ -392,6 +392,7 @@
   .profile
     display: flex
     align-items: center
+    max-width: 275px
     .avatar
       margin-right: 12px
       height: 48px
