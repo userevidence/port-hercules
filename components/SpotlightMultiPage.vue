@@ -15,11 +15,11 @@
       .asset_type(v-if='is_account_spotlight')
         p Account <br> Spotlight
         .avatar
-          CustomerSpotlightAvatarIcon
+          SurveySpotlightIcon
       .asset_type(v-else-if='is_survey_spotlight')
         p Survey <br> Spotlight
         .avatar
-          CustomerSpotlightAvatarIcon
+          SurveySpotlightIcon
       .arc.arc2
       .page_indicator {{pageIndicator(1)}}
       .right_arrow
@@ -75,7 +75,7 @@
       .content(v-if='is_survey_spotlight')
         .stats
           | &nbsp;
-          .stat(v-for='stat in this.stats')
+          .stat(v-for='stat in stats')
             h1
               | {{stat.aggregate_stat_value}}
               .qualifier(:style='text_color_1') {{stat.aggregate_qualifier}}
@@ -106,17 +106,17 @@
         h2 
           | {{testimonial_pages[0]}}
           span(v-if='testimonial_pages.length > 1') ...
-        .profile
-          .avatar
-            img(:src='recipient.recipient_gravatar_url' v-if='recipient.recipient_gravatar_url')
-            AvatarIcon(v-else)
-          .author_information(v-if='recipient.named')
-            h4 {{recipient.person_attribution}}
-            h6 {{recipient.title}}
-            h6 {{recipient.best_company_name}}
-          .author_information(v-else)
-            h4 {{recipient.person_attribution}}
-            h6 {{recipient.company_attribution}}
+      .profile
+        .avatar
+          img(:src='recipient.recipient_gravatar_url' v-if='recipient.recipient_gravatar_url')
+          AvatarIcon(v-else)
+        .author_information(v-if='recipient.named')
+          h4 {{recipient.person_attribution}}
+          h6 {{recipient.title}}
+          h6 {{recipient.best_company_name}}
+        .author_information(v-else)
+          h4 {{recipient.person_attribution}}
+          h6 {{recipient.company_attribution}}
       .arc.arc1
       .arc.arc2
       .page_indicator {{pageIndicator(4)}}
@@ -177,7 +177,8 @@
   </template>
   <script>
   import Logo from './graphics/Logo'
-  import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon.vue'
+  import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon'
+  import SurveySpotlightIcon from './graphics/SurveySpotlightIcon'
   import Fortune500Icon from 'src/app/graphics/Fortune500Icon'
   import CompanySizeIcon from 'src/app/graphics/CompanySizeIcon'
   import IndustryIcon from 'src/app/graphics/IndustryIcon'
@@ -188,7 +189,7 @@
   export default {
     // name: 'CustomerSpotlight11Title',
     props: ['content_asset', 'type'],
-    components: { CustomerSpotlightAvatarIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
+    components: { CustomerSpotlightAvatarIcon, SurveySpotlightIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
     computed: {
       is_customer_spotlight() {
         return this.content_asset.type.indexOf('CustomerSpotlight') >= 0
@@ -266,7 +267,7 @@
       },
       stats() {
         if(this.is_survey_spotlight)
-          return this.content_asset.stat_questions
+          return this.content_asset.stat_questions.slice(0, 2)
         else
           return this.questions.filter(q => q.distribution_direction != null && 
             q.type == 'MultipleChoiceOne' &&
@@ -388,71 +389,73 @@
     h2
       line-height: 26px
       margin-bottom: 44px
-    .profile
+  .profile
+    display: flex
+    align-items: center
+    .avatar
+      margin-right: 12px
+      height: 48px
+      width: 48px
+      background: white
+      border-radius: 50% 50% 50% 0%
+      padding: 5px
       display: flex
-      align-items: center
-      .avatar
-        margin-right: 12px
-        height: 48px
+      z-index: 1000
+      img
+        border-radius: 40px
         width: 48px
-        background: white
-        border-radius: 50% 50% 50% 0%
-        padding: 5px
-        display: flex
-        img
-          border-radius: 40px
-          width: 48px
-        svg
-          height: 100%
-          width: 100%
-          // ::v-deep path
-            fill: hsla(200, 100%, 100%, 0.9) !important
-      .author_information
-      h4
-        font-size: 14px
-        line-height: 16px
-        margin-bottom: 4px
-      h6
-        font-size: 10px
-        line-height: 12px
-        letter-spacing: inherit
+      svg
+        height: 100%
+        width: 100%
+        // ::v-deep path
+          fill: hsla(200, 100%, 100%, 0.9) !important
+    .author_information
+    h4
+      font-size: 14px
+      line-height: 16px
+      margin-bottom: 4px
+    h6
+      font-size: 10px
+      line-height: 12px
+      letter-spacing: inherit
   .uevi
     position: absolute
     display: flex
     align-items: center
     top: 33px
-    left: 210px
-    width: 170px
+    left: 224px
+    width: 160px
     background: white
     border-radius: 15px
     padding: 4px 0px 4px 7px
     a
       background: white
       border-radius: 10px
-      font-family: 'Inter-Medium'
+      font-family: 'Inter-ExtraBold'
+      font-weight: 800
       color: black
       font-size: 10px
     svg
       width: 15px
       height: 15px
       margin-right: 10px
-  .uevi::before
-    border-radius: 25px
-    content: ''
-    background-image: linear-gradient(to right, rgba(223, 232, 236, 1) 0%, #f2f6f7 100%)
-    
-    top: -2px
-    left: -2px
-    bottom: -2px
-    right: -2px
-    position: absolute
-    z-index: -1
+    &::before
+      border-radius: 25px
+      content: ''
+      background-image: linear-gradient(to right, rgba(223, 232, 236, 1) 0%, #f2f6f7 100%)
+      top: -2px
+      left: -2px
+      bottom: -2px
+      right: -2px
+      position: absolute
+      z-index: -1
 
   .asset_type
     position: absolute
     bottom: 32px
     left: 32px
     display: flex
+    text-align: right
     .avatar
       background: white
       border-radius: 50px
@@ -501,6 +504,12 @@
   .title_page
     .customer_logo
       top: -80px
+    .content
+      height: 170px
+      display: flex
+      align-items: center
+      h2
+        margin-bottom: 0px
   .profile_page
     z-index: 5 !important
     .customer_logo
@@ -514,6 +523,7 @@
       text-align: right
   .testimonial_page
     .content
+    
   .cta_page
     .customer_logo
       top: -20px
