@@ -186,24 +186,14 @@
   import RightArrowIcon from './graphics/RightArrowIcon'
   import AvatarIcon from './graphics/AvatarIcon.vue'
 
+  import spotlight_mixins from '../mixins/spotlight_mixins'
+
   export default {
     // name: 'CustomerSpotlight11Title',
+    mixins: [spotlight_mixins],
     props: ['content_asset', 'type'],
     components: { CustomerSpotlightAvatarIcon, SurveySpotlightIcon, Logo, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, RightArrowIcon, AvatarIcon },
     computed: {
-      is_customer_spotlight() {
-        return this.content_asset.type.indexOf('CustomerSpotlight') >= 0
-      },
-      is_survey_spotlight() {
-        return this.content_asset.type.indexOf('SurveySpotlight') >= 0
-      },
-      // note an account spotlight is ALSO a survey spotlight
-      is_account_spotlight() {
-        return this.content_asset.filter == 'company'
-      },
-      is_fortune_500() {
-        return this.content_asset?.recipient?.company_size == "fortune_500" || this.content_asset?.company?.is_fortune_500
-      },
       company_size() {
         var sizes = {
           small_business: '1-50',
