@@ -74,7 +74,7 @@
       section(v-if='key_testimonials')
         .testimonial(v-if='key_testimonials.length > 1')
           h5 Key Testimonials
-          TestimonialHighlight(:testimonials='key_testimonials')
+          TestimonialHighlight(:testimonials='key_testimonials' :hide_company_attribution='content_asset.named')
         
       section
         //- h5 Scenario
@@ -87,7 +87,7 @@
       section(v-for='(question, i) in content_asset.questions')
         .testimonial(v-if='testimonial_groups[i] && testimonial_groups[i].length > 0')
           h5 Testimonials
-          TestimonialHighlight(:testimonials='testimonial_groups[i]')
+          TestimonialHighlight(:testimonials='testimonial_groups[i]' :hide_company_attribution='content_asset.named')
         .chart_preview
           h4 {{question.the_question}}
           .bar_chart(:class='orientation(question.stats)')
