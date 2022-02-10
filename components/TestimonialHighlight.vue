@@ -14,9 +14,8 @@
             AvatarIcon(:style='avatar_circle_color' v-else)
           .name(v-if='testimonial.recipient.named')
             h3 {{testimonial.recipient.person_attribution}}
-            span(v-if='!hide_company_attribution')
-              h4 {{testimonial.recipient.title}}
-              h4 {{testimonial.recipient.company_name}}
+            h4 {{testimonial.recipient.title}}
+            h4(v-if='!hide_company_attribution') {{testimonial.recipient.company_name}}
           .name(v-else)
             h4 {{testimonial.recipient.person_attribution}}
             h4(v-if='!hide_company_attribution') {{testimonial.recipient.company_attribution}}
