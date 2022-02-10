@@ -55,7 +55,7 @@
       section
         h5 Introduction
         p.intro_text(v-if='content_asset.filter == "company"')
-          | This Account Spotlight is a synopsis of how {{ content_asset.named ? '' : 'a' }} {{content_asset.company.name}}, used {{content_asset.account.name}} to benefit their business. The feedback included was collected from {{content_asset.respondent_count}} users of the account in a {{ content_asset.survey.first_sent_at | dayjs('MMMM YYYY') }} survey of {{ content_asset.named ? '' : 'the' }} {{content_asset.company.name}} customers.
+          | This Account Spotlight is a synopsis of how {{ company_article }} {{content_asset.company.name}}, used {{content_asset.account.name}} to benefit their business. The feedback included was collected from {{content_asset.respondent_count}} users of the account in a {{ content_asset.survey.first_sent_at | dayjs('MMMM YYYY') }} survey of {{ content_asset.named ? '' : 'the' }} {{content_asset.company.name}} customers.
         p.intro_text(v-else)
           | This Survey Spotlight is a synopsis of how {{content_asset.account.name}} is received by its customers.  The feedback included was collected and verified in a survey, conducted between {{ content_asset.survey.first_sent_at | dayjs('MMMM Do, YYYY') }} - {{ content_asset.survey.last_response_at | dayjs('MMMM Do, YYYY')}}, of {{content_asset.survey.respondent_count}} {{content_asset.account.name}} customers conducted by UserEvidence, an independent research firm.
       section(v-if='this.multiple_choice_stat_questions.length > 0')
@@ -193,6 +193,9 @@ export default {
     section_count() {
       return Math.min((this.testimonials.count - 2) / 2, this.content_asset.questions -1)
     },
+    company_article() {
+      return this.content_asset.named ? '' : (['a', 'e', 'i', 'o', 'u'].includes(this.content_asset.company.name[0].toLowerCase()) ? 'an' : 'a')
+    },
     company_qualifier() {
       return this.content_asset.company_count > 1 ? 'Companies' : 'Company'
     },
@@ -205,7 +208,6 @@ export default {
         else
           return this.content_asset.filtered_by
       }
-      // return this.content_asset.sector_count > 1 ? `${this.content_asset.sector_count} Industries` : this.content_asset.filtered_by
     },
     download_url() {
       var v = this.content_asset.variants.find(v => v.type == 'PdfVariant')
