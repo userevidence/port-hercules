@@ -14,11 +14,12 @@
             AvatarIcon(:style='avatar_circle_color' v-else)
           .name(v-if='testimonial.recipient.named')
             h3 {{testimonial.recipient.person_attribution}}
-            h4 {{testimonial.recipient.title}}
-            h4 {{testimonial.recipient.company_name}}
+            span(v-if='!hide_company_attribution')
+              h4 {{testimonial.recipient.title}}
+              h4 {{testimonial.recipient.company_name}}
           .name(v-else)
             h4 {{testimonial.recipient.person_attribution}}
-            h4 {{testimonial.recipient.company_attribution}}
+            h4(v-if='!hide_company_attribution') {{testimonial.recipient.company_attribution}}
 </template>
 <script lang='ts'>
 import UpsideDownQuoteIcon from './graphics/UpsideDownQuoteIcon'
@@ -26,7 +27,16 @@ import QuoteIcon from './graphics/QuoteIcon'
 import AvatarIcon from './graphics/AvatarIcon'
 
 export default {
-  props: ['testimonials'],
+  props: {
+    testimonials: {
+      type: Array,
+      default: []
+    },
+    hide_company_attribution: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: { UpsideDownQuoteIcon, QuoteIcon, AvatarIcon },
   computed: {
     avatar_circle_color() {
