@@ -10,12 +10,16 @@
         | {{asset_link}}
   .title
     h2 {{content_asset.title}}
-  .asset_type(v-if='type == "CustomerSpotlight11TitlePngVariant"')
+  .asset_type(v-if='is_customer_spotlight')
     p Customer <br> Spotlight
     .avatar
       .icon
         CustomerSpotlightAvatarIcon
-  .asset_type(v-else)
+  .asset_type(v-if='is_account_spotlight')
+    p Account <br> Spotlight
+    .avatar
+      SurveySpotlightIcon
+  .asset_type(v-else-if='is_survey_spotlight')
     p Survey <br> Spotlight
     .avatar
       .icon
@@ -30,9 +34,11 @@ import LongArrow from './graphics/LongArrow'
 import CustomerSpotlightAvatarIcon from './graphics/CustomerSpotlightAvatarIcon'
 import SurveySpotlightIcon from './graphics/SurveySpotlightIcon'
 
+import spotlight_mixins from '../mixins/spotlight_mixins'
 
 export default {
   name: 'CustomerSpotlighSocialTitle',
+  mixins: [spotlight_mixins],
   props: ['content_asset', 'type'],
   components: { CustomerSpotlightAvatarIcon, SurveySpotlightIcon, Logo, LongArrow },
   computed: {
@@ -131,6 +137,8 @@ h2
   align-items: center
 .asset_type
   display: flex
+  text-align: right
+  
 p
   font-size: 12px
 .asset_type
