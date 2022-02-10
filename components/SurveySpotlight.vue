@@ -25,7 +25,7 @@
           .fact(v-if='content_asset.company.is_fortune_500')
             Fortune500Icon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             | Fortune 500
-          .fact
+          .fact(v-if='content_asset.company.size_group')
             CompanySizeIcon(:brand_color_1='content_asset.account.brand_color_1' :brand_color_2='content_asset.account.brand_color_2')
             | {{company_sizes[content_asset.company.size_group]}}
           .fact
