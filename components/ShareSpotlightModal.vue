@@ -109,17 +109,17 @@ export default {
     title_png_url() {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('191TitlePngVariant') > 0)
       if(variant)
-        return `/variants/${variant.id}`
+        return `${variant.the_url}?d=`
     },
     multipage_pdf_url() {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('MultiPagePdfVariant') > 0)
       if(variant)
-        return `/variants/${variant.id}`
+        return `${variant.the_url}?d=`
     },
     multipage_png_url() {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('MultiPagePngVariant') > 0)
       if(variant)
-        return `/variants/${variant.id}.zip`
+        return `${variant.the_url}.zip`
     }
   },
   methods: {
