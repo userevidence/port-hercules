@@ -1,5 +1,6 @@
 <template lang='pug'>
 .spotlight_asset(v-if='content_asset' :class='{ horizontal: horizontal }')
+  ShareSpotlightModal(:content_asset='content_asset')
   header(:style='gradient')
     .content_container
       .back-link
@@ -80,9 +81,8 @@
       section
         h5 About {{content_asset.account.name}}
         p(v-html='content_asset.account.introduction')
-      .spotlight_fab(v-if='download_url')
-        a(:href='download_url' title='Download PDF' alt='Download PDF' target='_blank')
-          DownArrow
+      .spotlight_fab(v-if='download_url' @click='$modal.show("share_spotlight_modal")')
+        DownLoadIcon
 
     .spotlight_footer
       .ue_logo
@@ -98,6 +98,7 @@
 </template>
 <script lang='ts'>
 import axios from 'axios'
+import ShareSpotlightModal from './ShareSpotlightModal'
 import TestimonialHighlight from './TestimonialHighlight'
 import BackArrow from './graphics/BackArrow'
 import UELogo from './graphics/UELogo'
@@ -106,10 +107,10 @@ import Fortune500Icon from './graphics/Fortune500Icon'
 import CompanySizeIcon from './graphics/CompanySizeIcon'
 import IndustryIcon from './graphics/IndustryIcon'
 import LocationIcon from './graphics/LocationIcon'
-import DownArrow from './graphics/DownArrow'
+import DownLoadIcon from './graphics/DownLoadIcon'
 
 export default {
-  components: { UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownArrow },
+  components: { ShareSpotlightModal, UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownLoadIcon },
   props: ['content_asset', 'horizontal'],
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)

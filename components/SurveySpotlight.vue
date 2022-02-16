@@ -99,9 +99,7 @@
         h5 About {{account.name}}
         p(v-html='content_asset.account.introduction')
       .spotlight_fab(v-if='download_url' @click='$modal.show("share_spotlight_modal")')
-        //- a(:href='download_url' title='Download PDF' alt='Download PDF' target='_blank')
-        
-        DownArrow
+        DownLoadIcon
 
       section.spotlight_footer
         .ue_logo
@@ -125,12 +123,12 @@ import Fortune500Icon from './graphics/Fortune500Icon'
 import CompanySizeIcon from './graphics/CompanySizeIcon'
 import IndustryIcon from './graphics/IndustryIcon'
 import LocationIcon from './graphics/LocationIcon'
-import DownArrow from './graphics/DownArrow'
+import DownLoadIcon from './graphics/DownLoadIcon'
 import BarGuts from './BarGuts'
 import TestimonialHighlight from './TestimonialHighlight'
 
 export default {
-  components: { ShareSpotlightModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownArrow },
+  components: { ShareSpotlightModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownLoadIcon },
   props: ['content_asset', 'horizontal'],
   data() {
     return {

@@ -1,13 +1,13 @@
 <template lang='pug'>
-  modal(name='share_spotlight_modal' height='654' width='688')
+  modal(name='share_spotlight_modal' height='660' width='688')
     .modal_container
       .modal_header
-        h2 Share Customer Spotlight
+        h2 Share {{spotlight_type}} Spotlight
         .closer(@click='$modal.hide("share_spotlight_modal")')
           TimesIcon
       .modal_body
         p Select the destination where you’ll be sharing the content asset, and you’ll receive optimized files for that platform.
-        section
+        section(v-if='has_platforms')
           h5 Platforms
           .tiles.platforms
             .tile(v-if='multipage_pdf_url')
@@ -53,7 +53,7 @@
         section
           h5 Files
           .tiles.files
-            .tile
+            .tile(v-if='title_png_url || multipage_png_url')
               .image
                 img(src='./graphics/png-icon.svg')
               .info
@@ -71,7 +71,7 @@
               .info
                 .brand PDF
                 .downloaders
-                  a.downloader(:href='multipage_pdf_url' target='_blank' v-if='multipage_pdf_url')
+                  a.downloader(:href='pdf_url' target='_blank' v-if='pdf_url')
                     | Full Report
                     DownloadIcon
       .modal_footer
@@ -98,16 +98,15 @@ export default {
   props: ['content_asset'],
   mounted() {
   },
-
-  // 'PdfVariant',
-  // 'SurveySpotlight11TitlePngVariant', 
-  // 'SurveySpotlight191TitlePngVariant',
-  // 'SurveySpotlightMultiPagePngVariant', 
-  // 'SurveySpotlightMultiPagePdfVariant']
-
   computed: {
+    has_platforms() {
+      return this.multipage_pdf_url && this.multipage_png_url
+    },
+    spotlight_type() {
+      return (this.content_asset.type.indexOf('Survey') >= 0) ? 'Survey' : 'Customer'
+    },
     title_png_url() {
-      var variant = this.content_asset.variants.find(v => v.type.indexOf('191TitlePngVariant') > 0)
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('TitlePngVariant') > 0)
       if(variant)
         return `${variant.the_url}?d=`
     },
@@ -120,6 +119,11 @@ export default {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('MultiPagePngVariant') > 0)
       if(variant)
         return `${variant.the_url}.zip`
+    },
+    pdf_url() {
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
+      if(variant)
+        return `${variant.the_url}?d=`
     }
   },
   methods: {
