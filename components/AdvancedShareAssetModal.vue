@@ -1,13 +1,13 @@
 <template lang='pug'>
-  modal(name='share_spotlight_modal' height='654' width='688')
+  modal(name='advanced_share_asset_modal' height='660' width='688')
     .modal_container
       .modal_header
-        h2 Share Customer Spotlight
-        .closer(@click='$modal.hide("share_spotlight_modal")')
+        h2 Share {{spotlight_type}}
+        .closer(@click='$modal.hide("advanced_share_asset_modal")')
           TimesIcon
       .modal_body
         p Select the destination where you’ll be sharing the content asset, and you’ll receive optimized files for that platform.
-        section
+        section(v-if='has_platforms')
           h5 Platforms
           .tiles.platforms
             .tile(v-if='multipage_pdf_url')
@@ -53,26 +53,26 @@
         section
           h5 Files
           .tiles.files
-            .tile
+            .tile(v-if='title_png_url || multipage_png_url')
               .image
                 img(src='./graphics/png-icon.svg')
               .info
                 .brand PNG
                 .downloaders
-                  a.downloader(:href='title_png_url' target='_blank' v-if='title_png_url')
+                  a.downloader(:href='title_png_url' target='_blank' v-if='title_png_url && is_testimonial')
                     | Title Slide
                     DownloadIcon
-                  a.downloader(:href='multipage_png_url' v-if='multipage_png_url')
-                    | Full Report
+                  a.downloader(:href='multipage_png_url' v-if='multipage_png_url && !is_testimonial')
+                    | {{png_file_text}}
                     DownloadIcon
-            .tile
+            .tile(v-if='!is_testimonial')
               .image
                 img(src='./graphics/pdf-icon.svg')
               .info
                 .brand PDF
                 .downloaders
-                  a.downloader(:href='multipage_pdf_url' target='_blank' v-if='multipage_pdf_url')
-                    | Full Report
+                  a.downloader(:href='pdf_url' target='_blank' v-if='pdf_url')
+                    | {{pdf_file_text}}
                     DownloadIcon
       .modal_footer
         .left
@@ -98,28 +98,48 @@ export default {
   props: ['content_asset'],
   mounted() {
   },
-
-  // 'PdfVariant',
-  // 'SurveySpotlight11TitlePngVariant', 
-  // 'SurveySpotlight191TitlePngVariant',
-  // 'SurveySpotlightMultiPagePngVariant', 
-  // 'SurveySpotlightMultiPagePdfVariant']
-
   computed: {
+    has_platforms() {
+      return this.multipage_pdf_url && this.multipage_png_url
+    },
+    spotlight_type() {
+      switch(this.content_asset.type) {
+        case 'TestimonialAsset':
+          return 'Testimonial'
+        case 'CustomerSpotlightAsset':
+          return 'Customer Spotlight'
+        case 'SurveySpotlightAsset':
+          return 'Survey Spotlight'
+      }
+    },
+    png_file_text() {
+      return this.content_asset.type.indexOf('Spotlight') > 0 ? 'Full Report' : 'Title Slide'
+    },
+    pdf_file_text() {
+      return this.content_asset.type.indexOf('Spotlight') > 0 ? 'Full Report' : 'Full Document'
+    },
     title_png_url() {
-      var variant = this.content_asset.variants.find(v => v.type.indexOf('191TitlePngVariant') > 0)
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('TitlePngVariant') > 0 || v.type == 'TestimonialPngVariant')
       if(variant)
-        return `/variants/${variant.id}`
+        return `${variant.the_url}?d=`
     },
     multipage_pdf_url() {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('MultiPagePdfVariant') > 0)
       if(variant)
-        return `/variants/${variant.id}`
+        return `${variant.the_url}?d=`
     },
     multipage_png_url() {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('MultiPagePngVariant') > 0)
       if(variant)
-        return `/variants/${variant.id}.zip`
+        return `${variant.the_url}.zip`
+    },
+    pdf_url() {
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
+      if(variant)
+        return `${variant.the_url}?d=`
+    },
+    is_testimonial() {
+      return this.content_asset.type.indexOf('Testimonial') >= 0
     }
   },
   methods: {

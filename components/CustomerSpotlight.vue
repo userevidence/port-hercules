@@ -80,9 +80,8 @@
       section
         h5 About {{content_asset.account.name}}
         p(v-html='content_asset.account.introduction')
-      .spotlight_fab(v-if='download_url')
-        a(:href='download_url' title='Download PDF' alt='Download PDF' target='_blank')
-          DownArrow
+      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal")')
+        DownloadIcon
 
     .spotlight_footer
       .ue_logo
@@ -106,10 +105,10 @@ import Fortune500Icon from './graphics/Fortune500Icon'
 import CompanySizeIcon from './graphics/CompanySizeIcon'
 import IndustryIcon from './graphics/IndustryIcon'
 import LocationIcon from './graphics/LocationIcon'
-import DownArrow from './graphics/DownArrow'
+import DownloadIcon from './graphics/DownloadIcon'
 
 export default {
-  components: { UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownArrow },
+  components: { UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownloadIcon },
   props: ['content_asset', 'horizontal'],
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)
