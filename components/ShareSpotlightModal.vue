@@ -2,7 +2,7 @@
   modal(name='share_spotlight_modal' height='660' width='688')
     .modal_container
       .modal_header
-        h2 Share {{spotlight_type}} Spotlight
+        h2 Share {{spotlight_type}}
         .closer(@click='$modal.hide("share_spotlight_modal")')
           TimesIcon
       .modal_body
@@ -62,17 +62,17 @@
                   a.downloader(:href='title_png_url' target='_blank' v-if='title_png_url')
                     | Title Slide
                     DownloadIcon
-                  a.downloader(:href='multipage_png_url' v-if='multipage_png_url')
-                    | Full Report
+                  a.downloader(:href='multipage_png_url' v-if='multipage_png_url && !is_testimonial')
+                    | {{png_file_text}}
                     DownloadIcon
-            .tile
+            .tile(v-if='!is_testimonial')
               .image
                 img(src='./graphics/pdf-icon.svg')
               .info
                 .brand PDF
                 .downloaders
                   a.downloader(:href='pdf_url' target='_blank' v-if='pdf_url')
-                    | Full Report
+                    | {{pdf_file_text}}
                     DownloadIcon
       .modal_footer
         .left
@@ -103,10 +103,23 @@ export default {
       return this.multipage_pdf_url && this.multipage_png_url
     },
     spotlight_type() {
-      return (this.content_asset.type.indexOf('Survey') >= 0) ? 'Survey' : 'Customer'
+      switch(this.content_asset.type) {
+        case 'TestimonialAsset':
+          return 'Testimonial'
+        case 'CustomerSpotlightAsset':
+          return 'Customer Spotlight'
+        case 'SurveySpotlightAsset':
+          return 'Survey Spotlight'
+      }
+    },
+    png_file_text() {
+      return this.content_asset.type.indexOf('Spotlight') > 0 ? 'Full Report' : 'Title Slide'
+    },
+    pdf_file_text() {
+      return this.content_asset.type.indexOf('Spotlight') > 0 ? 'Full Report' : 'Full Document'
     },
     title_png_url() {
-      var variant = this.content_asset.variants.find(v => v.type.indexOf('TitlePngVariant') > 0)
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('TitlePngVariant') > 0 || v.type == 'TestimonialPngVariant')
       if(variant)
         return `${variant.the_url}?d=`
     },
@@ -124,6 +137,9 @@ export default {
       var variant = this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
       if(variant)
         return `${variant.the_url}?d=`
+    },
+    is_testimonial() {
+      return this.content_asset.type.indexOf('Testimonial') >= 0
     }
   },
   methods: {
