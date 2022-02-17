@@ -1,9 +1,9 @@
 <template lang='pug'>
-  modal(name='share_spotlight_modal' height='660' width='688')
+  modal(name='advanced_share_asset_modal' height='660' width='688')
     .modal_container
       .modal_header
         h2 Share {{spotlight_type}}
-        .closer(@click='$modal.hide("share_spotlight_modal")')
+        .closer(@click='$modal.hide("advanced_share_asset_modal")')
           TimesIcon
       .modal_body
         p Select the destination where you’ll be sharing the content asset, and you’ll receive optimized files for that platform.
