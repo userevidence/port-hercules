@@ -1,6 +1,5 @@
 <template lang='pug'>
 .spotlight_asset(v-if='content_asset' :class='{ horizontal: horizontal }')
-  AdvancedShareAssetModal(:content_asset='content_asset')
   header(:style='gradient')
     .content_container
       .back-link
