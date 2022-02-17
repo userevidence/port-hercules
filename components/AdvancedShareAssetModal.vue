@@ -59,7 +59,7 @@
               .info
                 .brand PNG
                 .downloaders
-                  a.downloader(:href='title_png_url' target='_blank' v-if='title_png_url')
+                  a.downloader(:href='title_png_url' target='_blank' v-if='title_png_url && is_testimonial')
                     | Title Slide
                     DownloadIcon
                   a.downloader(:href='multipage_png_url' v-if='multipage_png_url && !is_testimonial')
