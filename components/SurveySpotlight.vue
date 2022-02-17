@@ -99,7 +99,7 @@
         h5 About {{account.name}}
         p(v-html='content_asset.account.introduction')
       .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal")')
-        DownLoadIcon
+        DownloadIcon
 
       section.spotlight_footer
         .ue_logo
@@ -123,12 +123,12 @@ import Fortune500Icon from './graphics/Fortune500Icon'
 import CompanySizeIcon from './graphics/CompanySizeIcon'
 import IndustryIcon from './graphics/IndustryIcon'
 import LocationIcon from './graphics/LocationIcon'
-import DownLoadIcon from './graphics/DownLoadIcon'
+import DownloadIcon from './graphics/DownloadIcon'
 import BarGuts from './BarGuts'
 import TestimonialHighlight from './TestimonialHighlight'
 
 export default {
-  components: { AdvancedShareAssetModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownLoadIcon },
+  components: { AdvancedShareAssetModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownloadIcon },
   props: ['content_asset', 'horizontal'],
   data() {
     return {
