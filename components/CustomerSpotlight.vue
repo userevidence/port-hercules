@@ -97,7 +97,6 @@
 </template>
 <script lang='ts'>
 import axios from 'axios'
-import AdvancedShareAssetModal from './AdvancedShareAssetModal'
 import TestimonialHighlight from './TestimonialHighlight'
 import BackArrow from './graphics/BackArrow'
 import UELogo from './graphics/UELogo'
@@ -109,7 +108,7 @@ import LocationIcon from './graphics/LocationIcon'
 import DownloadIcon from './graphics/DownloadIcon'
 
 export default {
-  components: { AdvancedShareAssetModal, UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownloadIcon },
+  components: { UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownloadIcon },
   props: ['content_asset', 'horizontal'],
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)
