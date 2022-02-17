@@ -1,6 +1,6 @@
 <template lang='pug'>
 .spotlight_asset(v-if='content_asset' :class='{ horizontal: horizontal }')
-  ShareSpotlightModal(:content_asset='content_asset')
+  AdvancedShareAssetModal(:content_asset='content_asset')
   header(:style='gradient')
     .back-link
       router-link(:to='`/user-research-library/${content_asset.account.slug}`')
@@ -115,7 +115,7 @@
 </template>
 <script lang='ts'>
 import axios from 'axios'
-import ShareSpotlightModal from './ShareSpotlightModal'
+import AdvancedShareAssetModal from './AdvancedShareAssetModal'
 import UELogo from './graphics/UELogo'
 import AvatarIcon from './graphics/AvatarIcon'
 import BackArrow from './graphics/BackArrow'
@@ -128,7 +128,7 @@ import BarGuts from './BarGuts'
 import TestimonialHighlight from './TestimonialHighlight'
 
 export default {
-  components: { ShareSpotlightModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownLoadIcon },
+  components: { AdvancedShareAssetModal, UELogo, AvatarIcon, BackArrow, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BarGuts, DownLoadIcon },
   props: ['content_asset', 'horizontal'],
   data() {
     return {

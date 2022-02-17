@@ -1,6 +1,6 @@
 <template lang='pug'>
 .spotlight_asset(v-if='content_asset' :class='{ horizontal: horizontal }')
-  ShareSpotlightModal(:content_asset='content_asset')
+  AdvancedShareAssetModal(:content_asset='content_asset')
   header(:style='gradient')
     .content_container
       .back-link
@@ -98,7 +98,7 @@
 </template>
 <script lang='ts'>
 import axios from 'axios'
-import ShareSpotlightModal from './ShareSpotlightModal'
+import AdvancedShareAssetModal from './AdvancedShareAssetModal'
 import TestimonialHighlight from './TestimonialHighlight'
 import BackArrow from './graphics/BackArrow'
 import UELogo from './graphics/UELogo'
@@ -110,7 +110,7 @@ import LocationIcon from './graphics/LocationIcon'
 import DownLoadIcon from './graphics/DownLoadIcon'
 
 export default {
-  components: { ShareSpotlightModal, UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownLoadIcon },
+  components: { AdvancedShareAssetModal, UELogo, AvatarIcon, Fortune500Icon, CompanySizeIcon, IndustryIcon, LocationIcon, TestimonialHighlight, BackArrow, DownLoadIcon },
   props: ['content_asset', 'horizontal'],
   mounted() {
     if(!this.content_asset.account.brand_color_1 == null)
