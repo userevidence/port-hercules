@@ -83,7 +83,7 @@
             EmbedIcon
             | Copy Embed Code
         .right
-          a(:href='`/content_assets/${content_asset.identifier}.zip`') 
+          a(:href='content_asset.download_url') 
             DownloadIcon
             | Download All Formats
 </template>
@@ -134,7 +134,7 @@ export default {
         return `${variant.the_url}.zip`
     },
     pdf_url() {
-      var variant = this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
+      var variant = this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') == 0)
       if(variant)
         return `${variant.the_url}?d=`
     },
