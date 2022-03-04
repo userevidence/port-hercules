@@ -158,7 +158,7 @@ export default {
   computed: {
     check_style() {
       return {
-        background: `url(/img/home/ue-email-signup-background-shape.svg), linear-gradient(${this.content_asset.account.gradient_1}, ${this.content_asset.account.gradient_2})`,
+        background: `url(graphics/user_evidence_background.svg), linear-gradient(${this.content_asset.account.gradient_1}, ${this.content_asset.account.gradient_2})`,
         // backgroundRepeat: `no-repeat`,
         // backgroundPosition: `center`,
       }
