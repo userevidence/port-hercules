@@ -1,6 +1,6 @@
 <template lang='pug'>
-  modal(name='advanced_share_asset_modal' height='660' width='688')
-    .modal_container
+  modal(name='advanced_share_asset_modal' height='660' width='688' @before-open='beforeOpen')
+    .modal_container(v-if='content_asset')
       .modal_header
         h2 Share {{spotlight_type}}
         .closer(@click='$modal.hide("advanced_share_asset_modal")')
@@ -147,6 +147,9 @@ export default {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL copied to clipboard')
     },
+    beforeOpen(e) {
+      this.content_asset = e.params
+    }
   }
 }
 </script>
