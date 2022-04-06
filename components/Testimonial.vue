@@ -151,18 +151,14 @@ export default {
       margin: 0
       order: 1
       flex-grow: 0
-      background: white
-      border-radius: 50%
-      border: 1px solid hsl(200, 24%, 90%)
       img
+        background: white
         border-radius: 50%
-        padding: 1px
-        border: 1px solid hsl(200, 24%, 90%)
+        border: none
         width: 100%
       svg
-        width: 24px
-        height: 24px
         position: relative
-        top: 11px
-        left: 11px
+        border-radius: 50%
+        padding: 12px
+        border: 1px solid hsl(200, 24%, 90%)
 </style>
