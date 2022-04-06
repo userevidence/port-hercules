@@ -17,7 +17,7 @@ export default {
   computed: {
     the_query() {
       var query = {}
-      if(this.q.length > 3)
+      if(this.q.length > 0)
         query.q = this.q
       if(this.type.length > 0)
         query.type = this.type
