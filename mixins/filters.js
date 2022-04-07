@@ -35,16 +35,28 @@ export default {
       return query 
     },
     the_size_group_filters() {
-      return [{ value: '', text: 'All Company Sizes' }, ...this.size_group_filters]
+      if(this.size_group_filters.length == 0)
+        return [{ value: '', text: 'No Size Data' }]
+      else
+        return [{ value: '', text: 'All Company Sizes' }, ...this.size_group_filters]
     },
     the_sector_filters() {
-      return [{ value: '', text: 'All Industries' }, ...this.sector_filters]
+      if(this.sector_filters.length == 0)
+        return [{ value: '', text: 'No Industy Data' }]
+      else
+        return [{ value: '', text: 'All Industries' }, ...this.sector_filters]
     },
     the_seniority_filters() {
-      return [{ value: '', text: 'All Seniorities' }, ...this.seniority_filters]
+      if(this.seniority_filters.length == 0)
+        return [{ value: '', text: 'No Seniority Data' }]
+      else
+        return [{ value: '', text: 'All Seniorities' }, ...this.seniority_filters]
     },
     the_role_filters() {
-      return [{ value: '', text: 'All Roles' }, ...this.role_filters]
+      if(this.role_filters.length == 0)
+        return [{ value: '', text: 'No Role Data' }]
+      else
+        return [{ value: '', text: 'All Roles' }, ...this.role_filters]
     },
   },
   methods: {
