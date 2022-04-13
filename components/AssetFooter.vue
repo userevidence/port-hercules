@@ -5,7 +5,7 @@
       .company_logo
         figure(v-html='content_asset.account.svg_logo_mark')
       .ue_logo
-        Logo(:fill='fill')
+        Logo
     .ueid_container
       .url
         a(:href='`https://${uevico_link}`' :class='link_class') {{uevico_link}}
