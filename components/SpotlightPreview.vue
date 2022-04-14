@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .customer_spotlight_card.content_asset
+  .customer_spotlight_card.content_asset(:class='{ dark_text: content_asset.account.dark_text }')
     .header(v-if='is_customer_spotlight')
       UserIcon
       h6(:style='`color: ${content_asset.account.brand_color_1};`') Customer Spotlight
@@ -88,4 +88,8 @@ export default {
     margin-top: 16px
     font-weight: 500
     color: hsl(200, 12%, 40%)
+
+  .dark_text
+    h6
+      color: hsl(200, 8%, 44%) !important
 </style>

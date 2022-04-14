@@ -1,9 +1,9 @@
 <template lang="pug">
-  .content_asset_container.content_asset(v-if='content_asset')
+  .content_asset_container.content_asset(v-if='content_asset' :class='{ dark_text: content_asset.account.dark_text }')
     .stat_header
       .mb-4(v-if='content_asset.stat_type == "star_rating"')
         StarIcons(:stars='headline' :account='content_asset.account')
-      h2(v-else v-html='headline')
+      h2(v-else v-html='headline' :style='`color: ${content_asset.account.brand_color_1};`')
       h3(v-html='sentence')
     
     AssetFooter(:content_asset='content_asset')
@@ -63,4 +63,8 @@ export default {
   h2, .ueid_container .url a
     font-weight: 800
     font-family: 'Inter-Extrabold', sans-serif
+          
+  .dark_text
+    .stat_header h2
+      color: hsl(200, 8%, 8%) !important
 </style>
