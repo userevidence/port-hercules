@@ -2,7 +2,7 @@
   .customer_spotlight_card.content_asset
     .header(v-if='is_customer_spotlight')
       UserIcon
-      h6 Customer Spotlight
+      h6(:style='`color: ${content_asset.account.brand_color_1};`') Customer Spotlight
     .header(v-else-if='is_account_spotlight')
       AccountIcon
       h6 Account Spotlight
@@ -49,7 +49,7 @@ export default {
       margin-bottom: 16px
       margin-top: 0
       svg
-        opacity: 0.5
+        //opacity: 0.5
         height: 12px
         width: 12px
     //&::before
