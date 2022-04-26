@@ -127,7 +127,7 @@ export default {
       this.$toast('Asset URL copied to clipboard')
     },
     copySnippet() {
-      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
+      var snippet = `<iframe src='${window.location.protocol}//app.userevidence.com/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
       this.$toast('Embed Code copied to clipboard')
     },
