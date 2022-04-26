@@ -1,5 +1,5 @@
 <template lang='pug'>
-  modal(name='share_asset_modal' height='624' width='688' v-if='content_asset' @before-open='beforeOpen')
+  modal(name='share_asset_modal' height='624' width='688')
     .modal_container
       .modal_header
         h2 Share Content Asset
@@ -61,12 +61,12 @@ import TimesIcon from './graphics/TimesIcon'
 
 export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
-  // props: ['content_asset'],
-  data() {
-    return {
-      content_asset: null,
-    }
-  },
+  props: ['content_asset'],
+  // data() {
+  //   return {
+  //     content_asset: null,
+  //   }
+  // },
   computed: {
     basic_variant() {
       return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
@@ -143,7 +143,7 @@ export default {
         return `${variant.page_count} Image`
     },
     beforeOpen(e) {
-      this.content_asset = e.params
+      // this.content_asset = e.params
     }
   }
 }

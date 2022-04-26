@@ -1,5 +1,5 @@
 <template lang='pug'>
-  modal(name='advanced_share_asset_modal' height='660' width='688' v-if='content_asset' @before-open='beforeOpen')
+  modal(name='advanced_share_asset_modal' height='660' width='688')
     .modal_container
       .modal_header
         h2 Share {{spotlight_type}}
@@ -95,11 +95,12 @@ import EmbedIcon from './graphics/EmbedIcon'
 
 export default {
   components: { TimesIcon, DownloadIcon, LinkIcon, EmbedIcon },
-  data() {
-    return {
-      content_asset: null,
-    }
-  },
+  props: ['content_asset'],
+  // data() {
+  //   return {
+  //     content_asset: null,
+  //   }
+  // },
   computed: {
     has_platforms() {
       return this.multipage_pdf_url && this.multipage_png_url
@@ -150,7 +151,7 @@ export default {
       this.$toast('Asset URL copied to clipboard')
     },
     beforeOpen(e) {
-      this.content_asset = e.params
+      // this.content_asset = e.params
     }
   }
 }
