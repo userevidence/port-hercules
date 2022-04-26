@@ -96,8 +96,11 @@ import EmbedIcon from './graphics/EmbedIcon'
 export default {
   components: { TimesIcon, DownloadIcon, LinkIcon, EmbedIcon },
   props: ['content_asset'],
-  mounted() {
-  },
+  // data() {
+  //   return {
+  //     content_asset: null,
+  //   }
+  // },
   computed: {
     has_platforms() {
       return this.multipage_pdf_url && this.multipage_png_url
@@ -147,6 +150,9 @@ export default {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL copied to clipboard')
     },
+    beforeOpen(e) {
+      // this.content_asset = e.params
+    }
   }
 }
 </script>

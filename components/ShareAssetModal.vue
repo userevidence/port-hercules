@@ -62,6 +62,11 @@ import TimesIcon from './graphics/TimesIcon'
 export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
   props: ['content_asset'],
+  // data() {
+  //   return {
+  //     content_asset: null,
+  //   }
+  // },
   computed: {
     basic_variant() {
       return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
@@ -136,7 +141,9 @@ export default {
         return `${variant.page_count} Images`
       else
         return `${variant.page_count} Image`
-      
+    },
+    beforeOpen(e) {
+      // this.content_asset = e.params
     }
   }
 }
