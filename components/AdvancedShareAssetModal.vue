@@ -1,5 +1,5 @@
 <template lang='pug'>
-  modal(name='advanced_share_asset_modal' height='660' width='688')
+  modal(name='advanced_share_asset_modal' height='660' width='688' v-if='content_asset' @before-open='beforeOpen')
     .modal_container
       .modal_header
         h2 Share {{spotlight_type}}
@@ -95,8 +95,10 @@ import EmbedIcon from './graphics/EmbedIcon'
 
 export default {
   components: { TimesIcon, DownloadIcon, LinkIcon, EmbedIcon },
-  props: ['content_asset'],
-  mounted() {
+  data() {
+    return {
+      content_asset: null,
+    }
   },
   computed: {
     has_platforms() {
@@ -147,6 +149,9 @@ export default {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL copied to clipboard')
     },
+    beforeOpen(e) {
+      this.content_asset = e.params
+    }
   }
 }
 </script>
