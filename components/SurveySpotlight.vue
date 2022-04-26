@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     orientation(stats) {
-      return Math.max(...stats.map((s) => s.the_answer?.length), 0) > 10 ? 'horizontal' : 'vertical'
+      return Math.max(...stats.map((s) => s.the_answer && s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
     testimonial(testimonial) {
       return {text_answer: testimonial.text_answer, recipient: testimonial.recipient, account: this.content_asset.account }
