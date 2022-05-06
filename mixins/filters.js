@@ -12,6 +12,7 @@ export default {
       seniority: this.$route.query.seniority || '',
       recipient_role_id: this.$route.query.recipient_role_id || '',
       sort: this.$route.query.sort || '',
+      view: this.$route.query.view || 'card',
     }
   },
   computed: {
@@ -31,6 +32,8 @@ export default {
         query.recipient_role_id = this.recipient_role_id
       if(this.sort.length > 0)
         query.sort = this.sort
+      if(this.view.length > 0)
+        query.view = this.view
       
       return query 
     },
