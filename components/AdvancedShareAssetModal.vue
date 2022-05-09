@@ -1,6 +1,5 @@
 <template lang='pug'>
   modal(name='advanced_share_asset_modal' height='660' width='688' @before-open='beforeOpen')
-    pre {{content_asset}}
     .modal_container(v-if='content_asset')
       .modal_header
         h2 Share {{spotlight_type}}
