@@ -83,7 +83,7 @@
       section
         h5 About {{content_asset.account.name}}
         p(v-html='content_asset.account.introduction')
-      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal")')
+      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal", { content_asset: content_asset })')
         DownloadIcon
 
     .spotlight_footer
