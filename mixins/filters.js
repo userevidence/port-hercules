@@ -1,10 +1,10 @@
 export default { 
   data() {
     return {
-      size_group_filters: null,
-      sector_filters: null,
-      seniority_filters: null,
-      role_filters: null,
+      size_group_filters: [],
+      sector_filters: [],
+      seniority_filters: [],
+      role_filters: [],
       q: this.$route.query.q || '',
       type: this.$route.query.type || '',
       size_group: this.$route.query.size_group || '',
