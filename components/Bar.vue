@@ -49,7 +49,6 @@ export default {
     position: relative
     border-radius: 24px
     width: 100%
-    margin: 0
     padding: 24px
     border: 1px solid hsl(200, 24%, 90%)
     background: white

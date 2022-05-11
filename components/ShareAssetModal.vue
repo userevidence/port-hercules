@@ -1,6 +1,6 @@
 <template lang='pug'>
-  modal(name='share_asset_modal' height='624' width='688')
-    .modal_container
+  modal(name='share_asset_modal' height='624' width='688' @before-open='beforeOpen')
+    .modal_container(v-if='content_asset')
       .modal_header
         h2 Share Content Asset
         .closer(@click='$modal.hide("share_asset_modal")')
@@ -61,7 +61,11 @@ import TimesIcon from './graphics/TimesIcon'
 
 export default {
   components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
-  props: ['content_asset'],
+  data() {
+    return {
+      content_asset: null,
+    }
+  },
   computed: {
     basic_variant() {
       return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
@@ -127,7 +131,7 @@ export default {
       this.$toast('Asset URL copied to clipboard')
     },
     copySnippet() {
-      var snippet = `<iframe src='${window.location.protocol}//${window.location.host}/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
+      var snippet = `<iframe src='${window.location.protocol}//app.userevidence.com/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
       navigator.clipboard.writeText(snippet)
       this.$toast('Embed Code copied to clipboard')
     },
@@ -136,7 +140,9 @@ export default {
         return `${variant.page_count} Images`
       else
         return `${variant.page_count} Image`
-      
+    },
+    beforeOpen(e) {
+      this.content_asset = e.params.content_asset
     }
   }
 }

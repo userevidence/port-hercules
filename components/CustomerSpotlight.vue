@@ -44,9 +44,12 @@
         h5 Key Results
         .stats(:class='stats_class')
           .stat(v-for='stat in stats')
-            h2 
-              | {{statMidpoint(stat)}}
+            h2(v-if='stat.qualifier == "$"')
               .qualifier(:style='text_color_1') {{stat.qualifier}}
+              | {{formatPrice(statMidpoint(stat))}}
+            h2(v-else)
+              | {{statMidpoint(stat)}}
+              .qualifier(:style='text_color_1') {{pluralize(stat)}}
             h6 {{stat.stat_tagline}}
           .stat(v-if='nps')
             h2 
@@ -80,7 +83,7 @@
       section
         h5 About {{content_asset.account.name}}
         p(v-html='content_asset.account.introduction')
-      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal")')
+      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal", { content_asset: content_asset })')
         DownloadIcon
 
     .spotlight_footer
@@ -122,6 +125,12 @@ export default {
     },
     statMidpoint(stat) {
       return Math.round((stat.answers[0].answer.low_value + stat.answers[0].answer.high_value) / 2)
+    },
+    pluralize(stat) {
+      return (this.statMidpoint(stat) == 1) ? stat.qualifier.slice(0, -1) : stat.qualifier
+    },
+    formatPrice(amount) {
+      return amount.toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
     },
   },
   computed: {

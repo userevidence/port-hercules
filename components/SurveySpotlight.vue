@@ -62,9 +62,12 @@
         h5 Key Results
         .stats(:class='stats_class')
           .stat(v-for='stat in this.multiple_choice_stat_questions')
-            h2 
-              | {{stat.aggregate_stat_value}}
+            h2(v-if='stat.aggregate_qualifier == "$"')
               .qualifier(:style='text_color_1') {{stat.aggregate_qualifier}}
+              | {{formatPrice(stat.aggregate_stat_value)}}
+            h2(v-else)
+              | {{stat.aggregate_stat_value}}
+              .qualifier(:style='text_color_1') {{pluralize(stat)}}
             h6 {{stat.aggregate_stat_tagline}}
           .stat(v-if='nps')
             h2 
@@ -97,7 +100,7 @@
       section
         h5 About {{account.name}}
         p(v-html='content_asset.account.introduction')
-      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal")')
+      .spotlight_fab(v-if='download_url' @click='$modal.show("advanced_share_asset_modal", { content_asset: content_asset })')
         DownloadIcon
 
       section.spotlight_footer
@@ -146,13 +149,19 @@ export default {
   },
   methods: {
     orientation(stats) {
-      return Math.max(...stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
+      return Math.max(...stats.map((s) => s.the_answer && s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
     testimonial(testimonial) {
       return {text_answer: testimonial.text_answer, recipient: testimonial.recipient, account: this.content_asset.account }
     },
     stat_total(stats) {
       return stats.reduce((a,b) => a + b.count, 0)
+    },
+    pluralize(stat) {
+      return (stat.aggregate_stat_value + '' == '1') ? stat.aggregate_qualifier.slice(0, -1) : stat.aggregate_qualifier
+    },
+    formatPrice(amount) {
+      return amount.toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
     },
   },
   computed: {

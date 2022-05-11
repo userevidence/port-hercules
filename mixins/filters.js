@@ -1,10 +1,10 @@
 export default { 
   data() {
     return {
-      size_group_filters: null,
-      sector_filters: null,
-      seniority_filters: null,
-      role_filters: null,
+      size_group_filters: [],
+      sector_filters: [],
+      seniority_filters: [],
+      role_filters: [],
       q: this.$route.query.q || '',
       type: this.$route.query.type || '',
       size_group: this.$route.query.size_group || '',
@@ -12,6 +12,7 @@ export default {
       seniority: this.$route.query.seniority || '',
       recipient_role_id: this.$route.query.recipient_role_id || '',
       sort: this.$route.query.sort || '',
+      view: this.$route.query.view || 'card',
     }
   },
   computed: {
@@ -31,6 +32,8 @@ export default {
         query.recipient_role_id = this.recipient_role_id
       if(this.sort.length > 0)
         query.sort = this.sort
+      if(this.view.length > 0)
+        query.view = this.view
       
       return query 
     },

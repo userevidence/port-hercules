@@ -27,7 +27,7 @@ export default {
       return Math.max(...this.non_zero_stats.map((stat) => Number(this.statPercent(stat.count)))) < 50
     },
     orientation() {
-      return Math.max(...this.non_zero_stats.map((s) => s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
+      return Math.max(...this.non_zero_stats.map((s) => s.the_answer && s.the_answer.length), 0) > 10 ? 'horizontal' : 'vertical'
     },
     max_percent() {
       return Math.max(...this.non_zero_stats.map((stat) => Number(this.statPercent(stat.count))))
