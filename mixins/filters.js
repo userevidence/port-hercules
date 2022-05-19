@@ -38,16 +38,16 @@ export default {
       return query 
     },
     the_size_group_filters() {
-      return [{ value: '', text: 'All Company Sizes' }, ...this.size_group_filters]
+      return [{ value: '', text: 'Company Size' }, ...this.size_group_filters]
     },
     the_sector_filters() {
-      return [{ value: '', text: 'All Industries' }, ...this.sector_filters]
+      return [{ value: '', text: 'Industry' }, ...this.sector_filters]
     },
     the_seniority_filters() {
-      return [{ value: '', text: 'All Seniorities' }, ...this.seniority_filters]
+      return [{ value: '', text: 'Seniority' }, ...this.seniority_filters]
     },
     the_role_filters() {
-      return [{ value: '', text: 'All Roles' }, ...this.role_filters]
+      return [{ value: '', text: 'Role' }, ...this.role_filters]
     },
   },
   methods: {
