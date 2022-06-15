@@ -13,6 +13,7 @@ export default {
       recipient_role_id: this.$route.query.recipient_role_id || '',
       sort: this.$route.query.sort || '',
       view: this.$route.query.view || 'card',
+      survey_id: this.$route.query.survey_id || null,
     }
   },
   computed: {
@@ -34,20 +35,22 @@ export default {
         query.sort = this.sort
       if(this.view.length > 0)
         query.view = this.view
+      if(this.survey_id > 0)
+        query.survey_id = this.survey_id
       
       return query 
     },
     the_size_group_filters() {
-      return [{ value: '', text: 'All Company Sizes' }, ...this.size_group_filters]
+      return [{ value: '', text: 'Company Size' }, ...this.size_group_filters]
     },
     the_sector_filters() {
-      return [{ value: '', text: 'All Industries' }, ...this.sector_filters]
+      return [{ value: '', text: 'Industry' }, ...this.sector_filters]
     },
     the_seniority_filters() {
-      return [{ value: '', text: 'All Seniorities' }, ...this.seniority_filters]
+      return [{ value: '', text: 'Seniority' }, ...this.seniority_filters]
     },
     the_role_filters() {
-      return [{ value: '', text: 'All Roles' }, ...this.role_filters]
+      return [{ value: '', text: 'Role' }, ...this.role_filters]
     },
   },
   methods: {
