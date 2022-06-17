@@ -243,6 +243,11 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
+  .modal_container
+    font-family: 'Inter-Regular'
+    font-feature-settings: 'cv01' on, 'salt' on
+    font-size: 16px
+    line-height: 22.5px
   p
     margin-bottom: 20px
   h5
