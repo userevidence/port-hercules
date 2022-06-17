@@ -73,6 +73,9 @@
           a(href='#' @click='copyUrl()') 
             LinkIcon
             | Copy Asset URL
+          a(@click='copySnippet()' href='#' v-if='copyable_variant')
+            EmbedIcon
+            | Copy Embed Code
         .right(v-if='content_asset.download_url')
           a(:href='content_asset.download_url') 
             DownloadIcon
@@ -212,11 +215,19 @@ export default {
     is_multipage_testimonial() {
       return this.content_asset.variants.find(v => v.type.indexOf('MultiPage') > 0)
     },
+    copyable_variant() {
+      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
+    },
   },
   methods: {
     copyUrl() {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL copied to clipboard')
+    },
+    copySnippet() {
+      var snippet = `<iframe src='${window.location.protocol}//app.userevidence.com/content_assets/${this.content_asset.id}/raw' width='${this.copyable_variant.width/2}' height='${this.copyable_variant.height/2}' frameBorder='0'></iframe>`
+      navigator.clipboard.writeText(snippet)
+      this.$toast('Embed Code copied to clipboard')
     },
     variantUrl(variant_type) {
       var append = variant_type.indexOf('MultiPagePng') > 0 ? '.zip' : '?d='
