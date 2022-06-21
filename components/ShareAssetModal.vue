@@ -1,9 +1,9 @@
 <template lang='pug'>
-  modal(name='advanced_share_asset_modal' height='690' width='688' @before-open='beforeOpen')
+  modal(name='share_asset_modal' height='690' width='688' @before-open='beforeOpen')
     .modal_container(v-if='content_asset')
       .modal_header
         h2 Share {{asset_type}}
-        .closer(@click='$modal.hide("advanced_share_asset_modal")')
+        .closer(@click='$modal.hide("share_asset_modal")')
           TimesIcon
       .modal_body
         p Select the destination where you’ll be sharing the {{asset_type.toLowerCase()}}, and you’ll receive optimized files for that platform.
