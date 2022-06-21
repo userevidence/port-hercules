@@ -1,131 +1,225 @@
 <template lang='pug'>
-  modal(name='share_asset_modal' height='624' width='688' @before-open='beforeOpen')
+  modal(name='advanced_share_asset_modal' height='690' width='688' @before-open='beforeOpen')
     .modal_container(v-if='content_asset')
       .modal_header
-        h2 Share Content Asset
-        .closer(@click='$modal.hide("share_asset_modal")')
+        h2 Share {{asset_type}}
+        .closer(@click='$modal.hide("advanced_share_asset_modal")')
           TimesIcon
       .modal_body
-        .download_container
-          .downloads(:class='download_class')
-            .download(v-if='basic_variant')
-              .preview
-                img(:src='variantImage(basic_variant)')
-              .text
-                .header
-                  h3 Basic Theme
-                  .buttons
-                    a(:href='variantUrl(basic_variant)' title='Download PNG' target='_blank')
-                      | PNG
-                      DownloadIcon
-                p With a simple, rounded border design, this theme is best suited for slide decks and text documents.
-            .download(v-if='styled_png_variant')
-              .mutli_tag(v-if='styled_png_variant.page_count') {{pageCountTag(styled_png_variant)}}
-              .preview
-                img(:src='variantImage(styled_png_variant)')
-              .text
-                .header
-                  h3 Styled Theme
-                  .buttons
-                    a(:href='variantUrl(pdf_variant)' title='Download PDF' target='_blank' v-if='pdf_variant')
-                      | PDF
-                      DownloadIcon
-                    a.span(:href='variantUrl(styled_png_variant)' title='Download PNG' target='_blank')
-                      | PNG
-                      DownloadIcon
-                p Featuring a modern, colorful design, this theme is best suited for social media posts and marketing emails.
-            .download(v-if='customer_spotlight_variant')
-              .preview
-                img(src='../static/customer_spotlight_preview_image.png')
-              .text
-                .header
-                  h3 Customer Spotlight
-                  .buttons
-                    a.span(:href='variantUrl(customer_spotlight_variant)' title='Download PDF' target='_blank')
-                      | PDF
-                      DownloadIcon
-                p Download and share the Customer Spotlight with customers.
+        p Select the destination where you’ll be sharing the {{asset_type.toLowerCase()}}, and you’ll receive optimized files for that platform.
+        section
+          .tiles.platforms
+            .tile(v-if='variant_map.linkedin')
+              .image
+                img(src='./graphics/logos/linkedin-logo.svg')
+              .info
+                .brand LinkedIn
+                a.downloader(:href='variant_map.linkedin' target='_blank')
+                  | Download
+                  DownloadIcon
+            .tile(v-if='variant_map.instagram')
+              .image
+                img(src='./graphics/logos/instagram-logo.svg')
+              .info
+                .brand Instagram
+                a.downloader(:href='variant_map.instagram')
+                  | Download
+                  DownloadIcon
+            .tile(v-if='variant_map.twitter')
+              .image
+                img(src='./graphics/logos/twitter-logo.svg')
+              .info
+                .brand Twitter
+                a.downloader(:href='variant_map.twitter')
+                  | Download
+                  DownloadIcon
+            .tile(v-if='variant_map.facebook')
+              .image
+                img(src='./graphics/logos/facebook-logo.svg')
+              .info
+                .brand Facebook
+                a.downloader(:href='variant_map.facebook')
+                  | Download
+                  DownloadIcon
+            .tile(v-if='variant_map.powerpoint')
+              .image
+                img(src='./graphics/logos/powerpoint-logo.svg')
+              .info
+                .brand PowerPoint
+                a.downloader(:href='variant_map.powerpoint' target='_blank')
+                  | Download
+                  DownloadIcon
+        section
+          p Or choose your prefered format.
+          .tiles.files
+            .tile
+              .image
+                img(:src='variant_map.left_image')
+              .info
+                .brand.mr-2 {{variant_map.left_text}}
+                a.downloader(:href='variant_map.left' title='Download' target='_blank')
+                  | Download
+                  DownloadIcon
+            .tile(v-if='variant_map.right_image')
+              .image.mb-2
+                img(:src='variant_map.right_image')
+              .info
+                .brand.mr-2 {{variant_map.right_text}}
+                a.downloader(:href='variant_map.right' title='Download' target='_blank')
+                  | Download
+                  DownloadIcon
       .modal_footer
-        a(@click='copyUrl') 
-          LinkIcon
-          | Copy Asset URL
-        a(@click='copySnippet()' v-if='copyable_variant')
-          EmbedIcon
-          | Copy Embed Code
+        .left
+          a(href='#' @click='copyUrl()') 
+            LinkIcon
+            | Copy Asset URL
+          a(@click='copySnippet()' href='#' v-if='copyable_variant')
+            EmbedIcon
+            | Copy Embed Code
+        .right(v-if='content_asset.download_url')
+          a(:href='content_asset.download_url') 
+            DownloadIcon
+            | Download All Formats
 </template>
-<script>
+<script lang='ts'>
+import TimesIcon from './graphics/TimesIcon'
 import DownloadIcon from './graphics/DownloadIcon'
 import LinkIcon from './graphics/LinkIcon'
 import EmbedIcon from './graphics/EmbedIcon'
-import TimesIcon from './graphics/TimesIcon'
 
 export default {
-  components: { DownloadIcon, LinkIcon, EmbedIcon, TimesIcon },
+  components: { TimesIcon, DownloadIcon, LinkIcon, EmbedIcon },
   data() {
     return {
       content_asset: null,
     }
   },
   computed: {
-    basic_variant() {
-      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
+    variant_map() {
+      if(this.content_asset.type == 'TestimonialAsset') {
+        if(this.is_multipage_testimonial) {
+          return {
+            linkedin: this.variantUrl('TestimonialMultiPagePdfVariant'),
+            instagram: this.variantUrl('TestimonialMultiPagePngVariant'),
+            twitter: this.variantUrl('TestimonialSocial191PngVariant'),
+            facebook: this.variantUrl('TestimonialSocial191PngVariant'),
+            powerpoint: this.variantUrl('TestimonialSocial191PngVariant'),
+            left: this.variantUrl('TestimonialSocial191PngVariant'),
+            right: this.variantUrl('TestimonialPngVariant'),
+            left_text: 'Styled Theme',
+            right_text: 'Basic Theme',
+            left_image: require('../static/testimonial_preview_styled_theme.png'),
+            right_image: require('../static/testimonial_preview_basic_theme.png')
+          }
+        }
+        else {
+          return {
+            linkedin: this.variantUrl('TestimonialSocial191PngVariant'),
+            instagram: this.variantUrl('TestimonialSocial191PngVariant'),
+            twitter: this.variantUrl('TestimonialSocial191PngVariant'),
+            facebook: this.variantUrl('TestimonialSocial191PngVariant'),
+            powerpoint: this.variantUrl('TestimonialSocial191PngVariant'),
+            left: this.variantUrl('TestimonialSocial191PngVariant'),
+            right: this.variantUrl('TestimonialPngVariant'),
+            left_text: 'Styled Theme',
+            right_text: 'Basic Theme',
+            left_image: require('../static/testimonial_preview_styled_theme.png'),
+            right_image: require('../static/testimonial_preview_basic_theme.png')
+          }
+        }
+      }
+      if(this.content_asset.type == 'StatAsset') {
+        return {
+          linkedin: this.variantUrl('StatSocial191PngVariant'),
+          instagram: this.variantUrl('StatSocial191PngVariant'),
+          twitter: this.variantUrl('StatSocial191PngVariant'),
+          facebook: this.variantUrl('StatSocial191PngVariant'),
+          powerpoint: this.variantUrl('StatSocial191PngVariant'),
+          left: this.variantUrl('StatSocial191PngVariant'),
+          right: this.variantUrl('StatPngVariant'),
+          left_text: 'Styled Theme',
+          right_text: 'Basic Theme',
+          left_image: require('../static/stat_preview_styled_theme.png'),
+          right_image: require('../static/stat_preview_basic_theme.png')
+        }
+      }
+      if(this.content_asset.type == 'ChartAsset') {
+        var basic_url = this.variantUrl('ChartPngVariant')
+        // this will be null for horizontal charts
+        var styled_url = this.variantUrl('ChartSocial11PngVariant')
+
+        var left_image = styled_url ? require('../static/vertical_bar_chart_preview_styled_theme.png') : require('../static/vertical_bar_chart_preview_basic_theme.png')
+        var right_image = styled_url ? require('../static/vertical_bar_chart_preview_basic_theme.png') : null
+
+        var left_text = styled_url ? 'Styled Theme' : 'Basic Theme'
+        var right_text = styled_url ? 'Basic Theme' : null
+        return {
+          linkedin: styled_url || basic_url,
+          instagram: styled_url || basic_url,
+          twitter: styled_url || basic_url,
+          facebook: styled_url || basic_url,
+          powerpoint: styled_url || basic_url,
+          left: styled_url || basic_url,
+          right: basic_url,
+          left_text: left_text,
+          right_text: right_text,
+          left_image: left_image,
+          right_image: right_image
+        }
+      }
+      if(this.content_asset.type == 'CustomerSpotlightAsset') {
+        return {
+          linkedin: this.variantUrl('CustomerSpotlightMultiPagePdfVariant'),
+          instagram: this.variantUrl('CustomerSpotlightMultiPagePngVariant'),
+          twitter: this.variantUrl('CustomerSpotlightMultiPagePngVariant'),
+          facebook: this.variantUrl('CustomerSpotlightMultiPagePngVariant'),
+          powerpoint: this.variantUrl('CustomerSpotlightMultiPagePngVariant'),
+          left: this.variantUrl('CustomerSpotlightMultiPagePngVariant'),
+          right: this.variantUrl('PdfVariant'),
+          left_text: 'Zip File of PNGs',
+          right_text: 'Full Page PDF',
+          left_image: require('../static/multi_page_spotlight.png'),
+          right_image: require('../static/customer_spotlight_preview_image.png')
+        }
+      }
+      if(this.content_asset.type == 'SurveySpotlightAsset') {
+        return {
+          linkedin: this.variantUrl('SurveySpotlightMultiPagePdfVariant'),
+          instagram: this.variantUrl('SurveySpotlightMultiPagePngVariant'),
+          twitter: this.variantUrl('SurveySpotlightMultiPagePngVariant'),
+          facebook: this.variantUrl('SurveySpotlightMultiPagePngVariant'),
+          powerpoint: this.variantUrl('SurveySpotlightMultiPagePngVariant'),
+          left: this.variantUrl('SurveySpotlightMultiPagePngVariant'),
+          right: this.variantUrl('PdfVariant'),
+          left_text: 'Zip File of PNGs',
+          right_text: 'Full Page PDF',
+          left_image: require('../static/multi_page_spotlight.png'),
+          right_image: require('../static/customer_spotlight_preview_image.png')
+        }
+      }
     },
-    pdf_variant() {
-      return this.content_asset.variants.find(v => v.type.indexOf('PdfVariant') >= 0)
+    asset_type() {
+      switch(this.content_asset.type) {
+        case 'ChartAsset':
+          return 'Chart'
+        case 'StatAsset':
+          return 'Stat'
+        case 'TestimonialAsset':
+          return 'Testimonial'
+        case 'CustomerSpotlightAsset':
+          return 'Customer Spotlight'
+        case 'SurveySpotlightAsset':
+          return 'Survey Spotlight'
+      }
     },
-    styled_png_variant() {
-      return this.content_asset.variants.find(v => ['ChartSocial11PngVariant', 'StatSocial191PngVariant', 'TestimonialMultiPagePngVariant', 'TestimonialSocial191PngVariant'].includes(v.type))
-    },
-    customer_spotlight_variant() {
-      if(this.content_asset.type == 'CustomerSpotlightAsset')
-        return this.content_asset.variants.find(v => ['PdfVariant'].includes(v.type))
-      else 
-        return null
+    is_multipage_testimonial() {
+      return this.content_asset.variants.find(v => v.type.indexOf('MultiPage') > 0)
     },
     copyable_variant() {
-      return this.basic_variant
-    },
-    download_class() {
-      return this.content_asset.variants.count == 1 ? 'single' : ''
-    },
-    url() {
-      return `${window.location.protocol}://${window.location.host}/`
+      return this.content_asset.variants.find(v => ['TestimonialPngVariant', 'StatPngVariant', 'ChartPngVariant'].includes(v.type))
     },
   },
   methods: {
-    isPng(variant) {
-      return variant.type.indexOf('Png') > 0
-    },
-    isPdf(variant) {
-      return variant.type == 'PdfVariant'
-    },
-    variantUrl(variant) {
-      
-      if(['CustomerSpotlightMultiPagePngVariant', 'TestimonialMultiPagePngVariant'].includes(variant.type))
-        return `${variant.the_url}.zip`
-      else
-        return `${variant.the_url}?d=`
-    },
-    variantImage(variant) {
-      switch(variant.type) {
-        case 'ChartPngVariant':
-          return require('../static/vertical_bar_chart_preview_basic_theme.png')
-        case 'StatPngVariant':
-          return require('../static/stat_preview_basic_theme.png')
-        case 'TestimonialPngVariant':
-          return require('../static/testimonial_preview_basic_theme.png')
-        case 'ChartSocial11PngVariant':
-          return require('../static/vertical_bar_chart_preview_styled_theme.png')
-        case 'StatSocial191PngVariant':
-          return require('../static/stat_preview_styled_theme.png')
-        case 'TestimonialMultiPagePngVariant':
-        case 'TestimonialMultiPagePdfVariant':
-          return require('../static/testimonial_preview_styled_theme.png')
-        case 'TestimonialSocial191PngVariant':
-          return require('../static/testimonial_preview_styled_theme.png')
-      }
-
-    },
     copyUrl() {
       navigator.clipboard.writeText(`https://uevi.co/${this.content_asset.identifier}`)
       this.$toast('Asset URL copied to clipboard')
@@ -135,11 +229,12 @@ export default {
       navigator.clipboard.writeText(snippet)
       this.$toast('Embed Code copied to clipboard')
     },
-    pageCountTag(variant) {
-      if(variant.page_count > 1)
-        return `${variant.page_count} Images`
-      else
-        return `${variant.page_count} Image`
+    variantUrl(variant_type) {
+      var append = variant_type.indexOf('MultiPagePng') > 0 ? '.zip' : '?d='
+      console.log(variant_type, append);
+      
+      var variant = this.content_asset.variants.find(v => v.type == variant_type)
+      return variant ? variant.the_url + append : null
     },
     beforeOpen(e) {
       this.content_asset = e.params.content_asset
@@ -148,121 +243,54 @@ export default {
 }
 </script>
 <style lang='sass' scoped>
-  .download_container  
-    position: relative
-    //height: 470px
-    overflow-y: auto
-  .downloads
+  p
+    margin-bottom: 20px
+  h5
+    margin-bottom: 10px
+    color: #6c7f89
+  section
+    margin-bottom: 20px
+  .tiles
     display: flex
     justify-content: space-between
-    margin: 0 auto
-    flex-wrap: wrap
-    &.single
-      justify-content: space-around
-  .download
-    position: relative
-    width: 312px
-    //margin-bottom: 16px
-    border: 1px solid hsl(200, 24%, 90%)
-    border-radius: 24px
-    overflow: hidden
-    .mutli_tag
-      position: absolute
-      top: 12px
-      right: 12px
-      border: 1px solid #DFE8EC
-      border-radius: 15px
-      padding: 6px 12px 
-      background: white
-      font: normal 12px 'Inter-Regular'
-      letter-spacing: -0.015em
-    .preview
-      background-color: hsl(200, 24%, 96%)
-      img
-        width: 100%
-    .text
-      padding: 24px
-      .buttons
-        display: flex
-        align-items: center
-        line-height: 1
-        a
-          color: hsl(200, 12%, 32%)
-          font-size: 14px
-          font-weight: 800
-          font-family: 'Inter-ExtraBold', sans-serif
-          line-height: 1
-          letter-spacing: -0.015em
-          display: flex
-          &:not(:last-child)
-            margin-right: 16px
-          &:hover
-            color: hsl(200, 8%, 8%)
-            cursor: pointer
-            text-decoration: none
-            svg ::v-deep path
-              stroke: hsl(270, 100%, 52%)
-          svg
-            margin-left: 6px
-      .header
-        display: flex
-        justify-content: space-between
-        align-items: center
-        line-height: 1
-        h3
+    .tile
+      border-radius: 16px
+      border: 1px solid #dfe8ec
+      text-align: center
+      .image
+        border-radius: 16px 16px 0 0
+        background: #f2f6f7
+        padding: 20px
+        img
+          width: 37%
+      .info
+        padding: 15px
+        .brand
+          margin-bottom: 6px
           font-size: 15px
-          font-weight: 500
-          line-height: 12px
-          letter-spacing: -0.02em
-          margin: 0
-          font-family: 'Inter-Regular'
-        .download_buttons
-          display: flex
-          align-items: center
-          line-height: 1
-          a.span
-            color: hsl(200, 12%, 32%)
-            font-size: 14px
-            font-weight: 800
-            font-family: 'Inter-ExtraBold', sans-serif
-            line-height: 1
-            letter-spacing: -0.015em
-            &:not(:last-child)
-              margin-right: 16px
-            &:hover
-              color: hsl(200, 8%, 8%)
-              cursor: pointer
-              text-decoration: none
-              svg ::v-deep path
-                stroke: hsl(270, 100%, 52%)
-            svg
-              margin-left: 6px
-      p
-        color: #6C7F89
+      .downloader
+        font-family: 'Inter-ExtraBold'
         font-size: 14px
-        font-weight: 400
-        line-height: 20px
-        margin: 16px 0 0 0
-      &:hover
-        text-decoration: none
-        cursor: default
-  .modal_footer
-    a
-      font-size: 13px
-      font-weight: 800
-      font-family: 'Inter-ExtraBold', sans-serif
-      letter-spacing: -0.015em
-      line-height: 1
-      color: hsl(200, 12%, 32%)
-      background: white
+        color: #48555b
+        svg
+          margin-left: 6px
+
+  .files
+    .tile
+      width: 49%
+    .downloaders
       display: flex
+      justify-content: space-around
+  .modal_footer
+    padding-top: 20px
+    a
+      font-family: 'Inter-ExtraBold'
+      font-size: 14px
+      color: #48555b
       svg
-        margin-right: 8px
-      &:not(:last-child)
-        margin-right: 24px
-      &:hover
-        cursor: pointer
-        color: hsl(200, 8%, 8%)
-        ::v-deep svg path, ::v-deep svg circle
-          stroke: hsl(270, 100%, 52%)
-</style>  
+        margin-right: 6px
+    justify-content: space-between
+    .left
+      a
+        margin-right: 12px
+</style>

@@ -65,10 +65,8 @@ export default {
 .testimonial_social_191
   background: white
   width: 616px
-  height: 320px
-  padding: 32px 0px
+  padding: 32px 48px
   position: relative
-  overflow: hidden
   .gradient
     z-index: 10
     position: absolute
@@ -90,15 +88,15 @@ export default {
     right: -104px
   .header
     z-index: 11
-    padding-left: 48px
     display: flex
-    justify-content: space-between
-    align-items: center
+    margin-bottom: 27px
     figure
       height: 24px
       margin: 0
       padding: 0
     a
+      position: absolute
+      right: 0
       font-family: 'Inter-ExtraBold'
       font-size: 9px
       border-radius: 20px 0 0 20px
@@ -114,10 +112,7 @@ export default {
         path
           fill: hsla(0, 0%, 100%, 0.6) !important
   .testimonial
-    position: absolute
-    top: calc(50% - 16px)
-    transform: translateY(-50%)
-    padding: 0 48px
+    margin-bottom: 27px
     h2::v-deep
       dispay: inline-flex
       font-size: 18px
@@ -130,12 +125,10 @@ export default {
         div
           display: inline
   .footer
-    position: absolute
+    position: relative
     z-index: 11
     display: flex
     height: 48px
-    bottom: 32px
-    left: 48px
     h4, h6
       color: hsl(200, 8%, 8%)
       font-family: 'Inter-Medium'
